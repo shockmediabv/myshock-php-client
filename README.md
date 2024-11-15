@@ -85,11 +85,10 @@ var_dump($result);
     * In this example, we use the `listDomains` method to retrieve the first 10 domains owned by the user, sorted by
       name in ascending order.
 
-## Authentication Schemes Supported
+## Authentication
 
-* **ApiKey:** The recommended scheme, which can be limited in scope and can be IP-restricted.
-* **Basic:** Basic HTTP authentication using a Base64 encoded string of the username and password. ⚠ Warning: This
-  method provides full access to the user account and is less secure. Use API tokens wherever possible.
+The API supports API key authentication using the **ApiKey** scheme.
+API keys can be limited in scope and IP-restricted.
 
 ### Creating API keys
 
