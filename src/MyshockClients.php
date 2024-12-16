@@ -458,13 +458,7 @@ class CustomerClient
             'postalCode' => $postalCode,
             'houseId' => $houseId,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Customer.getLocation', $_params);
-        if ($_apiCallResult === NULL) {
-            $_result = NULL;
-        } else {
-            $_result = \ShockMedia\Generated\Customers\Address::fromDecodedJson($_apiCallResult);
-        }
-        return $_result;
+        $this->httpClient->apiCall('Customer.getLocation', $_params);
     }
 
 }
@@ -836,13 +830,7 @@ class DomainClient
             'domainName' => $domainName,
             'records' => $records,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Domain.updateDomain', $_params);
-        if ($_apiCallResult === NULL) {
-            $_result = NULL;
-        } else {
-            $_result = \ShockMedia\Generated\Domains\ValidationErrors::fromDecodedJson($_apiCallResult);
-        }
-        return $_result;
+        $this->httpClient->apiCall('Domain.updateDomain', $_params);
     }
 
     public function addRecord(
@@ -853,13 +841,7 @@ class DomainClient
             'domainName' => $domainName,
             'record' => $record,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Domain.addRecord', $_params);
-        if ($_apiCallResult === NULL) {
-            $_result = NULL;
-        } else {
-            $_result = \ShockMedia\Generated\Domains\ValidationErrors::fromDecodedJson($_apiCallResult);
-        }
-        return $_result;
+        $this->httpClient->apiCall('Domain.addRecord', $_params);
     }
 
     public function updateRecord(
@@ -872,13 +854,7 @@ class DomainClient
             'recordId' => $recordId,
             'record' => $record,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Domain.updateRecord', $_params);
-        if ($_apiCallResult === NULL) {
-            $_result = NULL;
-        } else {
-            $_result = \ShockMedia\Generated\Domains\ValidationErrors::fromDecodedJson($_apiCallResult);
-        }
-        return $_result;
+        $this->httpClient->apiCall('Domain.updateRecord', $_params);
     }
 
     public function deleteRecord(
@@ -1181,13 +1157,7 @@ class TranslationClient
     public function getPreferredLanguage(
     ) {
         $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Translation.getPreferredLanguage', $_params);
-        if ($_apiCallResult === NULL) {
-            $_result = NULL;
-        } else {
-            $_result = \ShockMedia\Generated\Language::from($_apiCallResult);
-        }
-        return $_result;
+        $this->httpClient->apiCall('Translation.getPreferredLanguage', $_params);
     }
 
 }
@@ -1379,6 +1349,17 @@ class ReminderClient
             'reminderType' => $reminderType,
         );
         $this->httpClient->apiCall('Reminder.ackReminder', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Cloud;
+
+class CloudClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
     }
 
 }
@@ -1630,6 +1611,89 @@ class InvoiceClient
         /** @var int $_result */
         $_result = $_apiCallResult;
         return $_result;
+    }
+
+}
+
+namespace ShockMedia\Generated\Promotion;
+
+class PromotionClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Promotions\Promotion[]}
+     */
+    public function listPromotions(
+        \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Promotions\PromotionFilter $filter,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'filter' => $filter,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Promotion.listPromotions', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Promotions\Promotion::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Promotions\Promotion[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getPromotion(
+        int $promotionId,
+    ) {
+        $_params = array(
+            'promotionId' => $promotionId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Promotion.getPromotion', $_params);
+        $_result = \ShockMedia\Generated\Promotions\Promotion::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    /**
+     * @param (array{string,string,string})[] $message
+     */
+    public function createPromotion(
+        array $message,
+        string $icon,
+        bool $active,
+    ) {
+        $_params = array(
+            'message' => $message,
+            'icon' => $icon,
+            'active' => $active,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Promotion.createPromotion', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+    public function deletePromotion(
+        int $promotionId,
+    ) {
+        $_params = array(
+            'promotionId' => $promotionId,
+        );
+        $this->httpClient->apiCall('Promotion.deletePromotion', $_params);
+    }
+
+    public function updatePromotion(
+        \ShockMedia\Generated\Promotions\UpdatePromotionInput $input,
+    ) {
+        $_params = array(
+            'input' => $input,
+        );
+        $this->httpClient->apiCall('Promotion.updatePromotion', $_params);
     }
 
 }
