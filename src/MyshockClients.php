@@ -714,67 +714,6 @@ class PartnerClient
 
 }
 
-namespace ShockMedia\Generated\AffiliateAccess;
-
-class AffiliateAccessClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return \ShockMedia\Generated\Customers\CustomerSummary[]
-     */
-    public function listAffiliates(
-        bool $manageble,
-    ) {
-        $_params = array(
-            'manageble' => $manageble,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.listAffiliates', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Customers\CustomerSummary[] $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getAffiliate(
-        string $affiliateCode,
-    ) {
-        $_params = array(
-            'affiliateCode' => $affiliateCode,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.getAffiliate', $_params);
-        $_result = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function updateAffiliateAccess(
-        int $affiliateId,
-        string|null $affiliateCode,
-    ) {
-        $_params = array(
-            'affiliateId' => $affiliateId,
-            'affiliateCode' => $affiliateCode,
-        );
-        $this->httpClient->apiCall('AffiliateAccess.updateAffiliateAccess', $_params);
-    }
-
-    public function impersonateAffiliate(
-        int $affiliateId,
-    ) {
-        $_params = array(
-            'affiliateId' => $affiliateId,
-        );
-        $this->httpClient->apiCall('AffiliateAccess.impersonateAffiliate', $_params);
-    }
-
-}
-
 namespace ShockMedia\Generated\Domain;
 
 class DomainClient
@@ -868,6 +807,67 @@ class DomainClient
             'recordId' => $recordId,
         );
         $this->httpClient->apiCall('Domain.deleteRecord', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\AffiliateAccess;
+
+class AffiliateAccessClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return \ShockMedia\Generated\Customers\CustomerSummary[]
+     */
+    public function listAffiliates(
+        bool $manageble,
+    ) {
+        $_params = array(
+            'manageble' => $manageble,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.listAffiliates', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Customers\CustomerSummary[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getAffiliate(
+        string $affiliateCode,
+    ) {
+        $_params = array(
+            'affiliateCode' => $affiliateCode,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.getAffiliate', $_params);
+        $_result = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function updateAffiliateAccess(
+        int $affiliateId,
+        string|null $affiliateCode,
+    ) {
+        $_params = array(
+            'affiliateId' => $affiliateId,
+            'affiliateCode' => $affiliateCode,
+        );
+        $this->httpClient->apiCall('AffiliateAccess.updateAffiliateAccess', $_params);
+    }
+
+    public function impersonateAffiliate(
+        int $affiliateId,
+    ) {
+        $_params = array(
+            'affiliateId' => $affiliateId,
+        );
+        $this->httpClient->apiCall('AffiliateAccess.impersonateAffiliate', $_params);
     }
 
 }
@@ -1264,59 +1264,6 @@ class ReminderClient
 
 }
 
-namespace ShockMedia\Generated\Cloud;
-
-class CloudClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getCloud(
-        string $name,
-    ) {
-        $_params = array(
-            'name' => $name,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.getCloud', $_params);
-        $_result = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]}
-     */
-    public function listClouds(
-        \ShockMedia\Generated\PageRequest $page,
-    ) {
-        $_params = array(
-            'page' => $page,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.listClouds', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function countClouds(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.countClouds', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-}
-
 namespace ShockMedia\Generated\Contact;
 
 class ContactClient
@@ -1408,59 +1355,53 @@ class ContactClient
 
 }
 
-namespace ShockMedia\Generated\Account;
+namespace ShockMedia\Generated\Cloud;
 
-class AccountClient
+class CloudClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
     }
 
+    public function getCloud(
+        string $name,
+    ) {
+        $_params = array(
+            'name' => $name,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.getCloud', $_params);
+        $_result = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
     /**
-     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]}
      */
-    public function createAccount(
-        int $contactId,
-        string|null $username,
-        \ShockMedia\Generated\Language $language,
-        array|null $permissions,
+    public function listClouds(
+        \ShockMedia\Generated\PageRequest $page,
     ) {
         $_params = array(
-            'contactId' => $contactId,
-            'username' => $username,
-            'language' => $language,
-            'permissions' => $permissions,
+            'page' => $page,
         );
-        $this->httpClient->apiCall('Account.createAccount', $_params);
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.listClouds', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]} $_result */
+        $_result = $var0;
+        return $_result;
     }
 
-    public function deleteAccount(
-        int $accountId,
+    public function countClouds(
     ) {
-        $_params = array(
-            'accountId' => $accountId,
-        );
-        $this->httpClient->apiCall('Account.deleteAccount', $_params);
-    }
-
-    public function updateAccount(
-        \ShockMedia\Generated\Account\UpdateAccountInput $input,
-    ) {
-        $_params = array(
-            'input' => $input,
-        );
-        $this->httpClient->apiCall('Account.updateAccount', $_params);
-    }
-
-    public function getUsernameAvailability(
-        string|null $username,
-    ) {
-        $_params = array(
-            'username' => $username,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Account.getUsernameAvailability', $_params);
-        /** @var bool $_result */
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.countClouds', $_params);
+        /** @var int $_result */
         $_result = $_apiCallResult;
         return $_result;
     }
@@ -1557,6 +1498,65 @@ class AnnouncementClient
             'input' => $input,
         );
         $this->httpClient->apiCall('Announcement.updateAnnouncement', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Account;
+
+class AccountClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
+     */
+    public function createAccount(
+        int $contactId,
+        string|null $username,
+        \ShockMedia\Generated\Language $language,
+        array|null $permissions,
+    ) {
+        $_params = array(
+            'contactId' => $contactId,
+            'username' => $username,
+            'language' => $language,
+            'permissions' => $permissions,
+        );
+        $this->httpClient->apiCall('Account.createAccount', $_params);
+    }
+
+    public function deleteAccount(
+        int $accountId,
+    ) {
+        $_params = array(
+            'accountId' => $accountId,
+        );
+        $this->httpClient->apiCall('Account.deleteAccount', $_params);
+    }
+
+    public function updateAccount(
+        \ShockMedia\Generated\Account\UpdateAccountInput $input,
+    ) {
+        $_params = array(
+            'input' => $input,
+        );
+        $this->httpClient->apiCall('Account.updateAccount', $_params);
+    }
+
+    public function getUsernameAvailability(
+        string|null $username,
+    ) {
+        $_params = array(
+            'username' => $username,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Account.getUsernameAvailability', $_params);
+        /** @var bool $_result */
+        $_result = $_apiCallResult;
+        return $_result;
     }
 
 }
