@@ -1,47 +1,5 @@
 <?php
 
-namespace ShockMedia\Generated\WebForwarding;
-
-class WebForwardingClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function setWebForwarding(
-        string $domainName,
-        string|null $targetUrl,
-        bool $enableCompletion,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'targetUrl' => $targetUrl,
-            'enableCompletion' => $enableCompletion,
-        );
-        $this->httpClient->apiCall('WebForwarding.setWebForwarding', $_params);
-    }
-
-    public function disableWebForwarding(
-        string $domainName,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-        );
-        $this->httpClient->apiCall('WebForwarding.disableWebForwarding', $_params);
-    }
-
-    public function fixDnsSettings(
-        string $domainName,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-        );
-        $this->httpClient->apiCall('WebForwarding.fixDnsSettings', $_params);
-    }
-
-}
-
 namespace ShockMedia\Generated\MassDns;
 
 class MassDnsClient
@@ -114,6 +72,48 @@ class MassDnsClient
             'replacement' => $replacement,
         );
         $this->httpClient->apiCall('MassDns.updateRecords', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\WebForwarding;
+
+class WebForwardingClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    public function setWebForwarding(
+        string $domainName,
+        string|null $targetUrl,
+        bool $enableCompletion,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'targetUrl' => $targetUrl,
+            'enableCompletion' => $enableCompletion,
+        );
+        $this->httpClient->apiCall('WebForwarding.setWebForwarding', $_params);
+    }
+
+    public function disableWebForwarding(
+        string $domainName,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+        );
+        $this->httpClient->apiCall('WebForwarding.disableWebForwarding', $_params);
+    }
+
+    public function fixDnsSettings(
+        string $domainName,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+        );
+        $this->httpClient->apiCall('WebForwarding.fixDnsSettings', $_params);
     }
 
 }
@@ -714,6 +714,67 @@ class ActivityClient
 
 }
 
+namespace ShockMedia\Generated\AffiliateAccess;
+
+class AffiliateAccessClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return \ShockMedia\Generated\Customers\CustomerSummary[]
+     */
+    public function listAffiliates(
+        bool $manageble,
+    ) {
+        $_params = array(
+            'manageble' => $manageble,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.listAffiliates', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Customers\CustomerSummary[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getAffiliate(
+        string $affiliateCode,
+    ) {
+        $_params = array(
+            'affiliateCode' => $affiliateCode,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.getAffiliate', $_params);
+        $_result = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function updateAffiliateAccess(
+        int $affiliateId,
+        string|null $affiliateCode,
+    ) {
+        $_params = array(
+            'affiliateId' => $affiliateId,
+            'affiliateCode' => $affiliateCode,
+        );
+        $this->httpClient->apiCall('AffiliateAccess.updateAffiliateAccess', $_params);
+    }
+
+    public function impersonateAffiliate(
+        int $affiliateId,
+    ) {
+        $_params = array(
+            'affiliateId' => $affiliateId,
+        );
+        $this->httpClient->apiCall('AffiliateAccess.impersonateAffiliate', $_params);
+    }
+
+}
+
 namespace ShockMedia\Generated\Domain;
 
 class DomainClient
@@ -807,67 +868,6 @@ class DomainClient
             'recordId' => $recordId,
         );
         $this->httpClient->apiCall('Domain.deleteRecord', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\AffiliateAccess;
-
-class AffiliateAccessClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return \ShockMedia\Generated\Customers\CustomerSummary[]
-     */
-    public function listAffiliates(
-        bool $manageble,
-    ) {
-        $_params = array(
-            'manageble' => $manageble,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.listAffiliates', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Customers\CustomerSummary[] $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getAffiliate(
-        string $affiliateCode,
-    ) {
-        $_params = array(
-            'affiliateCode' => $affiliateCode,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('AffiliateAccess.getAffiliate', $_params);
-        $_result = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function updateAffiliateAccess(
-        int $affiliateId,
-        string|null $affiliateCode,
-    ) {
-        $_params = array(
-            'affiliateId' => $affiliateId,
-            'affiliateCode' => $affiliateCode,
-        );
-        $this->httpClient->apiCall('AffiliateAccess.updateAffiliateAccess', $_params);
-    }
-
-    public function impersonateAffiliate(
-        int $affiliateId,
-    ) {
-        $_params = array(
-            'affiliateId' => $affiliateId,
-        );
-        $this->httpClient->apiCall('AffiliateAccess.impersonateAffiliate', $_params);
     }
 
 }
@@ -1228,6 +1228,95 @@ class LeadClient
 
 }
 
+namespace ShockMedia\Generated\Reminder;
+
+class ReminderClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return \ShockMedia\Generated\Reminder\ReminderType[]
+     */
+    public function listReminders(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Reminder.listReminders', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Reminder\ReminderType::from($element0);
+        }
+        /** @var \ShockMedia\Generated\Reminder\ReminderType[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function ackReminder(
+        \ShockMedia\Generated\Reminder\ReminderType $reminderType,
+    ) {
+        $_params = array(
+            'reminderType' => $reminderType,
+        );
+        $this->httpClient->apiCall('Reminder.ackReminder', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Cloud;
+
+class CloudClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    public function getCloud(
+        string $name,
+    ) {
+        $_params = array(
+            'name' => $name,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.getCloud', $_params);
+        $_result = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]}
+     */
+    public function listClouds(
+        \ShockMedia\Generated\PageRequest $page,
+    ) {
+        $_params = array(
+            'page' => $page,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.listClouds', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function countClouds(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.countClouds', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+}
+
 namespace ShockMedia\Generated\Contact;
 
 class ContactClient
@@ -1315,95 +1404,6 @@ class ContactClient
             'contactId' => $contactId,
         );
         $this->httpClient->apiCall('Contact.removeContact', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\Cloud;
-
-class CloudClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getCloud(
-        string $name,
-    ) {
-        $_params = array(
-            'name' => $name,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.getCloud', $_params);
-        $_result = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]}
-     */
-    public function listClouds(
-        \ShockMedia\Generated\PageRequest $page,
-    ) {
-        $_params = array(
-            'page' => $page,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.listClouds', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function countClouds(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.countClouds', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-}
-
-namespace ShockMedia\Generated\Reminder;
-
-class ReminderClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return \ShockMedia\Generated\Reminder\ReminderType[]
-     */
-    public function listReminders(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Reminder.listReminders', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = \ShockMedia\Generated\Reminder\ReminderType::from($element0);
-        }
-        /** @var \ShockMedia\Generated\Reminder\ReminderType[] $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function ackReminder(
-        \ShockMedia\Generated\Reminder\ReminderType $reminderType,
-    ) {
-        $_params = array(
-            'reminderType' => $reminderType,
-        );
-        $this->httpClient->apiCall('Reminder.ackReminder', $_params);
     }
 
 }
@@ -1570,6 +1570,31 @@ class DomainRegistrationClient
     ) {
     }
 
+    /**
+     * @return \ShockMedia\Generated\Domains\DnsRecordInput[]
+     */
+    public function generateRecords(
+        int $templateId,
+        string $domainName,
+        string $ipv4,
+        string|null $ipv6,
+    ) {
+        $_params = array(
+            'templateId' => $templateId,
+            'domainName' => $domainName,
+            'ipv4' => $ipv4,
+            'ipv6' => $ipv6,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('DomainRegistration.generateRecords', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Domains\DnsRecordInput::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Domains\DnsRecordInput[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
 }
 
 namespace ShockMedia\Generated\Invoice;
@@ -1715,106 +1740,6 @@ class PromotionClient
 
 }
 
-namespace ShockMedia\Generated\AcquiredOffering;
-
-class AcquiredOfferingClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getAcquiredOffering(
-        int $id,
-    ) {
-        $_params = array(
-            'id' => $id,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getAcquiredOffering', $_params);
-        $_result = \ShockMedia\Generated\Acquiredoffering\AcquiredOffering::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Acquiredoffering\AcquiredOffering[]}
-     */
-    public function listAcquiredOfferings(
-        \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter $filter,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'filter' => $filter,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.listAcquiredOfferings', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Acquiredoffering\AcquiredOffering::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Acquiredoffering\AcquiredOffering[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getAcquiredOfferingCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getAcquiredOfferingCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-    public function getMailCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getMailCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-    public function getResellerCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getResellerCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-    public function getWebhostingCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getWebhostingCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-    public function getMagentoCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getMagentoCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-    public function getDomainCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getDomainCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-}
-
 namespace ShockMedia\Generated\DnsTemplate;
 
 class DnsTemplateClient
@@ -1922,6 +1847,106 @@ class DnsTemplateClient
             'content' => $content,
         );
         $this->httpClient->apiCall('DnsTemplate.createRecord', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\AcquiredOffering;
+
+class AcquiredOfferingClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    public function getAcquiredOffering(
+        int $id,
+    ) {
+        $_params = array(
+            'id' => $id,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getAcquiredOffering', $_params);
+        $_result = \ShockMedia\Generated\Acquiredoffering\AcquiredOffering::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Acquiredoffering\AcquiredOffering[]}
+     */
+    public function listAcquiredOfferings(
+        \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter $filter,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'filter' => $filter,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.listAcquiredOfferings', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Acquiredoffering\AcquiredOffering::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Acquiredoffering\AcquiredOffering[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getAcquiredOfferingCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getAcquiredOfferingCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+    public function getMailCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getMailCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+    public function getResellerCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getResellerCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+    public function getWebhostingCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getWebhostingCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+    public function getMagentoCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getMagentoCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+    public function getDomainCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getDomainCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
     }
 
 }
