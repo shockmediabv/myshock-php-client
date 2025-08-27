@@ -1208,43 +1208,6 @@ class TicketClient
 
 }
 
-namespace ShockMedia\Generated\Translation;
-
-class TranslationClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getTranslationData(
-        \ShockMedia\Generated\Language $language,
-    ) {
-        $_params = array(
-            'language' => $language,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Translation.getTranslationData', $_params);
-        $_result = \ShockMedia\Generated\Translations\Translation::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function setPreferredLanguage(
-        \ShockMedia\Generated\Language $language,
-    ) {
-        $_params = array(
-            'language' => $language,
-        );
-        $this->httpClient->apiCall('Translation.setPreferredLanguage', $_params);
-    }
-
-    public function getPreferredLanguage(
-    ) {
-        $_params = array();
-        $this->httpClient->apiCall('Translation.getPreferredLanguage', $_params);
-    }
-
-}
-
 namespace ShockMedia\Generated\Container;
 
 class ContainerClient
@@ -1285,6 +1248,43 @@ class ContainerClient
         $_apiCallResult = $this->httpClient->apiCall('Container.getProject', $_params);
         $_result = \ShockMedia\Generated\Containers\Project::fromDecodedJson($_apiCallResult);
         return $_result;
+    }
+
+}
+
+namespace ShockMedia\Generated\Translation;
+
+class TranslationClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    public function getTranslationData(
+        \ShockMedia\Generated\Language $language,
+    ) {
+        $_params = array(
+            'language' => $language,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Translation.getTranslationData', $_params);
+        $_result = \ShockMedia\Generated\Translations\Translation::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function setPreferredLanguage(
+        \ShockMedia\Generated\Language $language,
+    ) {
+        $_params = array(
+            'language' => $language,
+        );
+        $this->httpClient->apiCall('Translation.setPreferredLanguage', $_params);
+    }
+
+    public function getPreferredLanguage(
+    ) {
+        $_params = array();
+        $this->httpClient->apiCall('Translation.getPreferredLanguage', $_params);
     }
 
 }
@@ -1489,6 +1489,65 @@ class ContactClient
 
 }
 
+namespace ShockMedia\Generated\Account;
+
+class AccountClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
+     */
+    public function createAccount(
+        int $contactId,
+        string|null $username,
+        \ShockMedia\Generated\Language $language,
+        array|null $permissions,
+    ) {
+        $_params = array(
+            'contactId' => $contactId,
+            'username' => $username,
+            'language' => $language,
+            'permissions' => $permissions,
+        );
+        $this->httpClient->apiCall('Account.createAccount', $_params);
+    }
+
+    public function deleteAccount(
+        int $accountId,
+    ) {
+        $_params = array(
+            'accountId' => $accountId,
+        );
+        $this->httpClient->apiCall('Account.deleteAccount', $_params);
+    }
+
+    public function updateAccount(
+        \ShockMedia\Generated\Account\UpdateAccountInput $input,
+    ) {
+        $_params = array(
+            'input' => $input,
+        );
+        $this->httpClient->apiCall('Account.updateAccount', $_params);
+    }
+
+    public function getUsernameAvailability(
+        string|null $username,
+    ) {
+        $_params = array(
+            'username' => $username,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Account.getUsernameAvailability', $_params);
+        /** @var bool $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+}
+
 namespace ShockMedia\Generated\Announcement;
 
 class AnnouncementClient
@@ -1579,65 +1638,6 @@ class AnnouncementClient
             'input' => $input,
         );
         $this->httpClient->apiCall('Announcement.updateAnnouncement', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\Account;
-
-class AccountClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
-     */
-    public function createAccount(
-        int $contactId,
-        string|null $username,
-        \ShockMedia\Generated\Language $language,
-        array|null $permissions,
-    ) {
-        $_params = array(
-            'contactId' => $contactId,
-            'username' => $username,
-            'language' => $language,
-            'permissions' => $permissions,
-        );
-        $this->httpClient->apiCall('Account.createAccount', $_params);
-    }
-
-    public function deleteAccount(
-        int $accountId,
-    ) {
-        $_params = array(
-            'accountId' => $accountId,
-        );
-        $this->httpClient->apiCall('Account.deleteAccount', $_params);
-    }
-
-    public function updateAccount(
-        \ShockMedia\Generated\Account\UpdateAccountInput $input,
-    ) {
-        $_params = array(
-            'input' => $input,
-        );
-        $this->httpClient->apiCall('Account.updateAccount', $_params);
-    }
-
-    public function getUsernameAvailability(
-        string|null $username,
-    ) {
-        $_params = array(
-            'username' => $username,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Account.getUsernameAvailability', $_params);
-        /** @var bool $_result */
-        $_result = $_apiCallResult;
-        return $_result;
     }
 
 }
