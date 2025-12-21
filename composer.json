@@ -1,6 +1,6 @@
 {
   "name": "shockmediabv/myshock-php-client",
-  "version": "25.12.1",
+  "version": "25.13.0",
   "type": "library",
   "description": "PHP client library for interacting with the My Shock Media API",
   "keywords": [
