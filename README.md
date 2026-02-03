@@ -15,7 +15,7 @@ in your `composer.json` file as follows:
 ```json
 {
   "require": {
-    "shockmediabv/myshock-php-client": "~26.1.0"
+    "shockmediabv/myshock-php-client": "~26.1.1"
   }
 }
 ```
