@@ -1,1369 +1,8 @@
 <?php
 
-// generated on 2026-02-18T20:06:23.879873320Z
-
-namespace ShockMedia\Generated\Customers;
-
-
-enum CorrespondenceByEmailMode: string
-{
-    case enabled = 'enabled';
-    case disable_incoming = 'disable_incoming';
-    case disabled = 'disabled';
-}
-
-
-class BillingPreferences
-{
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Customers\PaymentMethod $paymentMethod,
-        public readonly bool $autoUpgrade,
-        public readonly \ShockMedia\Generated\Customers\BillingInterval $billingInterval,
-        public readonly string|null $iban,
-        public readonly string|null $internalReference,
-        public readonly int|null $paymentTerm,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $paymentMethod = \ShockMedia\Generated\Customers\PaymentMethod::from($decodedJson['paymentMethod']);
-
-        /** @var bool $autoUpgrade */
-        $autoUpgrade = $decodedJson['autoUpgrade'];
-
-        $billingInterval = \ShockMedia\Generated\Customers\BillingInterval::from($decodedJson['billingInterval']);
-
-        /** @var string|null $iban */
-        $iban = $decodedJson['iban'];
-
-        /** @var string|null $internalReference */
-        $internalReference = $decodedJson['internalReference'];
-
-        /** @var int|null $paymentTerm */
-        $paymentTerm = $decodedJson['paymentTerm'];
-
-        return new BillingPreferences
-        (
-            $paymentMethod, $autoUpgrade, $billingInterval, $iban, $internalReference, $paymentTerm
-        );
-    }
-}
-
-
-class SecurityPreferences
-{
-    public function __construct
-    (
-        public readonly string|null $lastChanged,
-        public readonly \ShockMedia\Generated\Customers\CorrespondenceByEmailMode|null $correspondenceByEmail,
-        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedTicketLinks,
-        public readonly string|null $authenticatedTicketLifetime,
-        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedInvoiceLinks,
-        public readonly string|null $authenticatedInvoiceLifetime,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $lastChanged */
-        $lastChanged = $decodedJson['lastChanged'];
-
-        if ($decodedJson['correspondenceByEmail'] === NULL) {
-            $correspondenceByEmail = NULL;
-        } else {
-            $correspondenceByEmail = \ShockMedia\Generated\Customers\CorrespondenceByEmailMode::from($decodedJson['correspondenceByEmail']);
-        }
-
-        if ($decodedJson['authenticatedTicketLinks'] === NULL) {
-            $authenticatedTicketLinks = NULL;
-        } else {
-            $authenticatedTicketLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedTicketLinks']);
-        }
-
-        /** @var string|null $authenticatedTicketLifetime */
-        $authenticatedTicketLifetime = $decodedJson['authenticatedTicketLifetime'];
-
-        if ($decodedJson['authenticatedInvoiceLinks'] === NULL) {
-            $authenticatedInvoiceLinks = NULL;
-        } else {
-            $authenticatedInvoiceLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedInvoiceLinks']);
-        }
-
-        /** @var string|null $authenticatedInvoiceLifetime */
-        $authenticatedInvoiceLifetime = $decodedJson['authenticatedInvoiceLifetime'];
-
-        return new SecurityPreferences
-        (
-            $lastChanged, $correspondenceByEmail, $authenticatedTicketLinks, $authenticatedTicketLifetime, $authenticatedInvoiceLinks, $authenticatedInvoiceLifetime
-        );
-    }
-}
-
-
-enum PaymentMethod: string
-{
-    case bank_transfer = 'bank_transfer';
-    case direct_debit = 'direct_debit';
-}
-
-
-class CustomerUpdate
-{
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Customers\Address|null $address,
-        public readonly \ShockMedia\Generated\Customers\Address|null $postalAddress,
-        public readonly string|null $iban,
-        public readonly \ShockMedia\Generated\Customers\BillingInterval|null $billingInterval,
-        public readonly \ShockMedia\Generated\Customers\PaymentMethod|null $paymentMethod,
-        public readonly string|null $internalReference,
-        public readonly bool|null $autoUpgrade,
-        public readonly bool|null $mailExpeditorUpdateNotifications,
-        public readonly \ShockMedia\Generated\Customers\SecurityPreferencesUpdate|null $securityPreferences,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        if ($decodedJson['address'] === NULL) {
-            $address = NULL;
-        } else {
-            $address = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['address']);
-        }
-
-        if ($decodedJson['postalAddress'] === NULL) {
-            $postalAddress = NULL;
-        } else {
-            $postalAddress = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['postalAddress']);
-        }
-
-        /** @var string|null $iban */
-        $iban = $decodedJson['iban'];
-
-        if ($decodedJson['billingInterval'] === NULL) {
-            $billingInterval = NULL;
-        } else {
-            $billingInterval = \ShockMedia\Generated\Customers\BillingInterval::from($decodedJson['billingInterval']);
-        }
-
-        if ($decodedJson['paymentMethod'] === NULL) {
-            $paymentMethod = NULL;
-        } else {
-            $paymentMethod = \ShockMedia\Generated\Customers\PaymentMethod::from($decodedJson['paymentMethod']);
-        }
-
-        /** @var string|null $internalReference */
-        $internalReference = $decodedJson['internalReference'];
-
-        /** @var bool|null $autoUpgrade */
-        $autoUpgrade = $decodedJson['autoUpgrade'];
-
-        /** @var bool|null $mailExpeditorUpdateNotifications */
-        $mailExpeditorUpdateNotifications = $decodedJson['mailExpeditorUpdateNotifications'];
-
-        if ($decodedJson['securityPreferences'] === NULL) {
-            $securityPreferences = NULL;
-        } else {
-            $securityPreferences = \ShockMedia\Generated\Customers\SecurityPreferencesUpdate::fromDecodedJson($decodedJson['securityPreferences']);
-        }
-
-        return new CustomerUpdate
-        (
-            $address, $postalAddress, $iban, $billingInterval, $paymentMethod, $internalReference, $autoUpgrade, $mailExpeditorUpdateNotifications, $securityPreferences
-        );
-    }
-}
-
-
-enum InvoiceMethod: string
-{
-    case dont_send = 'dont_send';
-    case post = 'post';
-    case mail = 'mail';
-    case post_mail = 'post_mail';
-}
-
-
-enum BillingInterval: string
-{
-    case monthly = 'monthly';
-    case quarterly = 'quarterly';
-    case semiannually = 'semiannually';
-    case annually = 'annually';
-    case biennially = 'biennially';
-}
-
-
-class SecurityPreferencesUpdate
-{
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Customers\CorrespondenceByEmailMode|null $correspondenceByEmail,
-        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedTicketLinks,
-        public readonly \ShockMedia\Generated\Customers\SecurityPreferencesUpdate\AuthenticatedTicketLifetimeAlt2|null $authenticatedTicketLifetime,
-        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedInvoiceLinks,
-        public readonly string|null $authenticatedInvoiceLifetime,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        if ($decodedJson['correspondenceByEmail'] === NULL) {
-            $correspondenceByEmail = NULL;
-        } else {
-            $correspondenceByEmail = \ShockMedia\Generated\Customers\CorrespondenceByEmailMode::from($decodedJson['correspondenceByEmail']);
-        }
-
-        if ($decodedJson['authenticatedTicketLinks'] === NULL) {
-            $authenticatedTicketLinks = NULL;
-        } else {
-            $authenticatedTicketLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedTicketLinks']);
-        }
-
-        if ($decodedJson['authenticatedTicketLifetime'] === NULL) {
-            $authenticatedTicketLifetime = NULL;
-        } else {
-            $authenticatedTicketLifetime = \ShockMedia\Generated\Customers\SecurityPreferencesUpdate\AuthenticatedTicketLifetimeAlt2::fromDecodedJson($decodedJson['authenticatedTicketLifetime']);
-        }
-
-        if ($decodedJson['authenticatedInvoiceLinks'] === NULL) {
-            $authenticatedInvoiceLinks = NULL;
-        } else {
-            $authenticatedInvoiceLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedInvoiceLinks']);
-        }
-
-        /** @var string|null $authenticatedInvoiceLifetime */
-        $authenticatedInvoiceLifetime = $decodedJson['authenticatedInvoiceLifetime'];
-
-        return new SecurityPreferencesUpdate
-        (
-            $correspondenceByEmail, $authenticatedTicketLinks, $authenticatedTicketLifetime, $authenticatedInvoiceLinks, $authenticatedInvoiceLifetime
-        );
-    }
-}
-
-
-enum AuthenticatedLinkMode: string
-{
-    case enabled = 'enabled';
-    case do_not_email = 'do_not_email';
-    case disabled = 'disabled';
-}
-
-
-class Customer
-{
-    public function __construct
-    (
-        public readonly int $customerId,
-        public readonly string|null $companyName,
-        public readonly string|null $firstName,
-        public readonly string|null $lastName,
-        public readonly \ShockMedia\Generated\Customers\CustomerSettings $settings,
-        public readonly \ShockMedia\Generated\Customers\BillingPreferences $billing,
-        public readonly \ShockMedia\Generated\Customers\Address $businessAddress,
-        public readonly \ShockMedia\Generated\Customers\Address $postalAddress,
-        public readonly string|null $affiliateCode,
-        public readonly string|null $cocId,
-        public readonly string|null $sidnResellerId,
-        public readonly bool $partner,
-        public readonly bool $magentoAllowNew,
-        public readonly \ShockMedia\Generated\Customers\SecurityPreferences $securityPreferences,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        /** @var string|null $companyName */
-        $companyName = $decodedJson['companyName'];
-
-        /** @var string|null $firstName */
-        $firstName = $decodedJson['firstName'];
-
-        /** @var string|null $lastName */
-        $lastName = $decodedJson['lastName'];
-
-        $settings = \ShockMedia\Generated\Customers\CustomerSettings::fromDecodedJson($decodedJson['settings']);
-
-        $billing = \ShockMedia\Generated\Customers\BillingPreferences::fromDecodedJson($decodedJson['billing']);
-
-        $businessAddress = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['businessAddress']);
-
-        $postalAddress = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['postalAddress']);
-
-        /** @var string|null $affiliateCode */
-        $affiliateCode = $decodedJson['affiliateCode'];
-
-        /** @var string|null $cocId */
-        $cocId = $decodedJson['cocId'];
-
-        /** @var string|null $sidnResellerId */
-        $sidnResellerId = $decodedJson['sidnResellerId'];
-
-        /** @var bool $partner */
-        $partner = $decodedJson['partner'];
-
-        /** @var bool $magentoAllowNew */
-        $magentoAllowNew = $decodedJson['magentoAllowNew'];
-
-        $securityPreferences = \ShockMedia\Generated\Customers\SecurityPreferences::fromDecodedJson($decodedJson['securityPreferences']);
-
-        return new Customer
-        (
-            $customerId, $companyName, $firstName, $lastName, $settings, $billing, $businessAddress, $postalAddress, $affiliateCode, $cocId, $sidnResellerId, $partner, $magentoAllowNew, $securityPreferences
-        );
-    }
-}
-
-
-class CustomerSummary
-{
-    public function __construct
-    (
-        public readonly int $customerId,
-        public readonly string|null $companyName,
-        public readonly string|null $firstName,
-        public readonly string|null $lastName,
-        public readonly string|null $city,
-        public readonly bool|null $canLoginAsAffiliate,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        /** @var string|null $companyName */
-        $companyName = $decodedJson['companyName'];
-
-        /** @var string|null $firstName */
-        $firstName = $decodedJson['firstName'];
-
-        /** @var string|null $lastName */
-        $lastName = $decodedJson['lastName'];
-
-        /** @var string|null $city */
-        $city = $decodedJson['city'];
-
-        /** @var bool|null $canLoginAsAffiliate */
-        $canLoginAsAffiliate = $decodedJson['canLoginAsAffiliate'];
-
-        return new CustomerSummary
-        (
-            $customerId, $companyName, $firstName, $lastName, $city, $canLoginAsAffiliate
-        );
-    }
-}
-
-
-class CustomerSettings
-{
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Customers\InvoiceMethod $invoiceMethod,
-        public readonly int $vat,
-        public readonly \ShockMedia\Generated\Customers\AdministrationCosts $administrationCosts,
-        public readonly bool $mailExpeditorUpdateNotifications,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $invoiceMethod = \ShockMedia\Generated\Customers\InvoiceMethod::from($decodedJson['invoiceMethod']);
-
-        /** @var int $vat */
-        $vat = $decodedJson['vat'];
-
-        $administrationCosts = \ShockMedia\Generated\Customers\AdministrationCosts::from($decodedJson['administrationCosts']);
-
-        /** @var bool $mailExpeditorUpdateNotifications */
-        $mailExpeditorUpdateNotifications = $decodedJson['mailExpeditorUpdateNotifications'];
-
-        return new CustomerSettings
-        (
-            $invoiceMethod, $vat, $administrationCosts, $mailExpeditorUpdateNotifications
-        );
-    }
-}
-
-
-class Address
-{
-    public function __construct
-    (
-        public readonly string|null $streetName,
-        public readonly string|null $houseNumber,
-        public readonly string|null $postalCode,
-        public readonly string|null $location,
-        public readonly string|null $country,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $streetName */
-        $streetName = $decodedJson['streetName'];
-
-        /** @var string|null $houseNumber */
-        $houseNumber = $decodedJson['houseNumber'];
-
-        /** @var string|null $postalCode */
-        $postalCode = $decodedJson['postalCode'];
-
-        /** @var string|null $location */
-        $location = $decodedJson['location'];
-
-        /** @var string|null $country */
-        $country = $decodedJson['country'];
-
-        return new Address
-        (
-            $streetName, $houseNumber, $postalCode, $location, $country
-        );
-    }
-}
-
-
-enum AdministrationCosts: string
-{
-    case none = 'none';
-    case normal = 'normal';
-}
-
-namespace ShockMedia\Generated\Customers\SecurityPreferencesUpdate;
-
-
-class AuthenticatedTicketLifetimeAlt2
-{
-    public function __construct
-    (
-        public readonly string|null $value,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $value */
-        $value = $decodedJson['value'];
-
-        return new AuthenticatedTicketLifetimeAlt2
-        (
-            $value
-        );
-    }
-}
-namespace ShockMedia\Generated\Acquiredoffering;
-
-
-class AcquiredOfferingFilter
-{
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory|null $offeringCategory,
-        public readonly string|null $name,
-        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter\State|null $offeringState,
-        public readonly \ShockMedia\Generated\Acquiredoffering\OfferingType|null $offeringType,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        if ($decodedJson['offeringCategory'] === NULL) {
-            $offeringCategory = NULL;
-        } else {
-            $offeringCategory = \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory::from($decodedJson['offeringCategory']);
-        }
-
-        /** @var string|null $name */
-        $name = $decodedJson['name'];
-
-        if ($decodedJson['offeringState'] === NULL) {
-            $offeringState = NULL;
-        } else {
-            $offeringState = \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter\State::from($decodedJson['offeringState']);
-        }
-
-        if ($decodedJson['offeringType'] === NULL) {
-            $offeringType = NULL;
-        } else {
-            $offeringType = \ShockMedia\Generated\Acquiredoffering\OfferingType::from($decodedJson['offeringType']);
-        }
-
-        return new AcquiredOfferingFilter
-        (
-            $offeringCategory, $name, $offeringState, $offeringType
-        );
-    }
-}
-
-
-enum AcquiredOfferingCategory: string
-{
-    case server_sla = 'server_sla';
-    case magento = 'magento';
-    case domain = 'domain';
-    case hosting = 'hosting';
-    case ssl = 'ssl';
-    case managed_cdn = 'managed_cdn';
-    case license = 'license';
-}
-
-
-class AcquiredOffering
-{
-    /**
-     * @param (array{string,string})[]|null $managedApps
-     * @param (array{string,int|null})[] $servers
-     */
-    public function __construct
-    (
-        public readonly int $acquiredId,
-        public readonly float $discount,
-        public readonly float $surcharge,
-        public readonly int $quantity,
-        public readonly string $start,
-        public readonly string $startContract,
-        public readonly string|null $end,
-        public readonly string|null $earliestCancellationDate,
-        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory|null $offeringCategory,
-        public readonly \ShockMedia\Generated\Acquiredoffering\OfferingType $offeringType,
-        public readonly string $offeringName,
-        public readonly float $offeringPrice,
-        public readonly float $effectivePrice,
-        public readonly string|null $serviceName,
-        public readonly string|null $accountName,
-        public readonly array|null $managedApps,
-        public readonly array $servers,
-        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOffering\DomainInfo|null $domainInfo,
-        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOffering|null $extension,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $acquiredId */
-        $acquiredId = $decodedJson['acquiredId'];
-
-        /** @var float $discount */
-        $discount = $decodedJson['discount'];
-
-        /** @var float $surcharge */
-        $surcharge = $decodedJson['surcharge'];
-
-        /** @var int $quantity */
-        $quantity = $decodedJson['quantity'];
-
-        /** @var string $start */
-        $start = $decodedJson['start'];
-
-        /** @var string $startContract */
-        $startContract = $decodedJson['startContract'];
-
-        /** @var string|null $end */
-        $end = $decodedJson['end'];
-
-        /** @var string|null $earliestCancellationDate */
-        $earliestCancellationDate = $decodedJson['earliestCancellationDate'];
-
-        if ($decodedJson['offeringCategory'] === NULL) {
-            $offeringCategory = NULL;
-        } else {
-            $offeringCategory = \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory::from($decodedJson['offeringCategory']);
-        }
-
-        $offeringType = \ShockMedia\Generated\Acquiredoffering\OfferingType::from($decodedJson['offeringType']);
-
-        /** @var string $offeringName */
-        $offeringName = $decodedJson['offeringName'];
-
-        /** @var float $offeringPrice */
-        $offeringPrice = $decodedJson['offeringPrice'];
-
-        /** @var float $effectivePrice */
-        $effectivePrice = $decodedJson['effectivePrice'];
-
-        /** @var string|null $serviceName */
-        $serviceName = $decodedJson['serviceName'];
-
-        /** @var string|null $accountName */
-        $accountName = $decodedJson['accountName'];
-
-        if ($decodedJson['managedApps'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['managedApps'] as $element0) {
-                $var1 = array();
-                $var1[] = $element0[0];
-                $var1[] = $element0[1];
-                $var0[] = $var1;
-            }
-        }
-        /** @var (array{string,string})[]|null $managedApps */
-        $managedApps = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['servers'] as $element0) {
-            $var1 = array();
-            $var1[] = $element0[0];
-            $var1[] = $element0[1];
-            $var0[] = $var1;
-        }
-        /** @var (array{string,int|null})[] $servers */
-        $servers = $var0;
-
-        if ($decodedJson['domainInfo'] === NULL) {
-            $domainInfo = NULL;
-        } else {
-            $domainInfo = \ShockMedia\Generated\Acquiredoffering\AcquiredOffering\DomainInfo::fromDecodedJson($decodedJson['domainInfo']);
-        }
-
-        if ($decodedJson['extension'] === NULL) {
-            $extension = NULL;
-        } else {
-            $extension = \ShockMedia\Generated\Acquiredoffering\AcquiredOffering::fromDecodedJson($decodedJson['extension']);
-        }
-
-        return new AcquiredOffering
-        (
-            $acquiredId, $discount, $surcharge, $quantity, $start, $startContract, $end, $earliestCancellationDate, $offeringCategory, $offeringType, $offeringName, $offeringPrice, $effectivePrice, $serviceName, $accountName, $managedApps, $servers, $domainInfo, $extension
-        );
-    }
-}
-
-
-enum OfferingType: string
-{
-    case plan = 'plan';
-    case product = 'product';
-}
-
-namespace ShockMedia\Generated\Acquiredoffering\AcquiredOffering;
-
-
-class DomainInfo
-{
-    public function __construct
-    (
-        public readonly string $domainName,
-        public readonly bool $cancellable,
-        public readonly bool|null $authCodeAvailable,
-        public readonly bool|null $authCodeUpdatable,
-        public readonly bool|null $transferLocked,
-        public readonly bool|null $legacy,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $domainName */
-        $domainName = $decodedJson['domainName'];
-
-        /** @var bool $cancellable */
-        $cancellable = $decodedJson['cancellable'];
-
-        /** @var bool|null $authCodeAvailable */
-        $authCodeAvailable = $decodedJson['authCodeAvailable'];
-
-        /** @var bool|null $authCodeUpdatable */
-        $authCodeUpdatable = $decodedJson['authCodeUpdatable'];
-
-        /** @var bool|null $transferLocked */
-        $transferLocked = $decodedJson['transferLocked'];
-
-        /** @var bool|null $legacy */
-        $legacy = $decodedJson['legacy'];
-
-        return new DomainInfo
-        (
-            $domainName, $cancellable, $authCodeAvailable, $authCodeUpdatable, $transferLocked, $legacy
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter;
-
-
-enum State: string
-{
-    case active = 'active';
-    case active_or_future = 'active_or_future';
-    case future = 'future';
-    case expired = 'expired';
-}
-namespace ShockMedia\Generated\Clouds;
-
-
-class Vm
-{
-    public function __construct
-    (
-        public readonly string|null $name,
-        public readonly int|null $cpuCount,
-        public readonly int|null $memory,
-        public readonly int|null $storage,
-        public readonly bool $multiDatacenter,
-        public readonly bool $redundant,
-        public readonly bool $showServerPage,
-        public readonly \ShockMedia\Generated\Servers\ServerSummary|null $server,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $name */
-        $name = $decodedJson['name'];
-
-        /** @var int|null $cpuCount */
-        $cpuCount = $decodedJson['cpuCount'];
-
-        /** @var int|null $memory */
-        $memory = $decodedJson['memory'];
-
-        /** @var int|null $storage */
-        $storage = $decodedJson['storage'];
-
-        /** @var bool $multiDatacenter */
-        $multiDatacenter = $decodedJson['multiDatacenter'];
-
-        /** @var bool $redundant */
-        $redundant = $decodedJson['redundant'];
-
-        /** @var bool $showServerPage */
-        $showServerPage = $decodedJson['showServerPage'];
-
-        if ($decodedJson['server'] === NULL) {
-            $server = NULL;
-        } else {
-            $server = \ShockMedia\Generated\Servers\ServerSummary::fromDecodedJson($decodedJson['server']);
-        }
-
-        return new Vm
-        (
-            $name, $cpuCount, $memory, $storage, $multiDatacenter, $redundant, $showServerPage, $server
-        );
-    }
-}
-
-
-class StorageStats
-{
-    public function __construct
-    (
-        public readonly int $total,
-        public readonly int $free,
-        public readonly int|null $used,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $total */
-        $total = $decodedJson['total'];
-
-        /** @var int $free */
-        $free = $decodedJson['free'];
-
-        /** @var int|null $used */
-        $used = $decodedJson['used'];
-
-        return new StorageStats
-        (
-            $total, $free, $used
-        );
-    }
-}
-
-
-class Cloud
-{
-    /**
-     * @param \ShockMedia\Generated\Clouds\Node[]|null $nodes
-     * @param \ShockMedia\Generated\Clouds\Vm[]|null $vms
-     */
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly bool $multidatacenter,
-        public readonly array|null $nodes,
-        public readonly array|null $vms,
-        public readonly \ShockMedia\Generated\Clouds\StorageStats|null $storageStats,
-        public readonly \ShockMedia\Generated\Clouds\MemoryStats|null $memoryStats,
-        public readonly \ShockMedia\Generated\Clouds\CpuInfo|null $cpuInfo,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var bool $multidatacenter */
-        $multidatacenter = $decodedJson['multidatacenter'];
-
-        if ($decodedJson['nodes'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['nodes'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Clouds\Node::fromDecodedJson($element0);
-            }
-        }
-        /** @var \ShockMedia\Generated\Clouds\Node[]|null $nodes */
-        $nodes = $var0;
-
-        if ($decodedJson['vms'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['vms'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Clouds\Vm::fromDecodedJson($element0);
-            }
-        }
-        /** @var \ShockMedia\Generated\Clouds\Vm[]|null $vms */
-        $vms = $var0;
-
-        if ($decodedJson['storageStats'] === NULL) {
-            $storageStats = NULL;
-        } else {
-            $storageStats = \ShockMedia\Generated\Clouds\StorageStats::fromDecodedJson($decodedJson['storageStats']);
-        }
-
-        if ($decodedJson['memoryStats'] === NULL) {
-            $memoryStats = NULL;
-        } else {
-            $memoryStats = \ShockMedia\Generated\Clouds\MemoryStats::fromDecodedJson($decodedJson['memoryStats']);
-        }
-
-        if ($decodedJson['cpuInfo'] === NULL) {
-            $cpuInfo = NULL;
-        } else {
-            $cpuInfo = \ShockMedia\Generated\Clouds\CpuInfo::fromDecodedJson($decodedJson['cpuInfo']);
-        }
-
-        return new Cloud
-        (
-            $name, $multidatacenter, $nodes, $vms, $storageStats, $memoryStats, $cpuInfo
-        );
-    }
-}
-
-
-class MemoryStats
-{
-    public function __construct
-    (
-        public readonly int $total,
-        public readonly int $free,
-        public readonly int|null $allocated,
-        public readonly int|null $reserved,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $total */
-        $total = $decodedJson['total'];
-
-        /** @var int $free */
-        $free = $decodedJson['free'];
-
-        /** @var int|null $allocated */
-        $allocated = $decodedJson['allocated'];
-
-        /** @var int|null $reserved */
-        $reserved = $decodedJson['reserved'];
-
-        return new MemoryStats
-        (
-            $total, $free, $allocated, $reserved
-        );
-    }
-}
-
-
-class Node
-{
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly string|null $admxName,
-        public readonly int|null $memory,
-        public readonly int|null $storage,
-        public readonly int|null $cpuCount,
-        public readonly string|null $datacenter,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string|null $admxName */
-        $admxName = $decodedJson['admxName'];
-
-        /** @var int|null $memory */
-        $memory = $decodedJson['memory'];
-
-        /** @var int|null $storage */
-        $storage = $decodedJson['storage'];
-
-        /** @var int|null $cpuCount */
-        $cpuCount = $decodedJson['cpuCount'];
-
-        /** @var string|null $datacenter */
-        $datacenter = $decodedJson['datacenter'];
-
-        return new Node
-        (
-            $name, $admxName, $memory, $storage, $cpuCount, $datacenter
-        );
-    }
-}
-
-
-class CpuInfo
-{
-    public function __construct
-    (
-        public readonly int|null $coreCount,
-        public readonly int|null $threadCount,
-        public readonly int|null $cpuPower,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int|null $coreCount */
-        $coreCount = $decodedJson['coreCount'];
-
-        /** @var int|null $threadCount */
-        $threadCount = $decodedJson['threadCount'];
-
-        /** @var int|null $cpuPower */
-        $cpuPower = $decodedJson['cpuPower'];
-
-        return new CpuInfo
-        (
-            $coreCount, $threadCount, $cpuPower
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Blogs;
-
-
-class BlogFilter
-{
-    public function __construct
-    (
-        public readonly string|null $titleLike,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $titleLike */
-        $titleLike = $decodedJson['titleLike'];
-
-        return new BlogFilter
-        (
-            $titleLike
-        );
-    }
-}
-
-
-class BlogMessage
-{
-    public function __construct
-    (
-        public readonly string $title,
-        public readonly string $message,
-        public readonly string $language,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $title */
-        $title = $decodedJson['title'];
-
-        /** @var string $message */
-        $message = $decodedJson['message'];
-
-        /** @var string $language */
-        $language = $decodedJson['language'];
-
-        return new BlogMessage
-        (
-            $title, $message, $language
-        );
-    }
-}
-
-
-class Blog
-{
-    /**
-     * @param \ShockMedia\Generated\Blogs\BlogMessage[] $messages
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly array $messages,
-        public readonly string $icon,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        $var0 = array();
-        foreach ($decodedJson['messages'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Blogs\BlogMessage::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Blogs\BlogMessage[] $messages */
-        $messages = $var0;
-
-        /** @var string $icon */
-        $icon = $decodedJson['icon'];
-
-        return new Blog
-        (
-            $id, $messages, $icon
-        );
-    }
-}
-
-
-class UpdateBlogInput
-{
-    /**
-     * @param \ShockMedia\Generated\Blogs\BlogMessage[]|null $messages
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string|null $icon,
-        public readonly array|null $messages,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string|null $icon */
-        $icon = $decodedJson['icon'];
-
-        if ($decodedJson['messages'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['messages'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Blogs\BlogMessage::fromDecodedJson($element0);
-            }
-        }
-        /** @var \ShockMedia\Generated\Blogs\BlogMessage[]|null $messages */
-        $messages = $var0;
-
-        return new UpdateBlogInput
-        (
-            $id, $icon, $messages
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Sladashboard;
-
-
-class ServerDeviation
-{
-    /**
-     * @param \ShockMedia\Generated\Sladashboard\ServerDeviationCategory[] $deviationCategories
-     */
-    public function __construct
-    (
-        public readonly string $serverFqdn,
-        public readonly array $deviationCategories,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $serverFqdn */
-        $serverFqdn = $decodedJson['serverFqdn'];
-
-        $var0 = array();
-        foreach ($decodedJson['deviationCategories'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Sladashboard\ServerDeviationCategory::from($element0);
-        }
-        /** @var \ShockMedia\Generated\Sladashboard\ServerDeviationCategory[] $deviationCategories */
-        $deviationCategories = $var0;
-
-        return new ServerDeviation
-        (
-            $serverFqdn, $deviationCategories
-        );
-    }
-}
-
-
-class TicketStats
-{
-    public function __construct
-    (
-        public readonly int|null $openTickets,
-        public readonly int|null $closedTickets,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int|null $openTickets */
-        $openTickets = $decodedJson['openTickets'];
-
-        /** @var int|null $closedTickets */
-        $closedTickets = $decodedJson['closedTickets'];
-
-        return new TicketStats
-        (
-            $openTickets, $closedTickets
-        );
-    }
-}
-
-
-enum ServerDeviationCategory: string
-{
-    case SERVER_UPTIME = 'SERVER_UPTIME';
-    case NETWORK_UPTIME = 'NETWORK_UPTIME';
-    case CHECKUPS = 'CHECKUPS';
-}
-
-
-class ConvertedCacheKey
-{
-    /**
-     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval
-     */
-    public function __construct
-    (
-        public readonly int|null $customerId,
-        public readonly array $interval,
-        public readonly int|null $serverId,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int|null $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['interval'][0]);
-        $var0[] = $decodedJson['interval'][1];
-        $var0[] = $decodedJson['interval'][2];
-        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval */
-        $interval = $var0;
-
-        /** @var int|null $serverId */
-        $serverId = $decodedJson['serverId'];
-
-        return new ConvertedCacheKey
-        (
-            $customerId, $interval, $serverId
-        );
-    }
-}
-
-
-class SlaDefinition
-{
-    public function __construct
-    (
-        public readonly string $slaName,
-        public readonly float $serverUptimeThreshold,
-        public readonly float $networkUptimeThreshold,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $slaName */
-        $slaName = $decodedJson['slaName'];
-
-        /** @var float $serverUptimeThreshold */
-        $serverUptimeThreshold = $decodedJson['serverUptimeThreshold'];
-
-        /** @var float $networkUptimeThreshold */
-        $networkUptimeThreshold = $decodedJson['networkUptimeThreshold'];
-
-        return new SlaDefinition
-        (
-            $slaName, $serverUptimeThreshold, $networkUptimeThreshold
-        );
-    }
-}
-
-
-class ServerUptimeStats
-{
-    public function __construct
-    (
-        public readonly string $serverFqdn,
-        public readonly float $serverUptime,
-        public readonly int $serverDowntime,
-        public readonly bool $slaDeviation,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $serverFqdn */
-        $serverFqdn = $decodedJson['serverFqdn'];
-
-        /** @var float $serverUptime */
-        $serverUptime = $decodedJson['serverUptime'];
-
-        /** @var int $serverDowntime */
-        $serverDowntime = $decodedJson['serverDowntime'];
-
-        /** @var bool $slaDeviation */
-        $slaDeviation = $decodedJson['slaDeviation'];
-
-        return new ServerUptimeStats
-        (
-            $serverFqdn, $serverUptime, $serverDowntime, $slaDeviation
-        );
-    }
-}
-
-
-class SlaDashboardInput
-{
-    /**
-     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval
-     */
-    public function __construct
-    (
-        public readonly array $interval,
-        public readonly int|null $serverId,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['interval'][0]);
-        $var0[] = $decodedJson['interval'][1];
-        $var0[] = $decodedJson['interval'][2];
-        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval */
-        $interval = $var0;
-
-        /** @var int|null $serverId */
-        $serverId = $decodedJson['serverId'];
-
-        return new SlaDashboardInput
-        (
-            $interval, $serverId
-        );
-    }
-}
-
-
-class ServerCheckupStats
-{
-    /**
-     * @param string[] $overdueServers
-     */
-    public function __construct
-    (
-        public readonly array $overdueServers,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $var0 = array();
-        foreach ($decodedJson['overdueServers'] as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string[] $overdueServers */
-        $overdueServers = $var0;
-
-        return new ServerCheckupStats
-        (
-            $overdueServers
-        );
-    }
-}
+// generated on 2026-02-25T12:17:55.938134518Z
 
 namespace ShockMedia\Generated\Auth;
-
-
-class ApiToken
-{
-    /**
-     * @param \ShockMedia\Generated\Auth\Permission[] $permissions
-     * @param string[]|null $ipWhitelist
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $name,
-        public readonly string|null $expiryDate,
-        public readonly array $permissions,
-        public readonly array|null $ipWhitelist,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string|null $expiryDate */
-        $expiryDate = $decodedJson['expiryDate'];
-
-        $var0 = array();
-        foreach ($decodedJson['permissions'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Auth\Permission::from($element0);
-        }
-        /** @var \ShockMedia\Generated\Auth\Permission[] $permissions */
-        $permissions = $var0;
-
-        if ($decodedJson['ipWhitelist'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['ipWhitelist'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var string[]|null $ipWhitelist */
-        $ipWhitelist = $var0;
-
-        return new ApiToken
-        (
-            $id, $name, $expiryDate, $permissions, $ipWhitelist
-        );
-    }
-}
 
 
 class SessionFilter
@@ -1410,69 +49,46 @@ class SessionFilter
 }
 
 
-class Customer
+class Session
 {
     public function __construct
     (
+        public readonly string $tokenHash,
+        public readonly string|null $userAgent,
+        public readonly string $expires,
+        public readonly bool $isCurrent,
+        public readonly string $account,
         public readonly int $customerId,
-        public readonly bool $affiliate,
-        public readonly \ShockMedia\Generated\Account\Account|null $myAccount,
+        public readonly int|null $shadowCustomerId,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
+        /** @var string $tokenHash */
+        $tokenHash = $decodedJson['tokenHash'];
+
+        /** @var string|null $userAgent */
+        $userAgent = $decodedJson['userAgent'];
+
+        /** @var string $expires */
+        $expires = $decodedJson['expires'];
+
+        /** @var bool $isCurrent */
+        $isCurrent = $decodedJson['isCurrent'];
+
+        /** @var string $account */
+        $account = $decodedJson['account'];
+
         /** @var int $customerId */
         $customerId = $decodedJson['customerId'];
 
-        /** @var bool $affiliate */
-        $affiliate = $decodedJson['affiliate'];
+        /** @var int|null $shadowCustomerId */
+        $shadowCustomerId = $decodedJson['shadowCustomerId'];
 
-        if ($decodedJson['myAccount'] === NULL) {
-            $myAccount = NULL;
-        } else {
-            $myAccount = \ShockMedia\Generated\Account\Account::fromDecodedJson($decodedJson['myAccount']);
-        }
-
-        return new Customer
+        return new Session
         (
-            $customerId, $affiliate, $myAccount
-        );
-    }
-}
-
-
-class AssociateAccount
-{
-    /**
-     * @param string[] $permissions
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $username,
-        public readonly array $permissions,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $username */
-        $username = $decodedJson['username'];
-
-        $var0 = array();
-        foreach ($decodedJson['permissions'] as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string[] $permissions */
-        $permissions = $var0;
-
-        return new AssociateAccount
-        (
-            $id, $username, $permissions
+            $tokenHash, $userAgent, $expires, $isCurrent, $account, $customerId, $shadowCustomerId
         );
     }
 }
@@ -1515,6 +131,74 @@ class MyShockAccounts
         return new MyShockAccounts
         (
             $token, $apiToken, $associate, $customer
+        );
+    }
+}
+
+
+class ApiTokenFilter
+{
+    /**
+     * @param string[]|null $permissions
+     */
+    public function __construct
+    (
+        public readonly string|null $nameLike,
+        public readonly array|null $permissions,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $nameLike */
+        $nameLike = $decodedJson['nameLike'];
+
+        if ($decodedJson['permissions'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['permissions'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string[]|null $permissions */
+        $permissions = $var0;
+
+        return new ApiTokenFilter
+        (
+            $nameLike, $permissions
+        );
+    }
+}
+
+
+class Customer
+{
+    public function __construct
+    (
+        public readonly int $customerId,
+        public readonly bool $affiliate,
+        public readonly \ShockMedia\Generated\Account\Account|null $myAccount,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $customerId */
+        $customerId = $decodedJson['customerId'];
+
+        /** @var bool $affiliate */
+        $affiliate = $decodedJson['affiliate'];
+
+        if ($decodedJson['myAccount'] === NULL) {
+            $myAccount = NULL;
+        } else {
+            $myAccount = \ShockMedia\Generated\Account\Account::fromDecodedJson($decodedJson['myAccount']);
+        }
+
+        return new Customer
+        (
+            $customerId, $affiliate, $myAccount
         );
     }
 }
@@ -1621,46 +305,61 @@ class AuthState
 }
 
 
-class Session
+enum AuthFactor: string
 {
+    case USER_PASS = 'USER_PASS';
+    case OTP = 'OTP';
+}
+
+
+class ApiToken
+{
+    /**
+     * @param \ShockMedia\Generated\Auth\Permission[] $permissions
+     * @param string[]|null $ipWhitelist
+     */
     public function __construct
     (
-        public readonly string $tokenHash,
-        public readonly string|null $userAgent,
-        public readonly string $expires,
-        public readonly bool $isCurrent,
-        public readonly string $account,
-        public readonly int $customerId,
-        public readonly int|null $shadowCustomerId,
+        public readonly int $id,
+        public readonly string $name,
+        public readonly string|null $expiryDate,
+        public readonly array $permissions,
+        public readonly array|null $ipWhitelist,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $tokenHash */
-        $tokenHash = $decodedJson['tokenHash'];
+        /** @var int $id */
+        $id = $decodedJson['id'];
 
-        /** @var string|null $userAgent */
-        $userAgent = $decodedJson['userAgent'];
+        /** @var string $name */
+        $name = $decodedJson['name'];
 
-        /** @var string $expires */
-        $expires = $decodedJson['expires'];
+        /** @var string|null $expiryDate */
+        $expiryDate = $decodedJson['expiryDate'];
 
-        /** @var bool $isCurrent */
-        $isCurrent = $decodedJson['isCurrent'];
+        $var0 = array();
+        foreach ($decodedJson['permissions'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Auth\Permission::from($element0);
+        }
+        /** @var \ShockMedia\Generated\Auth\Permission[] $permissions */
+        $permissions = $var0;
 
-        /** @var string $account */
-        $account = $decodedJson['account'];
+        if ($decodedJson['ipWhitelist'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['ipWhitelist'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string[]|null $ipWhitelist */
+        $ipWhitelist = $var0;
 
-        /** @var int $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        /** @var int|null $shadowCustomerId */
-        $shadowCustomerId = $decodedJson['shadowCustomerId'];
-
-        return new Session
+        return new ApiToken
         (
-            $tokenHash, $userAgent, $expires, $isCurrent, $account, $customerId, $shadowCustomerId
+            $id, $name, $expiryDate, $permissions, $ipWhitelist
         );
     }
 }
@@ -1722,44 +421,37 @@ enum Permission: string
 }
 
 
-enum AuthFactor: string
-{
-    case USER_PASS = 'USER_PASS';
-    case OTP = 'OTP';
-}
-
-
-class ApiTokenFilter
+class AssociateAccount
 {
     /**
-     * @param string[]|null $permissions
+     * @param string[] $permissions
      */
     public function __construct
     (
-        public readonly string|null $nameLike,
-        public readonly array|null $permissions,
+        public readonly int $id,
+        public readonly string $username,
+        public readonly array $permissions,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string|null $nameLike */
-        $nameLike = $decodedJson['nameLike'];
+        /** @var int $id */
+        $id = $decodedJson['id'];
 
-        if ($decodedJson['permissions'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['permissions'] as $element0) {
-                $var0[] = $element0;
-            }
+        /** @var string $username */
+        $username = $decodedJson['username'];
+
+        $var0 = array();
+        foreach ($decodedJson['permissions'] as $element0) {
+            $var0[] = $element0;
         }
-        /** @var string[]|null $permissions */
+        /** @var string[] $permissions */
         $permissions = $var0;
 
-        return new ApiTokenFilter
+        return new AssociateAccount
         (
-            $nameLike, $permissions
+            $id, $username, $permissions
         );
     }
 }
@@ -1782,45 +474,626 @@ enum AccountTypesItem: string
     case ASSOCIATE = 'ASSOCIATE';
     case AFFILIATE = 'AFFILIATE';
 }
-namespace ShockMedia\Generated\Partners;
+namespace ShockMedia\Generated\Customers;
 
 
-class KickbackPartner
+enum PaymentMethod: string
+{
+    case bank_transfer = 'bank_transfer';
+    case direct_debit = 'direct_debit';
+}
+
+
+class CustomerUpdate
 {
     public function __construct
     (
-        public readonly \ShockMedia\Generated\Customers\CustomerSummary $customer,
-        public readonly float $monthlyKickback,
-        public readonly bool $canShadow,
+        public readonly \ShockMedia\Generated\Customers\Address|null $address,
+        public readonly \ShockMedia\Generated\Customers\Address|null $postalAddress,
+        public readonly string|null $iban,
+        public readonly \ShockMedia\Generated\Customers\BillingInterval|null $billingInterval,
+        public readonly \ShockMedia\Generated\Customers\PaymentMethod|null $paymentMethod,
+        public readonly string|null $internalReference,
+        public readonly bool|null $autoUpgrade,
+        public readonly bool|null $mailExpeditorUpdateNotifications,
+        public readonly \ShockMedia\Generated\Customers\SecurityPreferencesUpdate|null $securityPreferences,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        $customer = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($decodedJson['customer']);
+        if ($decodedJson['address'] === NULL) {
+            $address = NULL;
+        } else {
+            $address = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['address']);
+        }
 
-        /** @var float $monthlyKickback */
-        $monthlyKickback = $decodedJson['monthlyKickback'];
+        if ($decodedJson['postalAddress'] === NULL) {
+            $postalAddress = NULL;
+        } else {
+            $postalAddress = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['postalAddress']);
+        }
 
-        /** @var bool $canShadow */
-        $canShadow = $decodedJson['canShadow'];
+        /** @var string|null $iban */
+        $iban = $decodedJson['iban'];
 
-        return new KickbackPartner
+        if ($decodedJson['billingInterval'] === NULL) {
+            $billingInterval = NULL;
+        } else {
+            $billingInterval = \ShockMedia\Generated\Customers\BillingInterval::from($decodedJson['billingInterval']);
+        }
+
+        if ($decodedJson['paymentMethod'] === NULL) {
+            $paymentMethod = NULL;
+        } else {
+            $paymentMethod = \ShockMedia\Generated\Customers\PaymentMethod::from($decodedJson['paymentMethod']);
+        }
+
+        /** @var string|null $internalReference */
+        $internalReference = $decodedJson['internalReference'];
+
+        /** @var bool|null $autoUpgrade */
+        $autoUpgrade = $decodedJson['autoUpgrade'];
+
+        /** @var bool|null $mailExpeditorUpdateNotifications */
+        $mailExpeditorUpdateNotifications = $decodedJson['mailExpeditorUpdateNotifications'];
+
+        if ($decodedJson['securityPreferences'] === NULL) {
+            $securityPreferences = NULL;
+        } else {
+            $securityPreferences = \ShockMedia\Generated\Customers\SecurityPreferencesUpdate::fromDecodedJson($decodedJson['securityPreferences']);
+        }
+
+        return new CustomerUpdate
         (
-            $customer, $monthlyKickback, $canShadow
+            $address, $postalAddress, $iban, $billingInterval, $paymentMethod, $internalReference, $autoUpgrade, $mailExpeditorUpdateNotifications, $securityPreferences
         );
     }
 }
 
 
-class DiscountSpec
+class SecurityPreferencesUpdate
+{
+    public function __construct
+    (
+        public readonly \ShockMedia\Generated\Customers\CorrespondenceByEmailMode|null $correspondenceByEmail,
+        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedTicketLinks,
+        public readonly \ShockMedia\Generated\Customers\SecurityPreferencesUpdate\AuthenticatedTicketLifetimeAlt2|null $authenticatedTicketLifetime,
+        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedInvoiceLinks,
+        public readonly string|null $authenticatedInvoiceLifetime,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        if ($decodedJson['correspondenceByEmail'] === NULL) {
+            $correspondenceByEmail = NULL;
+        } else {
+            $correspondenceByEmail = \ShockMedia\Generated\Customers\CorrespondenceByEmailMode::from($decodedJson['correspondenceByEmail']);
+        }
+
+        if ($decodedJson['authenticatedTicketLinks'] === NULL) {
+            $authenticatedTicketLinks = NULL;
+        } else {
+            $authenticatedTicketLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedTicketLinks']);
+        }
+
+        if ($decodedJson['authenticatedTicketLifetime'] === NULL) {
+            $authenticatedTicketLifetime = NULL;
+        } else {
+            $authenticatedTicketLifetime = \ShockMedia\Generated\Customers\SecurityPreferencesUpdate\AuthenticatedTicketLifetimeAlt2::fromDecodedJson($decodedJson['authenticatedTicketLifetime']);
+        }
+
+        if ($decodedJson['authenticatedInvoiceLinks'] === NULL) {
+            $authenticatedInvoiceLinks = NULL;
+        } else {
+            $authenticatedInvoiceLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedInvoiceLinks']);
+        }
+
+        /** @var string|null $authenticatedInvoiceLifetime */
+        $authenticatedInvoiceLifetime = $decodedJson['authenticatedInvoiceLifetime'];
+
+        return new SecurityPreferencesUpdate
+        (
+            $correspondenceByEmail, $authenticatedTicketLinks, $authenticatedTicketLifetime, $authenticatedInvoiceLinks, $authenticatedInvoiceLifetime
+        );
+    }
+}
+
+
+enum AuthenticatedLinkMode: string
+{
+    case enabled = 'enabled';
+    case do_not_email = 'do_not_email';
+    case disabled = 'disabled';
+}
+
+
+enum AdministrationCosts: string
+{
+    case none = 'none';
+    case normal = 'normal';
+}
+
+
+enum BillingInterval: string
+{
+    case monthly = 'monthly';
+    case quarterly = 'quarterly';
+    case semiannually = 'semiannually';
+    case annually = 'annually';
+    case biennially = 'biennially';
+}
+
+
+class CustomerSummary
+{
+    public function __construct
+    (
+        public readonly int $customerId,
+        public readonly string|null $companyName,
+        public readonly string|null $firstName,
+        public readonly string|null $lastName,
+        public readonly string|null $city,
+        public readonly bool|null $canLoginAsAffiliate,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $customerId */
+        $customerId = $decodedJson['customerId'];
+
+        /** @var string|null $companyName */
+        $companyName = $decodedJson['companyName'];
+
+        /** @var string|null $firstName */
+        $firstName = $decodedJson['firstName'];
+
+        /** @var string|null $lastName */
+        $lastName = $decodedJson['lastName'];
+
+        /** @var string|null $city */
+        $city = $decodedJson['city'];
+
+        /** @var bool|null $canLoginAsAffiliate */
+        $canLoginAsAffiliate = $decodedJson['canLoginAsAffiliate'];
+
+        return new CustomerSummary
+        (
+            $customerId, $companyName, $firstName, $lastName, $city, $canLoginAsAffiliate
+        );
+    }
+}
+
+
+class Address
+{
+    public function __construct
+    (
+        public readonly string|null $streetName,
+        public readonly string|null $houseNumber,
+        public readonly string|null $postalCode,
+        public readonly string|null $location,
+        public readonly string|null $country,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $streetName */
+        $streetName = $decodedJson['streetName'];
+
+        /** @var string|null $houseNumber */
+        $houseNumber = $decodedJson['houseNumber'];
+
+        /** @var string|null $postalCode */
+        $postalCode = $decodedJson['postalCode'];
+
+        /** @var string|null $location */
+        $location = $decodedJson['location'];
+
+        /** @var string|null $country */
+        $country = $decodedJson['country'];
+
+        return new Address
+        (
+            $streetName, $houseNumber, $postalCode, $location, $country
+        );
+    }
+}
+
+
+class BillingPreferences
+{
+    public function __construct
+    (
+        public readonly \ShockMedia\Generated\Customers\PaymentMethod $paymentMethod,
+        public readonly bool $autoUpgrade,
+        public readonly \ShockMedia\Generated\Customers\BillingInterval $billingInterval,
+        public readonly string|null $iban,
+        public readonly string|null $internalReference,
+        public readonly int|null $paymentTerm,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $paymentMethod = \ShockMedia\Generated\Customers\PaymentMethod::from($decodedJson['paymentMethod']);
+
+        /** @var bool $autoUpgrade */
+        $autoUpgrade = $decodedJson['autoUpgrade'];
+
+        $billingInterval = \ShockMedia\Generated\Customers\BillingInterval::from($decodedJson['billingInterval']);
+
+        /** @var string|null $iban */
+        $iban = $decodedJson['iban'];
+
+        /** @var string|null $internalReference */
+        $internalReference = $decodedJson['internalReference'];
+
+        /** @var int|null $paymentTerm */
+        $paymentTerm = $decodedJson['paymentTerm'];
+
+        return new BillingPreferences
+        (
+            $paymentMethod, $autoUpgrade, $billingInterval, $iban, $internalReference, $paymentTerm
+        );
+    }
+}
+
+
+class CustomerSettings
+{
+    public function __construct
+    (
+        public readonly \ShockMedia\Generated\Customers\InvoiceMethod $invoiceMethod,
+        public readonly int $vat,
+        public readonly \ShockMedia\Generated\Customers\AdministrationCosts $administrationCosts,
+        public readonly bool $mailExpeditorUpdateNotifications,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $invoiceMethod = \ShockMedia\Generated\Customers\InvoiceMethod::from($decodedJson['invoiceMethod']);
+
+        /** @var int $vat */
+        $vat = $decodedJson['vat'];
+
+        $administrationCosts = \ShockMedia\Generated\Customers\AdministrationCosts::from($decodedJson['administrationCosts']);
+
+        /** @var bool $mailExpeditorUpdateNotifications */
+        $mailExpeditorUpdateNotifications = $decodedJson['mailExpeditorUpdateNotifications'];
+
+        return new CustomerSettings
+        (
+            $invoiceMethod, $vat, $administrationCosts, $mailExpeditorUpdateNotifications
+        );
+    }
+}
+
+
+class Customer
+{
+    public function __construct
+    (
+        public readonly int $customerId,
+        public readonly string|null $companyName,
+        public readonly string|null $firstName,
+        public readonly string|null $lastName,
+        public readonly \ShockMedia\Generated\Customers\CustomerSettings $settings,
+        public readonly \ShockMedia\Generated\Customers\BillingPreferences $billing,
+        public readonly \ShockMedia\Generated\Customers\Address $businessAddress,
+        public readonly \ShockMedia\Generated\Customers\Address $postalAddress,
+        public readonly string|null $affiliateCode,
+        public readonly string|null $cocId,
+        public readonly string|null $sidnResellerId,
+        public readonly bool $partner,
+        public readonly bool $magentoAllowNew,
+        public readonly \ShockMedia\Generated\Customers\SecurityPreferences $securityPreferences,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $customerId */
+        $customerId = $decodedJson['customerId'];
+
+        /** @var string|null $companyName */
+        $companyName = $decodedJson['companyName'];
+
+        /** @var string|null $firstName */
+        $firstName = $decodedJson['firstName'];
+
+        /** @var string|null $lastName */
+        $lastName = $decodedJson['lastName'];
+
+        $settings = \ShockMedia\Generated\Customers\CustomerSettings::fromDecodedJson($decodedJson['settings']);
+
+        $billing = \ShockMedia\Generated\Customers\BillingPreferences::fromDecodedJson($decodedJson['billing']);
+
+        $businessAddress = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['businessAddress']);
+
+        $postalAddress = \ShockMedia\Generated\Customers\Address::fromDecodedJson($decodedJson['postalAddress']);
+
+        /** @var string|null $affiliateCode */
+        $affiliateCode = $decodedJson['affiliateCode'];
+
+        /** @var string|null $cocId */
+        $cocId = $decodedJson['cocId'];
+
+        /** @var string|null $sidnResellerId */
+        $sidnResellerId = $decodedJson['sidnResellerId'];
+
+        /** @var bool $partner */
+        $partner = $decodedJson['partner'];
+
+        /** @var bool $magentoAllowNew */
+        $magentoAllowNew = $decodedJson['magentoAllowNew'];
+
+        $securityPreferences = \ShockMedia\Generated\Customers\SecurityPreferences::fromDecodedJson($decodedJson['securityPreferences']);
+
+        return new Customer
+        (
+            $customerId, $companyName, $firstName, $lastName, $settings, $billing, $businessAddress, $postalAddress, $affiliateCode, $cocId, $sidnResellerId, $partner, $magentoAllowNew, $securityPreferences
+        );
+    }
+}
+
+
+enum CorrespondenceByEmailMode: string
+{
+    case enabled = 'enabled';
+    case disable_incoming = 'disable_incoming';
+    case disabled = 'disabled';
+}
+
+
+enum InvoiceMethod: string
+{
+    case dont_send = 'dont_send';
+    case post = 'post';
+    case mail = 'mail';
+    case post_mail = 'post_mail';
+}
+
+
+class SecurityPreferences
+{
+    public function __construct
+    (
+        public readonly string|null $lastChanged,
+        public readonly \ShockMedia\Generated\Customers\CorrespondenceByEmailMode|null $correspondenceByEmail,
+        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedTicketLinks,
+        public readonly string|null $authenticatedTicketLifetime,
+        public readonly \ShockMedia\Generated\Customers\AuthenticatedLinkMode|null $authenticatedInvoiceLinks,
+        public readonly string|null $authenticatedInvoiceLifetime,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $lastChanged */
+        $lastChanged = $decodedJson['lastChanged'];
+
+        if ($decodedJson['correspondenceByEmail'] === NULL) {
+            $correspondenceByEmail = NULL;
+        } else {
+            $correspondenceByEmail = \ShockMedia\Generated\Customers\CorrespondenceByEmailMode::from($decodedJson['correspondenceByEmail']);
+        }
+
+        if ($decodedJson['authenticatedTicketLinks'] === NULL) {
+            $authenticatedTicketLinks = NULL;
+        } else {
+            $authenticatedTicketLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedTicketLinks']);
+        }
+
+        /** @var string|null $authenticatedTicketLifetime */
+        $authenticatedTicketLifetime = $decodedJson['authenticatedTicketLifetime'];
+
+        if ($decodedJson['authenticatedInvoiceLinks'] === NULL) {
+            $authenticatedInvoiceLinks = NULL;
+        } else {
+            $authenticatedInvoiceLinks = \ShockMedia\Generated\Customers\AuthenticatedLinkMode::from($decodedJson['authenticatedInvoiceLinks']);
+        }
+
+        /** @var string|null $authenticatedInvoiceLifetime */
+        $authenticatedInvoiceLifetime = $decodedJson['authenticatedInvoiceLifetime'];
+
+        return new SecurityPreferences
+        (
+            $lastChanged, $correspondenceByEmail, $authenticatedTicketLinks, $authenticatedTicketLifetime, $authenticatedInvoiceLinks, $authenticatedInvoiceLifetime
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Customers\SecurityPreferencesUpdate;
+
+
+class AuthenticatedTicketLifetimeAlt2
+{
+    public function __construct
+    (
+        public readonly string|null $value,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $value */
+        $value = $decodedJson['value'];
+
+        return new AuthenticatedTicketLifetimeAlt2
+        (
+            $value
+        );
+    }
+}
+namespace ShockMedia\Generated\Domains;
+
+
+enum DnsErrorCode: string
+{
+    case MISSING_SOA_RECORD = 'MISSING_SOA_RECORD';
+    case MISSING_NS_RECORD = 'MISSING_NS_RECORD';
+    case CNAME_RECORD_EQUALS_ZONE = 'CNAME_RECORD_EQUALS_ZONE';
+    case CNAME_RECORD_CLASH = 'CNAME_RECORD_CLASH';
+    case INVALID_RECORD_NAME = 'INVALID_RECORD_NAME';
+    case RECORD_NAME_NO_TWO_DOTS = 'RECORD_NAME_NO_TWO_DOTS';
+    case LEADING_WHITESPACE_IN_CONTENT = 'LEADING_WHITESPACE_IN_CONTENT';
+    case TRAILING_WHITESPACE_IN_CONTENT = 'TRAILING_WHITESPACE_IN_CONTENT';
+    case IP_ADDRESS_NOT_ALLOWED = 'IP_ADDRESS_NOT_ALLOWED';
+    case MISSING_CONTENT = 'MISSING_CONTENT';
+    case INVALID_CONTENT = 'INVALID_CONTENT';
+    case INVALID_SRV_CONTENT = 'INVALID_SRV_CONTENT';
+    case INVALID_IPV4 = 'INVALID_IPV4';
+    case INVALID_IPV6 = 'INVALID_IPV6';
+    case INVALID_HOSTNAME = 'INVALID_HOSTNAME';
+    case PRIORITY_NOT_ALLOWED = 'PRIORITY_NOT_ALLOWED';
+    case MISSING_PRIORITY = 'MISSING_PRIORITY';
+    case INVALID_PRIORITY = 'INVALID_PRIORITY';
+    case UNKNOWN_RECORD_TYPE = 'UNKNOWN_RECORD_TYPE';
+    case INVALID_TTL = 'INVALID_TTL';
+    case MIXED_RRSET_TTL = 'MIXED_RRSET_TTL';
+}
+
+
+enum EditableDnsRecordType: string
+{
+    case A = 'A';
+    case AAAA = 'AAAA';
+    case CAA = 'CAA';
+    case CNAME = 'CNAME';
+    case MX = 'MX';
+    case SRV = 'SRV';
+    case TXT = 'TXT';
+}
+
+
+class DomainFilter
+{
+    public function __construct
+    (
+        public readonly string|null $nameContains,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $nameContains */
+        $nameContains = $decodedJson['nameContains'];
+
+        return new DomainFilter
+        (
+            $nameContains
+        );
+    }
+}
+
+
+class ValidationErrors
+{
+    /**
+     * @param \ShockMedia\Generated\Domains\DnsErrorCode[] $zone
+     * @param (array{int|null,\ShockMedia\Generated\Domains\DnsErrorCode})[] $records
+     */
+    public function __construct
+    (
+        public readonly array $zone,
+        public readonly array $records,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $var0 = array();
+        foreach ($decodedJson['zone'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Domains\DnsErrorCode::from($element0);
+        }
+        /** @var \ShockMedia\Generated\Domains\DnsErrorCode[] $zone */
+        $zone = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['records'] as $element0) {
+            $var1 = array();
+            $var1[] = $element0[0];
+            $var1[] = \ShockMedia\Generated\Domains\DnsErrorCode::from($element0[1]);
+            $var0[] = $var1;
+        }
+        /** @var (array{int|null,\ShockMedia\Generated\Domains\DnsErrorCode})[] $records */
+        $records = $var0;
+
+        return new ValidationErrors
+        (
+            $zone, $records
+        );
+    }
+}
+
+
+enum DnsRecordType: string
+{
+    case A = 'A';
+    case AAAA = 'AAAA';
+    case AFSDB = 'AFSDB';
+    case ALIAS = 'ALIAS';
+    case APL = 'APL';
+    case CAA = 'CAA';
+    case CDNSKEY = 'CDNSKEY';
+    case CDS = 'CDS';
+    case CERT = 'CERT';
+    case CNAME = 'CNAME';
+    case CSYNC = 'CSYNC';
+    case DHCID = 'DHCID';
+    case DLV = 'DLV';
+    case DNAME = 'DNAME';
+    case DNSKEY = 'DNSKEY';
+    case DS = 'DS';
+    case EUI48 = 'EUI48';
+    case EUI64 = 'EUI64';
+    case HINFO = 'HINFO';
+    case HIP = 'HIP';
+    case HTTPS = 'HTTPS';
+    case IPSECKEY = 'IPSECKEY';
+    case KEY = 'KEY';
+    case KX = 'KX';
+    case LOC = 'LOC';
+    case MX = 'MX';
+    case NAPTR = 'NAPTR';
+    case NS = 'NS';
+    case NSEC = 'NSEC';
+    case NSEC3 = 'NSEC3';
+    case NSEC3PARAM = 'NSEC3PARAM';
+    case OPENPGPKEY = 'OPENPGPKEY';
+    case PTR = 'PTR';
+    case RP = 'RP';
+    case RRSIG = 'RRSIG';
+    case SIG = 'SIG';
+    case SMIMEA = 'SMIMEA';
+    case SOA = 'SOA';
+    case SRV = 'SRV';
+    case SSHFP = 'SSHFP';
+    case SVCB = 'SVCB';
+    case TA = 'TA';
+    case TKEY = 'TKEY';
+    case TLSA = 'TLSA';
+    case TSIG = 'TSIG';
+    case TXT = 'TXT';
+    case URI = 'URI';
+    case ZONEMD = 'ZONEMD';
+}
+
+
+class DnsRecordInput
 {
     public function __construct
     (
         public readonly string $name,
-        public readonly float $price,
-        public readonly bool $priceVaries,
-        public readonly float $kickbackFee,
+        public readonly \ShockMedia\Generated\Domains\EditableDnsRecordType $type,
+        public readonly int $ttl,
+        public readonly string $content,
+        public readonly int|null $prio,
     ) {
     }
 
@@ -1829,235 +1102,135 @@ class DiscountSpec
         /** @var string $name */
         $name = $decodedJson['name'];
 
-        /** @var float $price */
-        $price = $decodedJson['price'];
+        $type = \ShockMedia\Generated\Domains\EditableDnsRecordType::from($decodedJson['type']);
 
-        /** @var bool $priceVaries */
-        $priceVaries = $decodedJson['priceVaries'];
+        /** @var int $ttl */
+        $ttl = $decodedJson['ttl'];
 
-        /** @var float $kickbackFee */
-        $kickbackFee = $decodedJson['kickbackFee'];
+        /** @var string $content */
+        $content = $decodedJson['content'];
 
-        return new DiscountSpec
+        /** @var int|null $prio */
+        $prio = $decodedJson['prio'];
+
+        return new DnsRecordInput
         (
-            $name, $price, $priceVaries, $kickbackFee
+            $name, $type, $ttl, $content, $prio
         );
     }
 }
 
 
-class ReleasedKickback
+class Domain
 {
     /**
-     * @param string[] $serverNames
+     * @param \ShockMedia\Generated\Domains\DnsRecord[]|null $records
      */
     public function __construct
     (
-        public readonly int $id,
-        public readonly string $startDate,
-        public readonly string $endDate,
-        public readonly float $fee,
-        public readonly string $releaseDate,
-        public readonly string $expireDate,
-        public readonly float $kickbackFee,
-        public readonly string $productName,
-        public readonly string|null $domain,
-        public readonly array $serverNames,
-        public readonly \ShockMedia\Generated\Customers\CustomerSummary $customer,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $startDate */
-        $startDate = $decodedJson['startDate'];
-
-        /** @var string $endDate */
-        $endDate = $decodedJson['endDate'];
-
-        /** @var float $fee */
-        $fee = $decodedJson['fee'];
-
-        /** @var string $releaseDate */
-        $releaseDate = $decodedJson['releaseDate'];
-
-        /** @var string $expireDate */
-        $expireDate = $decodedJson['expireDate'];
-
-        /** @var float $kickbackFee */
-        $kickbackFee = $decodedJson['kickbackFee'];
-
-        /** @var string $productName */
-        $productName = $decodedJson['productName'];
-
-        /** @var string|null $domain */
-        $domain = $decodedJson['domain'];
-
-        $var0 = array();
-        foreach ($decodedJson['serverNames'] as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string[] $serverNames */
-        $serverNames = $var0;
-
-        $customer = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($decodedJson['customer']);
-
-        return new ReleasedKickback
-        (
-            $id, $startDate, $endDate, $fee, $releaseDate, $expireDate, $kickbackFee, $productName, $domain, $serverNames, $customer
-        );
-    }
-}
-
-
-class DiscountGroup
-{
-    /**
-     * @param \ShockMedia\Generated\Partners\DiscountSpec[] $discounts
-     */
-    public function __construct
-    (
+        public readonly int|null $notifiedSerial,
+        public readonly string|null $account,
         public readonly string $name,
-        public readonly int $sortPrio,
-        public readonly array $discounts,
+        public readonly string|null $type,
+        public readonly int|null $lastCheck,
+        public readonly bool $hasHostingPackage,
+        public readonly bool $hasDns,
+        public readonly \ShockMedia\Generated\Webforwarding\WebForwardingState|null $webForwarding,
+        public readonly array|null $records,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
+        /** @var int|null $notifiedSerial */
+        $notifiedSerial = $decodedJson['notifiedSerial'];
+
+        /** @var string|null $account */
+        $account = $decodedJson['account'];
+
         /** @var string $name */
         $name = $decodedJson['name'];
 
-        /** @var int $sortPrio */
-        $sortPrio = $decodedJson['sortPrio'];
+        /** @var string|null $type */
+        $type = $decodedJson['type'];
 
-        $var0 = array();
-        foreach ($decodedJson['discounts'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Partners\DiscountSpec::fromDecodedJson($element0);
+        /** @var int|null $lastCheck */
+        $lastCheck = $decodedJson['lastCheck'];
+
+        /** @var bool $hasHostingPackage */
+        $hasHostingPackage = $decodedJson['hasHostingPackage'];
+
+        /** @var bool $hasDns */
+        $hasDns = $decodedJson['hasDns'];
+
+        if ($decodedJson['webForwarding'] === NULL) {
+            $webForwarding = NULL;
+        } else {
+            $webForwarding = \ShockMedia\Generated\Webforwarding\WebForwardingState::fromDecodedJson($decodedJson['webForwarding']);
         }
-        /** @var \ShockMedia\Generated\Partners\DiscountSpec[] $discounts */
-        $discounts = $var0;
 
-        return new DiscountGroup
-        (
-            $name, $sortPrio, $discounts
-        );
-    }
-}
-
-
-class KickbackClaim
-{
-    /**
-     * @param \ShockMedia\Generated\Partners\ReleasedKickback[]|null $entries
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly float $amount,
-        public readonly string $claimDate,
-        public readonly string|null $payDate,
-        public readonly array|null $entries,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var float $amount */
-        $amount = $decodedJson['amount'];
-
-        /** @var string $claimDate */
-        $claimDate = $decodedJson['claimDate'];
-
-        /** @var string|null $payDate */
-        $payDate = $decodedJson['payDate'];
-
-        if ($decodedJson['entries'] === NULL) {
+        if ($decodedJson['records'] === NULL) {
             $var0 = NULL;
         } else {
             $var0 = array();
-            foreach ($decodedJson['entries'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Partners\ReleasedKickback::fromDecodedJson($element0);
+            foreach ($decodedJson['records'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Domains\DnsRecord::fromDecodedJson($element0);
             }
         }
-        /** @var \ShockMedia\Generated\Partners\ReleasedKickback[]|null $entries */
-        $entries = $var0;
+        /** @var \ShockMedia\Generated\Domains\DnsRecord[]|null $records */
+        $records = $var0;
 
-        return new KickbackClaim
+        return new Domain
         (
-            $id, $amount, $claimDate, $payDate, $entries
+            $notifiedSerial, $account, $name, $type, $lastCheck, $hasHostingPackage, $hasDns, $webForwarding, $records
         );
     }
 }
 
 
-class Kickback
+class DnsRecord
 {
-    /**
-     * @param (array{int,string})[] $servers
-     */
     public function __construct
     (
-        public readonly int|null $id,
-        public readonly int $acquiredOfferingId,
-        public readonly string $productName,
-        public readonly float $kickbackFee,
-        public readonly int $quantity,
-        public readonly string|null $start,
-        public readonly string|null $end,
-        public readonly string|null $domain,
-        public readonly array $servers,
-        public readonly \ShockMedia\Generated\Customers\CustomerSummary $customer,
+        public readonly int $id,
+        public readonly bool $editable,
+        public readonly string $domainName,
+        public readonly string $name,
+        public readonly \ShockMedia\Generated\Domains\DnsRecordType $type,
+        public readonly int $ttl,
+        public readonly string $content,
+        public readonly int|null $prio,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int|null $id */
+        /** @var int $id */
         $id = $decodedJson['id'];
 
-        /** @var int $acquiredOfferingId */
-        $acquiredOfferingId = $decodedJson['acquiredOfferingId'];
+        /** @var bool $editable */
+        $editable = $decodedJson['editable'];
 
-        /** @var string $productName */
-        $productName = $decodedJson['productName'];
+        /** @var string $domainName */
+        $domainName = $decodedJson['domainName'];
 
-        /** @var float $kickbackFee */
-        $kickbackFee = $decodedJson['kickbackFee'];
+        /** @var string $name */
+        $name = $decodedJson['name'];
 
-        /** @var int $quantity */
-        $quantity = $decodedJson['quantity'];
+        $type = \ShockMedia\Generated\Domains\DnsRecordType::from($decodedJson['type']);
 
-        /** @var string|null $start */
-        $start = $decodedJson['start'];
+        /** @var int $ttl */
+        $ttl = $decodedJson['ttl'];
 
-        /** @var string|null $end */
-        $end = $decodedJson['end'];
+        /** @var string $content */
+        $content = $decodedJson['content'];
 
-        /** @var string|null $domain */
-        $domain = $decodedJson['domain'];
+        /** @var int|null $prio */
+        $prio = $decodedJson['prio'];
 
-        $var0 = array();
-        foreach ($decodedJson['servers'] as $element0) {
-            $var1 = array();
-            $var1[] = $element0[0];
-            $var1[] = $element0[1];
-            $var0[] = $var1;
-        }
-        /** @var (array{int,string})[] $servers */
-        $servers = $var0;
-
-        $customer = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($decodedJson['customer']);
-
-        return new Kickback
+        return new DnsRecord
         (
-            $id, $acquiredOfferingId, $productName, $kickbackFee, $quantity, $start, $end, $domain, $servers, $customer
+            $id, $editable, $domainName, $name, $type, $ttl, $content, $prio
         );
     }
 }
@@ -2065,314 +1238,33 @@ class Kickback
 namespace ShockMedia\Generated\Servers;
 
 
-class ServerStatisticsFilter
-{
-    public function __construct
-    (
-        public readonly bool|null $includeCPU,
-        public readonly bool|null $includeTraffic,
-        public readonly bool|null $includeTrafficIncrement,
-        public readonly bool|null $includeDisk,
-        public readonly bool|null $includeMax,
-        public readonly bool|null $include95pct,
-        public readonly bool|null $includeMin,
-        public readonly bool|null $includeBackupUsage,
-        public readonly bool|null $splitTrafficIncrement,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var bool|null $includeCPU */
-        $includeCPU = $decodedJson['includeCPU'];
-
-        /** @var bool|null $includeTraffic */
-        $includeTraffic = $decodedJson['includeTraffic'];
-
-        /** @var bool|null $includeTrafficIncrement */
-        $includeTrafficIncrement = $decodedJson['includeTrafficIncrement'];
-
-        /** @var bool|null $includeDisk */
-        $includeDisk = $decodedJson['includeDisk'];
-
-        /** @var bool|null $includeMax */
-        $includeMax = $decodedJson['includeMax'];
-
-        /** @var bool|null $include95pct */
-        $include95pct = $decodedJson['include95pct'];
-
-        /** @var bool|null $includeMin */
-        $includeMin = $decodedJson['includeMin'];
-
-        /** @var bool|null $includeBackupUsage */
-        $includeBackupUsage = $decodedJson['includeBackupUsage'];
-
-        /** @var bool|null $splitTrafficIncrement */
-        $splitTrafficIncrement = $decodedJson['splitTrafficIncrement'];
-
-        return new ServerStatisticsFilter
-        (
-            $includeCPU, $includeTraffic, $includeTrafficIncrement, $includeDisk, $includeMax, $include95pct, $includeMin, $includeBackupUsage, $splitTrafficIncrement
-        );
-    }
-}
-
-
-enum ServerType: string
-{
-    case webhosting = 'webhosting';
-    case colocation = 'colocation';
-    case dedication = 'dedication';
-    case stockpile = 'stockpile';
-    case miscellaneous = 'miscellaneous';
-    case dedicated_firewall = 'dedicated_firewall';
-    case external_server = 'external_server';
-    case cloud_server = 'cloud_server';
-    case managed_switch = 'managed_switch';
-    case network_uplink = 'network_uplink';
-    case cloud_node = 'cloud_node';
-    case ipmi = 'ipmi';
-    case workstation = 'workstation';
-    case reseller_hosting = 'reseller_hosting';
-    case external_server_aws = 'external_server_aws';
-}
-
-
-class StatsData
+class BackupPlanSummary
 {
     /**
-     * @param string[] $datasourceNames
-     * @param string[] $timestamps
-     * @param (array{int|null,float|null[]})[] $values
+     * @param \ShockMedia\Generated\Servers\BackupPlan[] $plans
      */
     public function __construct
     (
-        public readonly string $statisticType,
-        public readonly array $datasourceNames,
-        public readonly array $timestamps,
-        public readonly array $values,
-        public readonly string|null $key,
-        public readonly string $machineKey,
+        public readonly array $plans,
+        public readonly int $spaceUsedByThisServer,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $statisticType */
-        $statisticType = $decodedJson['statisticType'];
-
         $var0 = array();
-        foreach ($decodedJson['datasourceNames'] as $element0) {
-            $var0[] = $element0;
+        foreach ($decodedJson['plans'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Servers\BackupPlan::fromDecodedJson($element0);
         }
-        /** @var string[] $datasourceNames */
-        $datasourceNames = $var0;
+        /** @var \ShockMedia\Generated\Servers\BackupPlan[] $plans */
+        $plans = $var0;
 
-        $var0 = array();
-        foreach ($decodedJson['timestamps'] as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string[] $timestamps */
-        $timestamps = $var0;
+        /** @var int $spaceUsedByThisServer */
+        $spaceUsedByThisServer = $decodedJson['spaceUsedByThisServer'];
 
-        $var0 = array();
-        foreach ($decodedJson['values'] as $element0) {
-            $var1 = array();
-            $var1[] = $element0[0];
-            $var2 = array();
-            foreach ($element0[1] as $element2) {
-                $var2[] = $element2;
-            }
-            $var1[] = $var2;
-            $var0[] = $var1;
-        }
-        /** @var (array{int|null,float|null[]})[] $values */
-        $values = $var0;
-
-        /** @var string|null $key */
-        $key = $decodedJson['key'];
-
-        /** @var string $machineKey */
-        $machineKey = $decodedJson['machineKey'];
-
-        return new StatsData
+        return new BackupPlanSummary
         (
-            $statisticType, $datasourceNames, $timestamps, $values, $key, $machineKey
-        );
-    }
-}
-
-
-class ServerPackage
-{
-    public function __construct
-    (
-        public readonly string $type,
-        public readonly string $description,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $type */
-        $type = $decodedJson['type'];
-
-        /** @var string $description */
-        $description = $decodedJson['description'];
-
-        return new ServerPackage
-        (
-            $type, $description
-        );
-    }
-}
-
-
-class MaintenanceInfo
-{
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string|null $applicationName,
-        public readonly string $name,
-        public readonly string $from,
-        public readonly string $till,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string|null $applicationName */
-        $applicationName = $decodedJson['applicationName'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string $from */
-        $from = $decodedJson['from'];
-
-        /** @var string $till */
-        $till = $decodedJson['till'];
-
-        return new MaintenanceInfo
-        (
-            $id, $applicationName, $name, $from, $till
-        );
-    }
-}
-
-
-class ItemInfo
-{
-    /**
-     * @param \ShockMedia\Generated\Servers\ItemInfo\Graph[] $graphs
-     */
-    public function __construct
-    (
-        public readonly string $itemid,
-        public readonly string $key,
-        public readonly string $name,
-        public readonly string $lastUpdated,
-        public readonly \ShockMedia\Generated\Servers\ItemInfo\ValueType $valueType,
-        public readonly string $unit,
-        public readonly array $graphs,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $itemid */
-        $itemid = $decodedJson['itemid'];
-
-        /** @var string $key */
-        $key = $decodedJson['key'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string $lastUpdated */
-        $lastUpdated = $decodedJson['lastUpdated'];
-
-        $valueType = \ShockMedia\Generated\Servers\ItemInfo\ValueType::from($decodedJson['valueType']);
-
-        /** @var string $unit */
-        $unit = $decodedJson['unit'];
-
-        $var0 = array();
-        foreach ($decodedJson['graphs'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Servers\ItemInfo\Graph::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Servers\ItemInfo\Graph[] $graphs */
-        $graphs = $var0;
-
-        return new ItemInfo
-        (
-            $itemid, $key, $name, $lastUpdated, $valueType, $unit, $graphs
-        );
-    }
-}
-
-
-class ItemHistory
-{
-    /**
-     * @param \ShockMedia\Generated\Stats\TimedMetric[] $history
-     * @param \ShockMedia\Generated\Stats\TimedMetric[] $avgTrend
-     */
-    public function __construct
-    (
-        public readonly string $itemid,
-        public readonly array $history,
-        public readonly array $avgTrend,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $itemid */
-        $itemid = $decodedJson['itemid'];
-
-        $var0 = array();
-        foreach ($decodedJson['history'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\TimedMetric::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\TimedMetric[] $history */
-        $history = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['avgTrend'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\TimedMetric::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\TimedMetric[] $avgTrend */
-        $avgTrend = $var0;
-
-        return new ItemHistory
-        (
-            $itemid, $history, $avgTrend
-        );
-    }
-}
-
-
-class ServerFilter
-{
-    public function __construct
-    (
-        public readonly string|null $fqdnContains,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $fqdnContains */
-        $fqdnContains = $decodedJson['fqdnContains'];
-
-        return new ServerFilter
-        (
-            $fqdnContains
+            $plans, $spaceUsedByThisServer
         );
     }
 }
@@ -2410,236 +1302,6 @@ class BackupJobFilter
         return new BackupJobFilter
         (
             $serverId, $serverFqdnLike, $hasActiveServer, $backupMachineLike, $expired
-        );
-    }
-}
-
-
-class BackupPlanSummary
-{
-    /**
-     * @param \ShockMedia\Generated\Servers\BackupPlan[] $plans
-     */
-    public function __construct
-    (
-        public readonly array $plans,
-        public readonly int $spaceUsedByThisServer,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $var0 = array();
-        foreach ($decodedJson['plans'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Servers\BackupPlan::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Servers\BackupPlan[] $plans */
-        $plans = $var0;
-
-        /** @var int $spaceUsedByThisServer */
-        $spaceUsedByThisServer = $decodedJson['spaceUsedByThisServer'];
-
-        return new BackupPlanSummary
-        (
-            $plans, $spaceUsedByThisServer
-        );
-    }
-}
-
-
-class TriggerInfo
-{
-    public function __construct
-    (
-        public readonly string|null $description,
-        public readonly \ShockMedia\Generated\Servers\TriggerPriority $priority,
-        public readonly bool $triggered,
-        public readonly string|null $lastChecked,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $description */
-        $description = $decodedJson['description'];
-
-        $priority = \ShockMedia\Generated\Servers\TriggerPriority::from($decodedJson['priority']);
-
-        /** @var bool $triggered */
-        $triggered = $decodedJson['triggered'];
-
-        /** @var string|null $lastChecked */
-        $lastChecked = $decodedJson['lastChecked'];
-
-        return new TriggerInfo
-        (
-            $description, $priority, $triggered, $lastChecked
-        );
-    }
-}
-
-
-class VirtualMachineInfo
-{
-    /**
-     * @param \ShockMedia\Generated\Servers\StatsData[] $stats
-     * @param \ShockMedia\Generated\Servers\VirtualMachineHddInfo[] $disks
-     */
-    public function __construct
-    (
-        public readonly string $status,
-        public readonly int|null $cpuCores,
-        public readonly int $customerId,
-        public readonly int|null $memory,
-        public readonly array $stats,
-        public readonly array $disks,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $status */
-        $status = $decodedJson['status'];
-
-        /** @var int|null $cpuCores */
-        $cpuCores = $decodedJson['cpuCores'];
-
-        /** @var int $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        /** @var int|null $memory */
-        $memory = $decodedJson['memory'];
-
-        $var0 = array();
-        foreach ($decodedJson['stats'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Servers\StatsData::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Servers\StatsData[] $stats */
-        $stats = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['disks'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Servers\VirtualMachineHddInfo::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Servers\VirtualMachineHddInfo[] $disks */
-        $disks = $var0;
-
-        return new VirtualMachineInfo
-        (
-            $status, $cpuCores, $customerId, $memory, $stats, $disks
-        );
-    }
-}
-
-
-enum TriggerPriority: string
-{
-    case not_classified = 'not_classified';
-    case information = 'information';
-    case warning = 'warning';
-    case average = 'average';
-    case high = 'high';
-    case disaster = 'disaster';
-}
-
-
-class BackupPlan
-{
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly int $yield,
-        public readonly bool $customerWide,
-        public readonly bool $included,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var int $yield */
-        $yield = $decodedJson['yield'];
-
-        /** @var bool $customerWide */
-        $customerWide = $decodedJson['customerWide'];
-
-        /** @var bool $included */
-        $included = $decodedJson['included'];
-
-        return new BackupPlan
-        (
-            $name, $yield, $customerWide, $included
-        );
-    }
-}
-
-
-class ServerStatistics
-{
-    public function __construct
-    (
-        public readonly int $serverId,
-        public readonly string|null $archiveResolution,
-        public readonly int $serverTypeId,
-        public readonly string|null $recentResolution,
-        public readonly string $serverName,
-        public readonly string|null $aggregateResolution,
-        public readonly \ShockMedia\Generated\Stats\TimeSeriesChartData $chartData,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $serverId */
-        $serverId = $decodedJson['serverId'];
-
-        /** @var string|null $archiveResolution */
-        $archiveResolution = $decodedJson['archiveResolution'];
-
-        /** @var int $serverTypeId */
-        $serverTypeId = $decodedJson['serverTypeId'];
-
-        /** @var string|null $recentResolution */
-        $recentResolution = $decodedJson['recentResolution'];
-
-        /** @var string $serverName */
-        $serverName = $decodedJson['serverName'];
-
-        /** @var string|null $aggregateResolution */
-        $aggregateResolution = $decodedJson['aggregateResolution'];
-
-        $chartData = \ShockMedia\Generated\Stats\TimeSeriesChartData::fromDecodedJson($decodedJson['chartData']);
-
-        return new ServerStatistics
-        (
-            $serverId, $archiveResolution, $serverTypeId, $recentResolution, $serverName, $aggregateResolution, $chartData
-        );
-    }
-}
-
-
-class ZabbixOnlineCheck
-{
-    public function __construct
-    (
-        public readonly string $fqdn,
-        public readonly bool $online,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $fqdn */
-        $fqdn = $decodedJson['fqdn'];
-
-        /** @var bool $online */
-        $online = $decodedJson['online'];
-
-        return new ZabbixOnlineCheck
-        (
-            $fqdn, $online
         );
     }
 }
@@ -2686,81 +1348,22 @@ class BackupJob
 }
 
 
-class ServerSummary
+class ServerFilter
 {
-    /**
-     * @param string[]|null $ips
-     */
     public function __construct
     (
-        public readonly string $fqdn,
-        public readonly \ShockMedia\Generated\Servers\ServerType $type,
-        public readonly array|null $ips,
-        public readonly string|null $slaName,
-        public readonly string|null $os,
+        public readonly string|null $fqdnContains,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $fqdn */
-        $fqdn = $decodedJson['fqdn'];
+        /** @var string|null $fqdnContains */
+        $fqdnContains = $decodedJson['fqdnContains'];
 
-        $type = \ShockMedia\Generated\Servers\ServerType::from($decodedJson['type']);
-
-        if ($decodedJson['ips'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['ips'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var string[]|null $ips */
-        $ips = $var0;
-
-        /** @var string|null $slaName */
-        $slaName = $decodedJson['slaName'];
-
-        /** @var string|null $os */
-        $os = $decodedJson['os'];
-
-        return new ServerSummary
+        return new ServerFilter
         (
-            $fqdn, $type, $ips, $slaName, $os
-        );
-    }
-}
-
-
-class LgResourceState
-{
-    public function __construct
-    (
-        public readonly string $fqdn,
-        public readonly bool $virtualMachine,
-        public readonly bool $node,
-        public readonly string $status,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $fqdn */
-        $fqdn = $decodedJson['fqdn'];
-
-        /** @var bool $virtualMachine */
-        $virtualMachine = $decodedJson['virtualMachine'];
-
-        /** @var bool $node */
-        $node = $decodedJson['node'];
-
-        /** @var string $status */
-        $status = $decodedJson['status'];
-
-        return new LgResourceState
-        (
-            $fqdn, $virtualMachine, $node, $status
+            $fqdnContains
         );
     }
 }
@@ -2798,31 +1401,6 @@ class FetchedHistory
         return new FetchedHistory
         (
             $processed, $raw
-        );
-    }
-}
-
-
-class VirtualMachineHddInfo
-{
-    public function __construct
-    (
-        public readonly int|null $size,
-        public readonly int|null $id,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int|null $size */
-        $size = $decodedJson['size'];
-
-        /** @var int|null $id */
-        $id = $decodedJson['id'];
-
-        return new VirtualMachineHddInfo
-        (
-            $size, $id
         );
     }
 }
@@ -2958,6 +1536,414 @@ class Server
 }
 
 
+class ZabbixOnlineCheck
+{
+    public function __construct
+    (
+        public readonly string $fqdn,
+        public readonly bool $online,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        /** @var bool $online */
+        $online = $decodedJson['online'];
+
+        return new ZabbixOnlineCheck
+        (
+            $fqdn, $online
+        );
+    }
+}
+
+
+class ServerSummary
+{
+    /**
+     * @param string[]|null $ips
+     */
+    public function __construct
+    (
+        public readonly string $fqdn,
+        public readonly \ShockMedia\Generated\Servers\ServerType $type,
+        public readonly array|null $ips,
+        public readonly string|null $slaName,
+        public readonly string|null $os,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        $type = \ShockMedia\Generated\Servers\ServerType::from($decodedJson['type']);
+
+        if ($decodedJson['ips'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['ips'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string[]|null $ips */
+        $ips = $var0;
+
+        /** @var string|null $slaName */
+        $slaName = $decodedJson['slaName'];
+
+        /** @var string|null $os */
+        $os = $decodedJson['os'];
+
+        return new ServerSummary
+        (
+            $fqdn, $type, $ips, $slaName, $os
+        );
+    }
+}
+
+
+class MaintenanceInfo
+{
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string|null $applicationName,
+        public readonly string $name,
+        public readonly string $from,
+        public readonly string $till,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string|null $applicationName */
+        $applicationName = $decodedJson['applicationName'];
+
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string $from */
+        $from = $decodedJson['from'];
+
+        /** @var string $till */
+        $till = $decodedJson['till'];
+
+        return new MaintenanceInfo
+        (
+            $id, $applicationName, $name, $from, $till
+        );
+    }
+}
+
+
+class ServerStatisticsFilter
+{
+    public function __construct
+    (
+        public readonly bool|null $includeCPU,
+        public readonly bool|null $includeTraffic,
+        public readonly bool|null $includeTrafficIncrement,
+        public readonly bool|null $includeDisk,
+        public readonly bool|null $includeMax,
+        public readonly bool|null $include95pct,
+        public readonly bool|null $includeMin,
+        public readonly bool|null $includeBackupUsage,
+        public readonly bool|null $splitTrafficIncrement,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var bool|null $includeCPU */
+        $includeCPU = $decodedJson['includeCPU'];
+
+        /** @var bool|null $includeTraffic */
+        $includeTraffic = $decodedJson['includeTraffic'];
+
+        /** @var bool|null $includeTrafficIncrement */
+        $includeTrafficIncrement = $decodedJson['includeTrafficIncrement'];
+
+        /** @var bool|null $includeDisk */
+        $includeDisk = $decodedJson['includeDisk'];
+
+        /** @var bool|null $includeMax */
+        $includeMax = $decodedJson['includeMax'];
+
+        /** @var bool|null $include95pct */
+        $include95pct = $decodedJson['include95pct'];
+
+        /** @var bool|null $includeMin */
+        $includeMin = $decodedJson['includeMin'];
+
+        /** @var bool|null $includeBackupUsage */
+        $includeBackupUsage = $decodedJson['includeBackupUsage'];
+
+        /** @var bool|null $splitTrafficIncrement */
+        $splitTrafficIncrement = $decodedJson['splitTrafficIncrement'];
+
+        return new ServerStatisticsFilter
+        (
+            $includeCPU, $includeTraffic, $includeTrafficIncrement, $includeDisk, $includeMax, $include95pct, $includeMin, $includeBackupUsage, $splitTrafficIncrement
+        );
+    }
+}
+
+
+class StatsData
+{
+    /**
+     * @param string[] $datasourceNames
+     * @param string[] $timestamps
+     * @param (array{int|null,float|null[]})[] $values
+     */
+    public function __construct
+    (
+        public readonly string $statisticType,
+        public readonly array $datasourceNames,
+        public readonly array $timestamps,
+        public readonly array $values,
+        public readonly string|null $key,
+        public readonly string $machineKey,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $statisticType */
+        $statisticType = $decodedJson['statisticType'];
+
+        $var0 = array();
+        foreach ($decodedJson['datasourceNames'] as $element0) {
+            $var0[] = $element0;
+        }
+        /** @var string[] $datasourceNames */
+        $datasourceNames = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['timestamps'] as $element0) {
+            $var0[] = $element0;
+        }
+        /** @var string[] $timestamps */
+        $timestamps = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['values'] as $element0) {
+            $var1 = array();
+            $var1[] = $element0[0];
+            $var2 = array();
+            foreach ($element0[1] as $element2) {
+                $var2[] = $element2;
+            }
+            $var1[] = $var2;
+            $var0[] = $var1;
+        }
+        /** @var (array{int|null,float|null[]})[] $values */
+        $values = $var0;
+
+        /** @var string|null $key */
+        $key = $decodedJson['key'];
+
+        /** @var string $machineKey */
+        $machineKey = $decodedJson['machineKey'];
+
+        return new StatsData
+        (
+            $statisticType, $datasourceNames, $timestamps, $values, $key, $machineKey
+        );
+    }
+}
+
+
+class ItemInfo
+{
+    /**
+     * @param \ShockMedia\Generated\Servers\ItemInfo\Graph[] $graphs
+     */
+    public function __construct
+    (
+        public readonly string $itemid,
+        public readonly string $key,
+        public readonly string $name,
+        public readonly string $lastUpdated,
+        public readonly \ShockMedia\Generated\Servers\ItemInfo\ValueType $valueType,
+        public readonly string $unit,
+        public readonly array $graphs,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $itemid */
+        $itemid = $decodedJson['itemid'];
+
+        /** @var string $key */
+        $key = $decodedJson['key'];
+
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string $lastUpdated */
+        $lastUpdated = $decodedJson['lastUpdated'];
+
+        $valueType = \ShockMedia\Generated\Servers\ItemInfo\ValueType::from($decodedJson['valueType']);
+
+        /** @var string $unit */
+        $unit = $decodedJson['unit'];
+
+        $var0 = array();
+        foreach ($decodedJson['graphs'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Servers\ItemInfo\Graph::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Servers\ItemInfo\Graph[] $graphs */
+        $graphs = $var0;
+
+        return new ItemInfo
+        (
+            $itemid, $key, $name, $lastUpdated, $valueType, $unit, $graphs
+        );
+    }
+}
+
+
+class TriggerInfo
+{
+    public function __construct
+    (
+        public readonly string|null $description,
+        public readonly \ShockMedia\Generated\Servers\TriggerPriority $priority,
+        public readonly bool $triggered,
+        public readonly string|null $lastChecked,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $description */
+        $description = $decodedJson['description'];
+
+        $priority = \ShockMedia\Generated\Servers\TriggerPriority::from($decodedJson['priority']);
+
+        /** @var bool $triggered */
+        $triggered = $decodedJson['triggered'];
+
+        /** @var string|null $lastChecked */
+        $lastChecked = $decodedJson['lastChecked'];
+
+        return new TriggerInfo
+        (
+            $description, $priority, $triggered, $lastChecked
+        );
+    }
+}
+
+
+class ServerPackage
+{
+    public function __construct
+    (
+        public readonly string $type,
+        public readonly string $description,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $type */
+        $type = $decodedJson['type'];
+
+        /** @var string $description */
+        $description = $decodedJson['description'];
+
+        return new ServerPackage
+        (
+            $type, $description
+        );
+    }
+}
+
+
+class VirtualMachineInfo
+{
+    /**
+     * @param \ShockMedia\Generated\Servers\StatsData[] $stats
+     * @param \ShockMedia\Generated\Servers\VirtualMachineHddInfo[] $disks
+     */
+    public function __construct
+    (
+        public readonly string $status,
+        public readonly int|null $cpuCores,
+        public readonly int $customerId,
+        public readonly int|null $memory,
+        public readonly array $stats,
+        public readonly array $disks,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $status */
+        $status = $decodedJson['status'];
+
+        /** @var int|null $cpuCores */
+        $cpuCores = $decodedJson['cpuCores'];
+
+        /** @var int $customerId */
+        $customerId = $decodedJson['customerId'];
+
+        /** @var int|null $memory */
+        $memory = $decodedJson['memory'];
+
+        $var0 = array();
+        foreach ($decodedJson['stats'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Servers\StatsData::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Servers\StatsData[] $stats */
+        $stats = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['disks'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Servers\VirtualMachineHddInfo::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Servers\VirtualMachineHddInfo[] $disks */
+        $disks = $var0;
+
+        return new VirtualMachineInfo
+        (
+            $status, $cpuCores, $customerId, $memory, $stats, $disks
+        );
+    }
+}
+
+
+enum ServerType: string
+{
+    case webhosting = 'webhosting';
+    case colocation = 'colocation';
+    case dedication = 'dedication';
+    case stockpile = 'stockpile';
+    case miscellaneous = 'miscellaneous';
+    case dedicated_firewall = 'dedicated_firewall';
+    case external_server = 'external_server';
+    case cloud_server = 'cloud_server';
+    case managed_switch = 'managed_switch';
+    case network_uplink = 'network_uplink';
+    case cloud_node = 'cloud_node';
+    case ipmi = 'ipmi';
+    case workstation = 'workstation';
+    case reseller_hosting = 'reseller_hosting';
+    case external_server_aws = 'external_server_aws';
+}
+
+
 enum AdminLevel: string
 {
     case none = 'none';
@@ -2965,6 +1951,193 @@ enum AdminLevel: string
     case software = 'software';
     case hardware_software = 'hardware_software';
     case hardware_nbd = 'hardware_nbd';
+}
+
+
+class ItemHistory
+{
+    /**
+     * @param \ShockMedia\Generated\Stats\TimedMetric[] $history
+     * @param \ShockMedia\Generated\Stats\TimedMetric[] $avgTrend
+     */
+    public function __construct
+    (
+        public readonly string $itemid,
+        public readonly array $history,
+        public readonly array $avgTrend,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $itemid */
+        $itemid = $decodedJson['itemid'];
+
+        $var0 = array();
+        foreach ($decodedJson['history'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\TimedMetric::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\TimedMetric[] $history */
+        $history = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['avgTrend'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\TimedMetric::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\TimedMetric[] $avgTrend */
+        $avgTrend = $var0;
+
+        return new ItemHistory
+        (
+            $itemid, $history, $avgTrend
+        );
+    }
+}
+
+
+enum TriggerPriority: string
+{
+    case not_classified = 'not_classified';
+    case information = 'information';
+    case warning = 'warning';
+    case average = 'average';
+    case high = 'high';
+    case disaster = 'disaster';
+}
+
+
+class ServerStatistics
+{
+    public function __construct
+    (
+        public readonly int $serverId,
+        public readonly string|null $archiveResolution,
+        public readonly int $serverTypeId,
+        public readonly string|null $recentResolution,
+        public readonly string $serverName,
+        public readonly string|null $aggregateResolution,
+        public readonly \ShockMedia\Generated\Stats\TimeSeriesChartData $chartData,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $serverId */
+        $serverId = $decodedJson['serverId'];
+
+        /** @var string|null $archiveResolution */
+        $archiveResolution = $decodedJson['archiveResolution'];
+
+        /** @var int $serverTypeId */
+        $serverTypeId = $decodedJson['serverTypeId'];
+
+        /** @var string|null $recentResolution */
+        $recentResolution = $decodedJson['recentResolution'];
+
+        /** @var string $serverName */
+        $serverName = $decodedJson['serverName'];
+
+        /** @var string|null $aggregateResolution */
+        $aggregateResolution = $decodedJson['aggregateResolution'];
+
+        $chartData = \ShockMedia\Generated\Stats\TimeSeriesChartData::fromDecodedJson($decodedJson['chartData']);
+
+        return new ServerStatistics
+        (
+            $serverId, $archiveResolution, $serverTypeId, $recentResolution, $serverName, $aggregateResolution, $chartData
+        );
+    }
+}
+
+
+class BackupPlan
+{
+    public function __construct
+    (
+        public readonly string $name,
+        public readonly int $yield,
+        public readonly bool $customerWide,
+        public readonly bool $included,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var int $yield */
+        $yield = $decodedJson['yield'];
+
+        /** @var bool $customerWide */
+        $customerWide = $decodedJson['customerWide'];
+
+        /** @var bool $included */
+        $included = $decodedJson['included'];
+
+        return new BackupPlan
+        (
+            $name, $yield, $customerWide, $included
+        );
+    }
+}
+
+
+class LgResourceState
+{
+    public function __construct
+    (
+        public readonly string $fqdn,
+        public readonly bool $virtualMachine,
+        public readonly bool $node,
+        public readonly string $status,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        /** @var bool $virtualMachine */
+        $virtualMachine = $decodedJson['virtualMachine'];
+
+        /** @var bool $node */
+        $node = $decodedJson['node'];
+
+        /** @var string $status */
+        $status = $decodedJson['status'];
+
+        return new LgResourceState
+        (
+            $fqdn, $virtualMachine, $node, $status
+        );
+    }
+}
+
+
+class VirtualMachineHddInfo
+{
+    public function __construct
+    (
+        public readonly int|null $size,
+        public readonly int|null $id,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int|null $size */
+        $size = $decodedJson['size'];
+
+        /** @var int|null $id */
+        $id = $decodedJson['id'];
+
+        return new VirtualMachineHddInfo
+        (
+            $size, $id
+        );
+    }
 }
 
 namespace ShockMedia\Generated\Servers\ItemInfo;
@@ -3020,202 +2193,167 @@ enum GraphType: string
     case pie = 'pie';
     case exploded = 'exploded';
 }
-namespace ShockMedia\Generated;
-
-
-class SortField
-{
-    public function __construct
-    (
-        public readonly string|null $field,
-        public readonly \ShockMedia\Generated\SortField\DirectionAlt2|null $direction,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $field */
-        $field = $decodedJson['field'];
-
-        if ($decodedJson['direction'] === NULL) {
-            $direction = NULL;
-        } else {
-            $direction = \ShockMedia\Generated\SortField\DirectionAlt2::from($decodedJson['direction']);
-        }
-
-        return new SortField
-        (
-            $field, $direction
-        );
-    }
-}
-
-
-class PageRequest
-{
-    /**
-     * @param \ShockMedia\Generated\SortField[]|null $sort
-     */
-    public function __construct
-    (
-        public readonly array|null $sort,
-        public readonly int|null $skip,
-        public readonly int|null $limit,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        if ($decodedJson['sort'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['sort'] as $element0) {
-                $var0[] = \ShockMedia\Generated\SortField::fromDecodedJson($element0);
-            }
-        }
-        /** @var \ShockMedia\Generated\SortField[]|null $sort */
-        $sort = $var0;
-
-        /** @var int|null $skip */
-        $skip = $decodedJson['skip'];
-
-        /** @var int|null $limit */
-        $limit = $decodedJson['limit'];
-
-        return new PageRequest
-        (
-            $sort, $skip, $limit
-        );
-    }
-}
-
-
-class PageResult
-{
-    public function __construct
-    (
-        public readonly int $total,
-        public readonly int $filtered,
-        public readonly int $count,
-        public readonly int $skip,
-        public readonly bool|null $filteredIsLimited,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $total */
-        $total = $decodedJson['total'];
-
-        /** @var int $filtered */
-        $filtered = $decodedJson['filtered'];
-
-        /** @var int $count */
-        $count = $decodedJson['count'];
-
-        /** @var int $skip */
-        $skip = $decodedJson['skip'];
-
-        /** @var bool|null $filteredIsLimited */
-        $filteredIsLimited = $decodedJson['filteredIsLimited'];
-
-        return new PageResult
-        (
-            $total, $filtered, $count, $skip, $filteredIsLimited
-        );
-    }
-}
-
-
-enum Language: string
-{
-    case nl = 'nl';
-    case en = 'en';
-}
-
-
-enum RangeType: string
-{
-    case OPEN = 'OPEN';
-    case CLOSED = 'CLOSED';
-    case OPEN_CLOSED = 'OPEN_CLOSED';
-    case CLOSED_OPEN = 'CLOSED_OPEN';
-    case AT_LEAST = 'AT_LEAST';
-    case GREATER_THAN = 'GREATER_THAN';
-    case AT_MOST = 'AT_MOST';
-    case LESS_THAN = 'LESS_THAN';
-    case ALL = 'ALL';
-}
-
-
-enum PeriodUnit: string
-{
-    case nanos = 'nanos';
-    case micros = 'micros';
-    case millis = 'millis';
-    case seconds = 'seconds';
-    case minutes = 'minutes';
-    case hours = 'hours';
-    case half_days = 'half_days';
-    case days = 'days';
-    case weeks = 'weeks';
-    case months = 'months';
-    case years = 'years';
-    case decades = 'decades';
-    case centuries = 'centuries';
-    case millennia = 'millennia';
-    case eras = 'eras';
-    case forever = 'forever';
-}
-
-namespace ShockMedia\Generated\SortField;
-
-
-enum DirectionAlt2: string
-{
-    case ASC = 'ASC';
-    case DESC = 'DESC';
-}
 namespace ShockMedia\Generated\Contacts;
 
 
-class ContactGroup
+class Contact
 {
     /**
-     * @param (array{\ShockMedia\Generated\Language,string})[] $description
+     * @param string|null[] $email
+     * @param string|null[] $telephone
+     * @param string|null[] $groups
      */
     public function __construct
     (
-        public readonly string $key,
-        public readonly string $name,
-        public readonly array $description,
+        public readonly int $id,
+        public readonly \ShockMedia\Generated\Contacts\ContactGender $gender,
+        public readonly string|null $firstName,
+        public readonly string|null $lastName,
+        public readonly string|null $companyName,
+        public readonly \ShockMedia\Generated\Account\Account|null $account,
+        public readonly array $email,
+        public readonly array $telephone,
+        public readonly string|null $notes,
+        public readonly array $groups,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $key */
-        $key = $decodedJson['key'];
+        /** @var int $id */
+        $id = $decodedJson['id'];
 
-        /** @var string $name */
-        $name = $decodedJson['name'];
+        $gender = \ShockMedia\Generated\Contacts\ContactGender::from($decodedJson['gender']);
+
+        /** @var string|null $firstName */
+        $firstName = $decodedJson['firstName'];
+
+        /** @var string|null $lastName */
+        $lastName = $decodedJson['lastName'];
+
+        /** @var string|null $companyName */
+        $companyName = $decodedJson['companyName'];
+
+        if ($decodedJson['account'] === NULL) {
+            $account = NULL;
+        } else {
+            $account = \ShockMedia\Generated\Account\Account::fromDecodedJson($decodedJson['account']);
+        }
 
         $var0 = array();
-        foreach ($decodedJson['description'] as $element0) {
-            $var1 = array();
-            $var1[] = \ShockMedia\Generated\Language::from($element0[0]);
-            $var1[] = $element0[1];
-            $var0[] = $var1;
+        foreach ($decodedJson['email'] as $element0) {
+            $var0[] = $element0;
         }
-        /** @var (array{\ShockMedia\Generated\Language,string})[] $description */
-        $description = $var0;
+        /** @var string|null[] $email */
+        $email = $var0;
 
-        return new ContactGroup
+        $var0 = array();
+        foreach ($decodedJson['telephone'] as $element0) {
+            $var0[] = $element0;
+        }
+        /** @var string|null[] $telephone */
+        $telephone = $var0;
+
+        /** @var string|null $notes */
+        $notes = $decodedJson['notes'];
+
+        $var0 = array();
+        foreach ($decodedJson['groups'] as $element0) {
+            $var0[] = $element0;
+        }
+        /** @var string|null[] $groups */
+        $groups = $var0;
+
+        return new Contact
         (
-            $key, $name, $description
+            $id, $gender, $firstName, $lastName, $companyName, $account, $email, $telephone, $notes, $groups
         );
     }
+}
+
+
+class ContactUpdate
+{
+    /**
+     * @param string[]|null $groups
+     * @param string[]|null $emails
+     * @param string[]|null $telephones
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly \ShockMedia\Generated\Contacts\ContactUpdate\PersonAlt2|null $person,
+        public readonly string|null $companyName,
+        public readonly array|null $groups,
+        public readonly array|null $emails,
+        public readonly array|null $telephones,
+        public readonly string|null $notes,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        if ($decodedJson['person'] === NULL) {
+            $person = NULL;
+        } else {
+            $person = \ShockMedia\Generated\Contacts\ContactUpdate\PersonAlt2::fromDecodedJson($decodedJson['person']);
+        }
+
+        /** @var string|null $companyName */
+        $companyName = $decodedJson['companyName'];
+
+        if ($decodedJson['groups'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['groups'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string[]|null $groups */
+        $groups = $var0;
+
+        if ($decodedJson['emails'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['emails'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string[]|null $emails */
+        $emails = $var0;
+
+        if ($decodedJson['telephones'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['telephones'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string[]|null $telephones */
+        $telephones = $var0;
+
+        /** @var string|null $notes */
+        $notes = $decodedJson['notes'];
+
+        return new ContactUpdate
+        (
+            $id, $person, $companyName, $groups, $emails, $telephones, $notes
+        );
+    }
+}
+
+
+enum ContactGender: string
+{
+    case none = 'none';
+    case male = 'male';
+    case female = 'female';
 }
 
 
@@ -3308,78 +2446,40 @@ class CreateContactInput
 }
 
 
-class ContactUpdate
+class ContactGroup
 {
     /**
-     * @param string[]|null $groups
-     * @param string[]|null $emails
-     * @param string[]|null $telephones
+     * @param (array{\ShockMedia\Generated\Language,string})[] $description
      */
     public function __construct
     (
-        public readonly int $id,
-        public readonly \ShockMedia\Generated\Contacts\ContactUpdate\PersonAlt2|null $person,
-        public readonly string|null $companyName,
-        public readonly array|null $groups,
-        public readonly array|null $emails,
-        public readonly array|null $telephones,
-        public readonly string|null $notes,
+        public readonly string $key,
+        public readonly string $name,
+        public readonly array $description,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int $id */
-        $id = $decodedJson['id'];
+        /** @var string $key */
+        $key = $decodedJson['key'];
 
-        if ($decodedJson['person'] === NULL) {
-            $person = NULL;
-        } else {
-            $person = \ShockMedia\Generated\Contacts\ContactUpdate\PersonAlt2::fromDecodedJson($decodedJson['person']);
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        $var0 = array();
+        foreach ($decodedJson['description'] as $element0) {
+            $var1 = array();
+            $var1[] = \ShockMedia\Generated\Language::from($element0[0]);
+            $var1[] = $element0[1];
+            $var0[] = $var1;
         }
+        /** @var (array{\ShockMedia\Generated\Language,string})[] $description */
+        $description = $var0;
 
-        /** @var string|null $companyName */
-        $companyName = $decodedJson['companyName'];
-
-        if ($decodedJson['groups'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['groups'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var string[]|null $groups */
-        $groups = $var0;
-
-        if ($decodedJson['emails'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['emails'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var string[]|null $emails */
-        $emails = $var0;
-
-        if ($decodedJson['telephones'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['telephones'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var string[]|null $telephones */
-        $telephones = $var0;
-
-        /** @var string|null $notes */
-        $notes = $decodedJson['notes'];
-
-        return new ContactUpdate
+        return new ContactGroup
         (
-            $id, $person, $companyName, $groups, $emails, $telephones, $notes
+            $key, $name, $description
         );
     }
 }
@@ -3405,90 +2505,6 @@ class ContactFilter
         return new ContactFilter
         (
             $name, $group
-        );
-    }
-}
-
-
-enum ContactGender: string
-{
-    case none = 'none';
-    case male = 'male';
-    case female = 'female';
-}
-
-
-class Contact
-{
-    /**
-     * @param string|null[] $email
-     * @param string|null[] $telephone
-     * @param string|null[] $groups
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly \ShockMedia\Generated\Contacts\ContactGender $gender,
-        public readonly string|null $firstName,
-        public readonly string|null $lastName,
-        public readonly string|null $companyName,
-        public readonly \ShockMedia\Generated\Account\Account|null $account,
-        public readonly array $email,
-        public readonly array $telephone,
-        public readonly string|null $notes,
-        public readonly array $groups,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        $gender = \ShockMedia\Generated\Contacts\ContactGender::from($decodedJson['gender']);
-
-        /** @var string|null $firstName */
-        $firstName = $decodedJson['firstName'];
-
-        /** @var string|null $lastName */
-        $lastName = $decodedJson['lastName'];
-
-        /** @var string|null $companyName */
-        $companyName = $decodedJson['companyName'];
-
-        if ($decodedJson['account'] === NULL) {
-            $account = NULL;
-        } else {
-            $account = \ShockMedia\Generated\Account\Account::fromDecodedJson($decodedJson['account']);
-        }
-
-        $var0 = array();
-        foreach ($decodedJson['email'] as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string|null[] $email */
-        $email = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['telephone'] as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string|null[] $telephone */
-        $telephone = $var0;
-
-        /** @var string|null $notes */
-        $notes = $decodedJson['notes'];
-
-        $var0 = array();
-        foreach ($decodedJson['groups'] as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string|null[] $groups */
-        $groups = $var0;
-
-        return new Contact
-        (
-            $id, $gender, $firstName, $lastName, $companyName, $account, $email, $telephone, $notes, $groups
         );
     }
 }
@@ -3523,364 +2539,7 @@ class PersonAlt2
         );
     }
 }
-namespace ShockMedia\Generated\Scheduledupdate;
-
-
-class ScheduledUpdateWindow
-{
-    /**
-     * @param int|null[]|null $daysOfWeek
-     * @param int|null[]|null $daysOfMonth
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string|null $fqdn,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Category $category,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Owner $owner,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Scope $scope,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Recurrence $recurrence,
-        public readonly string|null $startTime,
-        public readonly string|null $endTime,
-        public readonly string|null $timezone,
-        public readonly array|null $daysOfWeek,
-        public readonly array|null $daysOfMonth,
-        public readonly string|null $singleRunStartDate,
-        public readonly string|null $singleRunEndDate,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string|null $fqdn */
-        $fqdn = $decodedJson['fqdn'];
-
-        $category = \ShockMedia\Generated\Scheduledupdate\Category::from($decodedJson['category']);
-
-        $owner = \ShockMedia\Generated\Scheduledupdate\Owner::from($decodedJson['owner']);
-
-        $scope = \ShockMedia\Generated\Scheduledupdate\Scope::from($decodedJson['scope']);
-
-        $recurrence = \ShockMedia\Generated\Scheduledupdate\Recurrence::from($decodedJson['recurrence']);
-
-        /** @var string|null $startTime */
-        $startTime = $decodedJson['startTime'];
-
-        /** @var string|null $endTime */
-        $endTime = $decodedJson['endTime'];
-
-        /** @var string|null $timezone */
-        $timezone = $decodedJson['timezone'];
-
-        if ($decodedJson['daysOfWeek'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['daysOfWeek'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var int|null[]|null $daysOfWeek */
-        $daysOfWeek = $var0;
-
-        if ($decodedJson['daysOfMonth'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['daysOfMonth'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var int|null[]|null $daysOfMonth */
-        $daysOfMonth = $var0;
-
-        /** @var string|null $singleRunStartDate */
-        $singleRunStartDate = $decodedJson['singleRunStartDate'];
-
-        /** @var string|null $singleRunEndDate */
-        $singleRunEndDate = $decodedJson['singleRunEndDate'];
-
-        return new ScheduledUpdateWindow
-        (
-            $id, $fqdn, $category, $owner, $scope, $recurrence, $startTime, $endTime, $timezone, $daysOfWeek, $daysOfMonth, $singleRunStartDate, $singleRunEndDate
-        );
-    }
-}
-
-
-enum Category: string
-{
-    case no_downtime = 'no_downtime';
-    case low_downtime = 'low_downtime';
-    case security_patch = 'security_patch';
-    case high_downtime = 'high_downtime';
-    case dont_update = 'dont_update';
-}
-
-
-enum Owner: string
-{
-    case shock_media = 'shock_media';
-    case customer = 'customer';
-}
-
-
-enum Scope: string
-{
-    case global = 'global';
-    case server = 'server';
-}
-
-
-enum Recurrence: string
-{
-    case instant = 'instant';
-    case single = 'single';
-    case daily = 'daily';
-    case weekly = 'weekly';
-    case monthly = 'monthly';
-}
-
-
-class UpdateScheduledUpdateWindowInput
-{
-    /**
-     * @param int|null[]|null $daysOfWeek
-     * @param int|null[]|null $daysOfMonth
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string|null $fqdn,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Category|null $category,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Recurrence|null $recurrence,
-        public readonly string|null $startTime,
-        public readonly string|null $endTime,
-        public readonly \ShockMedia\Generated\Scheduledupdate\UpdateScheduledUpdateWindowInput\TimezoneAlt2|null $timezone,
-        public readonly array|null $daysOfWeek,
-        public readonly array|null $daysOfMonth,
-        public readonly string|null $singleRunStartDate,
-        public readonly string|null $singleRunEndDate,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string|null $fqdn */
-        $fqdn = $decodedJson['fqdn'];
-
-        if ($decodedJson['category'] === NULL) {
-            $category = NULL;
-        } else {
-            $category = \ShockMedia\Generated\Scheduledupdate\Category::from($decodedJson['category']);
-        }
-
-        if ($decodedJson['recurrence'] === NULL) {
-            $recurrence = NULL;
-        } else {
-            $recurrence = \ShockMedia\Generated\Scheduledupdate\Recurrence::from($decodedJson['recurrence']);
-        }
-
-        /** @var string|null $startTime */
-        $startTime = $decodedJson['startTime'];
-
-        /** @var string|null $endTime */
-        $endTime = $decodedJson['endTime'];
-
-        if ($decodedJson['timezone'] === NULL) {
-            $timezone = NULL;
-        } else {
-            $timezone = \ShockMedia\Generated\Scheduledupdate\UpdateScheduledUpdateWindowInput\TimezoneAlt2::fromDecodedJson($decodedJson['timezone']);
-        }
-
-        if ($decodedJson['daysOfWeek'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['daysOfWeek'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var int|null[]|null $daysOfWeek */
-        $daysOfWeek = $var0;
-
-        if ($decodedJson['daysOfMonth'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['daysOfMonth'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var int|null[]|null $daysOfMonth */
-        $daysOfMonth = $var0;
-
-        /** @var string|null $singleRunStartDate */
-        $singleRunStartDate = $decodedJson['singleRunStartDate'];
-
-        /** @var string|null $singleRunEndDate */
-        $singleRunEndDate = $decodedJson['singleRunEndDate'];
-
-        return new UpdateScheduledUpdateWindowInput
-        (
-            $id, $fqdn, $category, $recurrence, $startTime, $endTime, $timezone, $daysOfWeek, $daysOfMonth, $singleRunStartDate, $singleRunEndDate
-        );
-    }
-}
-
-
-class CreateScheduledUpdateWindowInput
-{
-    /**
-     * @param int|null[]|null $daysOfWeek
-     * @param int|null[]|null $daysOfMonth
-     */
-    public function __construct
-    (
-        public readonly string|null $fqdn,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Category $category,
-        public readonly \ShockMedia\Generated\Scheduledupdate\Recurrence $recurrence,
-        public readonly string|null $startTime,
-        public readonly string|null $endTime,
-        public readonly string|null $timezone,
-        public readonly array|null $daysOfWeek,
-        public readonly array|null $daysOfMonth,
-        public readonly string|null $singleRunStartDate,
-        public readonly string|null $singleRunEndDate,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $fqdn */
-        $fqdn = $decodedJson['fqdn'];
-
-        $category = \ShockMedia\Generated\Scheduledupdate\Category::from($decodedJson['category']);
-
-        $recurrence = \ShockMedia\Generated\Scheduledupdate\Recurrence::from($decodedJson['recurrence']);
-
-        /** @var string|null $startTime */
-        $startTime = $decodedJson['startTime'];
-
-        /** @var string|null $endTime */
-        $endTime = $decodedJson['endTime'];
-
-        /** @var string|null $timezone */
-        $timezone = $decodedJson['timezone'];
-
-        if ($decodedJson['daysOfWeek'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['daysOfWeek'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var int|null[]|null $daysOfWeek */
-        $daysOfWeek = $var0;
-
-        if ($decodedJson['daysOfMonth'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['daysOfMonth'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var int|null[]|null $daysOfMonth */
-        $daysOfMonth = $var0;
-
-        /** @var string|null $singleRunStartDate */
-        $singleRunStartDate = $decodedJson['singleRunStartDate'];
-
-        /** @var string|null $singleRunEndDate */
-        $singleRunEndDate = $decodedJson['singleRunEndDate'];
-
-        return new CreateScheduledUpdateWindowInput
-        (
-            $fqdn, $category, $recurrence, $startTime, $endTime, $timezone, $daysOfWeek, $daysOfMonth, $singleRunStartDate, $singleRunEndDate
-        );
-    }
-}
-
-
-enum Type: string
-{
-    case single = 'single';
-    case recurring = 'recurring';
-}
-
-
-class ScheduledUpdateWindowFilter
-{
-    public function __construct
-    (
-        public readonly string|null $fqdn,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $fqdn */
-        $fqdn = $decodedJson['fqdn'];
-
-        return new ScheduledUpdateWindowFilter
-        (
-            $fqdn
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Scheduledupdate\UpdateScheduledUpdateWindowInput;
-
-
-class TimezoneAlt2
-{
-    public function __construct
-    (
-        public readonly string|null $value,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $value */
-        $value = $decodedJson['value'];
-
-        return new TimezoneAlt2
-        (
-            $value
-        );
-    }
-}
 namespace ShockMedia\Generated\Promotions;
-
-
-class PromotionFilter
-{
-    public function __construct
-    (
-        public readonly bool|null $showInactive,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var bool|null $showInactive */
-        $showInactive = $decodedJson['showInactive'];
-
-        return new PromotionFilter
-        (
-            $showInactive
-        );
-    }
-}
 
 
 class UpdatePromotionInput
@@ -3931,6 +2590,27 @@ class UpdatePromotionInput
 }
 
 
+class PromotionFilter
+{
+    public function __construct
+    (
+        public readonly bool|null $showInactive,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var bool|null $showInactive */
+        $showInactive = $decodedJson['showInactive'];
+
+        return new PromotionFilter
+        (
+            $showInactive
+        );
+    }
+}
+
+
 class Promotion
 {
     /**
@@ -3974,149 +2654,193 @@ class Promotion
     }
 }
 
-namespace ShockMedia\Generated\Stats;
+namespace ShockMedia\Generated\Announcements;
 
 
-class NamedMetric
-{
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly int|null $value,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var int|null $value */
-        $value = $decodedJson['value'];
-
-        return new NamedMetric
-        (
-            $name, $value
-        );
-    }
-}
-
-
-class TimeSeriesChartData
+class UpdateAnnouncementInput
 {
     /**
-     * @param \ShockMedia\Generated\Stats\TimedMetrics[] $curveData
-     * @param \ShockMedia\Generated\Stats\TimedMetrics[] $barData
-     * @param \ShockMedia\Generated\Stats\TimedMetrics[] $pointData
-     * @param \ShockMedia\Generated\Stats\NamedMetric[] $scaleData
-     * @param \ShockMedia\Generated\Stats\NamedMetric[] $constants
-     * @param \ShockMedia\Generated\Stats\NamedLabel[] $keyNames
-     * @param \ShockMedia\Generated\Stats\NamedLabel[] $units
-     * @param \ShockMedia\Generated\Stats\NamedLabel[] $titles
-     * @param \ShockMedia\Generated\Stats\NamedLabel[] $descriptions
-     * @param \ShockMedia\Generated\Stats\MetricMetadatas[] $fieldMetadata
+     * @param (array{string,string})[]|null $message
      */
     public function __construct
     (
-        public readonly array $curveData,
-        public readonly array $barData,
-        public readonly array $pointData,
-        public readonly array $scaleData,
-        public readonly array $constants,
-        public readonly array $keyNames,
-        public readonly array $units,
-        public readonly array $titles,
-        public readonly array $descriptions,
-        public readonly array $fieldMetadata,
+        public readonly int $id,
+        public readonly string|null $icon,
+        public readonly \ShockMedia\Generated\Announcements\AnnouncementSeverity|null $severity,
+        public readonly string|null $expiryDate,
+        public readonly array|null $message,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        $var0 = array();
-        foreach ($decodedJson['curveData'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\TimedMetrics::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\TimedMetrics[] $curveData */
-        $curveData = $var0;
+        /** @var int $id */
+        $id = $decodedJson['id'];
 
-        $var0 = array();
-        foreach ($decodedJson['barData'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\TimedMetrics::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\TimedMetrics[] $barData */
-        $barData = $var0;
+        /** @var string|null $icon */
+        $icon = $decodedJson['icon'];
 
-        $var0 = array();
-        foreach ($decodedJson['pointData'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\TimedMetrics::fromDecodedJson($element0);
+        if ($decodedJson['severity'] === NULL) {
+            $severity = NULL;
+        } else {
+            $severity = \ShockMedia\Generated\Announcements\AnnouncementSeverity::from($decodedJson['severity']);
         }
-        /** @var \ShockMedia\Generated\Stats\TimedMetrics[] $pointData */
-        $pointData = $var0;
 
-        $var0 = array();
-        foreach ($decodedJson['scaleData'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\NamedMetric::fromDecodedJson($element0);
+        /** @var string|null $expiryDate */
+        $expiryDate = $decodedJson['expiryDate'];
+
+        if ($decodedJson['message'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['message'] as $element0) {
+                $var1 = array();
+                $var1[] = $element0[0];
+                $var1[] = $element0[1];
+                $var0[] = $var1;
+            }
         }
-        /** @var \ShockMedia\Generated\Stats\NamedMetric[] $scaleData */
-        $scaleData = $var0;
+        /** @var (array{string,string})[]|null $message */
+        $message = $var0;
 
-        $var0 = array();
-        foreach ($decodedJson['constants'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\NamedMetric::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\NamedMetric[] $constants */
-        $constants = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['keyNames'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $keyNames */
-        $keyNames = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['units'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $units */
-        $units = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['titles'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $titles */
-        $titles = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['descriptions'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $descriptions */
-        $descriptions = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['fieldMetadata'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\MetricMetadatas::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Stats\MetricMetadatas[] $fieldMetadata */
-        $fieldMetadata = $var0;
-
-        return new TimeSeriesChartData
+        return new UpdateAnnouncementInput
         (
-            $curveData, $barData, $pointData, $scaleData, $constants, $keyNames, $units, $titles, $descriptions, $fieldMetadata
+            $id, $icon, $severity, $expiryDate, $message
         );
     }
 }
 
 
-class NamedLabel
+enum AnnouncementSeverity: string
+{
+    case info = 'info';
+    case success = 'success';
+    case warning = 'warning';
+    case danger = 'danger';
+}
+
+
+class Announcement
+{
+    /**
+     * @param (array{string,string})[] $message
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly array $message,
+        public readonly string $icon,
+        public readonly \ShockMedia\Generated\Announcements\AnnouncementSeverity $severity,
+        public readonly string|null $expire,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        $var0 = array();
+        foreach ($decodedJson['message'] as $element0) {
+            $var1 = array();
+            $var1[] = $element0[0];
+            $var1[] = $element0[1];
+            $var0[] = $var1;
+        }
+        /** @var (array{string,string})[] $message */
+        $message = $var0;
+
+        /** @var string $icon */
+        $icon = $decodedJson['icon'];
+
+        $severity = \ShockMedia\Generated\Announcements\AnnouncementSeverity::from($decodedJson['severity']);
+
+        /** @var string|null $expire */
+        $expire = $decodedJson['expire'];
+
+        return new Announcement
+        (
+            $id, $message, $icon, $severity, $expire
+        );
+    }
+}
+
+
+class AnnouncementFilter
 {
     public function __construct
     (
+        public readonly bool|null $unreadByCurrentAccount,
+        public readonly bool $showExpired,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var bool|null $unreadByCurrentAccount */
+        $unreadByCurrentAccount = $decodedJson['unreadByCurrentAccount'];
+
+        /** @var bool $showExpired */
+        $showExpired = $decodedJson['showExpired'];
+
+        return new AnnouncementFilter
+        (
+            $unreadByCurrentAccount, $showExpired
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Clouds;
+
+
+class MemoryStats
+{
+    public function __construct
+    (
+        public readonly int $total,
+        public readonly int $free,
+        public readonly int|null $allocated,
+        public readonly int|null $reserved,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $total */
+        $total = $decodedJson['total'];
+
+        /** @var int $free */
+        $free = $decodedJson['free'];
+
+        /** @var int|null $allocated */
+        $allocated = $decodedJson['allocated'];
+
+        /** @var int|null $reserved */
+        $reserved = $decodedJson['reserved'];
+
+        return new MemoryStats
+        (
+            $total, $free, $allocated, $reserved
+        );
+    }
+}
+
+
+class Cloud
+{
+    /**
+     * @param \ShockMedia\Generated\Clouds\Node[]|null $nodes
+     * @param \ShockMedia\Generated\Clouds\Vm[]|null $vms
+     */
+    public function __construct
+    (
         public readonly string $name,
-        public readonly string|null $value,
+        public readonly bool $multidatacenter,
+        public readonly array|null $nodes,
+        public readonly array|null $vms,
+        public readonly \ShockMedia\Generated\Clouds\StorageStats|null $storageStats,
+        public readonly \ShockMedia\Generated\Clouds\MemoryStats|null $memoryStats,
+        public readonly \ShockMedia\Generated\Clouds\CpuInfo|null $cpuInfo,
     ) {
     }
 
@@ -4125,238 +2849,566 @@ class NamedLabel
         /** @var string $name */
         $name = $decodedJson['name'];
 
-        /** @var string|null $value */
-        $value = $decodedJson['value'];
+        /** @var bool $multidatacenter */
+        $multidatacenter = $decodedJson['multidatacenter'];
 
-        return new NamedLabel
+        if ($decodedJson['nodes'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['nodes'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Clouds\Node::fromDecodedJson($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\Clouds\Node[]|null $nodes */
+        $nodes = $var0;
+
+        if ($decodedJson['vms'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['vms'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Clouds\Vm::fromDecodedJson($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\Clouds\Vm[]|null $vms */
+        $vms = $var0;
+
+        if ($decodedJson['storageStats'] === NULL) {
+            $storageStats = NULL;
+        } else {
+            $storageStats = \ShockMedia\Generated\Clouds\StorageStats::fromDecodedJson($decodedJson['storageStats']);
+        }
+
+        if ($decodedJson['memoryStats'] === NULL) {
+            $memoryStats = NULL;
+        } else {
+            $memoryStats = \ShockMedia\Generated\Clouds\MemoryStats::fromDecodedJson($decodedJson['memoryStats']);
+        }
+
+        if ($decodedJson['cpuInfo'] === NULL) {
+            $cpuInfo = NULL;
+        } else {
+            $cpuInfo = \ShockMedia\Generated\Clouds\CpuInfo::fromDecodedJson($decodedJson['cpuInfo']);
+        }
+
+        return new Cloud
         (
-            $name, $value
+            $name, $multidatacenter, $nodes, $vms, $storageStats, $memoryStats, $cpuInfo
         );
     }
 }
 
 
-class MetricMetadata
+class CpuInfo
 {
     public function __construct
     (
-        public readonly string $metric,
-        public readonly string|null $submetric,
-        public readonly string|null $name,
-        public readonly string|null $fullName,
+        public readonly int|null $coreCount,
+        public readonly int|null $threadCount,
+        public readonly int|null $cpuPower,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $metric */
-        $metric = $decodedJson['metric'];
+        /** @var int|null $coreCount */
+        $coreCount = $decodedJson['coreCount'];
 
-        /** @var string|null $submetric */
-        $submetric = $decodedJson['submetric'];
+        /** @var int|null $threadCount */
+        $threadCount = $decodedJson['threadCount'];
 
+        /** @var int|null $cpuPower */
+        $cpuPower = $decodedJson['cpuPower'];
+
+        return new CpuInfo
+        (
+            $coreCount, $threadCount, $cpuPower
+        );
+    }
+}
+
+
+class StorageStats
+{
+    public function __construct
+    (
+        public readonly int $total,
+        public readonly int $free,
+        public readonly int|null $used,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $total */
+        $total = $decodedJson['total'];
+
+        /** @var int $free */
+        $free = $decodedJson['free'];
+
+        /** @var int|null $used */
+        $used = $decodedJson['used'];
+
+        return new StorageStats
+        (
+            $total, $free, $used
+        );
+    }
+}
+
+
+class Vm
+{
+    public function __construct
+    (
+        public readonly string|null $name,
+        public readonly int|null $cpuCount,
+        public readonly int|null $memory,
+        public readonly int|null $storage,
+        public readonly bool $multiDatacenter,
+        public readonly bool $redundant,
+        public readonly bool $showServerPage,
+        public readonly \ShockMedia\Generated\Servers\ServerSummary|null $server,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
         /** @var string|null $name */
         $name = $decodedJson['name'];
 
-        /** @var string|null $fullName */
-        $fullName = $decodedJson['fullName'];
+        /** @var int|null $cpuCount */
+        $cpuCount = $decodedJson['cpuCount'];
 
-        return new MetricMetadata
+        /** @var int|null $memory */
+        $memory = $decodedJson['memory'];
+
+        /** @var int|null $storage */
+        $storage = $decodedJson['storage'];
+
+        /** @var bool $multiDatacenter */
+        $multiDatacenter = $decodedJson['multiDatacenter'];
+
+        /** @var bool $redundant */
+        $redundant = $decodedJson['redundant'];
+
+        /** @var bool $showServerPage */
+        $showServerPage = $decodedJson['showServerPage'];
+
+        if ($decodedJson['server'] === NULL) {
+            $server = NULL;
+        } else {
+            $server = \ShockMedia\Generated\Servers\ServerSummary::fromDecodedJson($decodedJson['server']);
+        }
+
+        return new Vm
         (
-            $metric, $submetric, $name, $fullName
+            $name, $cpuCount, $memory, $storage, $multiDatacenter, $redundant, $showServerPage, $server
         );
     }
 }
 
 
-class MetricMetadatas
+class Node
 {
     public function __construct
     (
-        public readonly string $key,
-        public readonly \ShockMedia\Generated\Stats\MetricMetadata $metadata,
+        public readonly string $name,
+        public readonly string|null $admxName,
+        public readonly int|null $memory,
+        public readonly int|null $storage,
+        public readonly int|null $cpuCount,
+        public readonly string|null $datacenter,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $key */
-        $key = $decodedJson['key'];
+        /** @var string $name */
+        $name = $decodedJson['name'];
 
-        $metadata = \ShockMedia\Generated\Stats\MetricMetadata::fromDecodedJson($decodedJson['metadata']);
+        /** @var string|null $admxName */
+        $admxName = $decodedJson['admxName'];
 
-        return new MetricMetadatas
+        /** @var int|null $memory */
+        $memory = $decodedJson['memory'];
+
+        /** @var int|null $storage */
+        $storage = $decodedJson['storage'];
+
+        /** @var int|null $cpuCount */
+        $cpuCount = $decodedJson['cpuCount'];
+
+        /** @var string|null $datacenter */
+        $datacenter = $decodedJson['datacenter'];
+
+        return new Node
         (
-            $key, $metadata
+            $name, $admxName, $memory, $storage, $cpuCount, $datacenter
         );
     }
 }
 
+namespace ShockMedia\Generated\Map;
 
-class TimedMetric
+
+enum DeploymentStatus: string
+{
+    case AVAILABLE = 'AVAILABLE';
+    case UNAVAILABLE = 'UNAVAILABLE';
+    case TERMINATING = 'TERMINATING';
+    case NON_EXISTENT = 'NON_EXISTENT';
+}
+
+
+class ManagedApp
 {
     public function __construct
     (
-        public readonly string $time,
-        public readonly float|null $value,
+        public readonly string $id,
+        public readonly string $name,
+        public readonly string $description,
+        public readonly int $deploymentCount,
+        public readonly string|null $sla,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $time */
-        $time = $decodedJson['time'];
+        /** @var string $id */
+        $id = $decodedJson['id'];
 
-        /** @var float|null $value */
-        $value = $decodedJson['value'];
+        /** @var string $name */
+        $name = $decodedJson['name'];
 
-        return new TimedMetric
+        /** @var string $description */
+        $description = $decodedJson['description'];
+
+        /** @var int $deploymentCount */
+        $deploymentCount = $decodedJson['deploymentCount'];
+
+        /** @var string|null $sla */
+        $sla = $decodedJson['sla'];
+
+        return new ManagedApp
         (
-            $time, $value
+            $id, $name, $description, $deploymentCount, $sla
         );
     }
 }
 
 
-class TimedMetrics
+class Deployment
+{
+    public function __construct
+    (
+        public readonly string $id,
+        public readonly string $name,
+        public readonly string|null $description,
+        public readonly \ShockMedia\Generated\Map\DeploymentType|null $type,
+        public readonly \ShockMedia\Generated\Map\ManagedApp|null $managedApp,
+        public readonly \ShockMedia\Generated\Map\Build|null $build,
+        public readonly string|null $override,
+        public readonly \ShockMedia\Generated\Map\BuildTemplate|null $buildTemplate,
+        public readonly \ShockMedia\Generated\Map\DeploymentStatus|null $status,
+        public readonly bool $service,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string|null $description */
+        $description = $decodedJson['description'];
+
+        if ($decodedJson['type'] === NULL) {
+            $type = NULL;
+        } else {
+            $type = \ShockMedia\Generated\Map\DeploymentType::from($decodedJson['type']);
+        }
+
+        if ($decodedJson['managedApp'] === NULL) {
+            $managedApp = NULL;
+        } else {
+            $managedApp = \ShockMedia\Generated\Map\ManagedApp::fromDecodedJson($decodedJson['managedApp']);
+        }
+
+        if ($decodedJson['build'] === NULL) {
+            $build = NULL;
+        } else {
+            $build = \ShockMedia\Generated\Map\Build::fromDecodedJson($decodedJson['build']);
+        }
+
+        /** @var string|null $override */
+        $override = $decodedJson['override'];
+
+        if ($decodedJson['buildTemplate'] === NULL) {
+            $buildTemplate = NULL;
+        } else {
+            $buildTemplate = \ShockMedia\Generated\Map\BuildTemplate::fromDecodedJson($decodedJson['buildTemplate']);
+        }
+
+        if ($decodedJson['status'] === NULL) {
+            $status = NULL;
+        } else {
+            $status = \ShockMedia\Generated\Map\DeploymentStatus::from($decodedJson['status']);
+        }
+
+        /** @var bool $service */
+        $service = $decodedJson['service'];
+
+        return new Deployment
+        (
+            $id, $name, $description, $type, $managedApp, $build, $override, $buildTemplate, $status, $service
+        );
+    }
+}
+
+
+enum BuildState: string
+{
+    case NOT_STARTED = 'NOT_STARTED';
+    case CREATING_BASE_IMAGE = 'CREATING_BASE_IMAGE';
+    case AWAITING_BASE_IMAGE = 'AWAITING_BASE_IMAGE';
+    case CREATING_APP_IMAGE = 'CREATING_APP_IMAGE';
+    case AWAITING_APP_IMAGE = 'AWAITING_APP_IMAGE';
+    case DEPLOYING = 'DEPLOYING';
+    case FINISHED = 'FINISHED';
+    case ERROR = 'ERROR';
+    case CANCELLED = 'CANCELLED';
+}
+
+
+class BuildTemplate
+{
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string $name,
+        public readonly string|null $description,
+        public readonly bool $active,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string|null $description */
+        $description = $decodedJson['description'];
+
+        /** @var bool $active */
+        $active = $decodedJson['active'];
+
+        return new BuildTemplate
+        (
+            $id, $name, $description, $active
+        );
+    }
+}
+
+
+class Build
+{
+    public function __construct
+    (
+        public readonly string $id,
+        public readonly string $deploymentId,
+        public readonly string|null $projectFilePath,
+        public readonly string $uploadDate,
+        public readonly string|null $latestBuildDate,
+        public readonly \ShockMedia\Generated\Map\BuildState $buildState,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $deploymentId */
+        $deploymentId = $decodedJson['deploymentId'];
+
+        /** @var string|null $projectFilePath */
+        $projectFilePath = $decodedJson['projectFilePath'];
+
+        /** @var string $uploadDate */
+        $uploadDate = $decodedJson['uploadDate'];
+
+        /** @var string|null $latestBuildDate */
+        $latestBuildDate = $decodedJson['latestBuildDate'];
+
+        $buildState = \ShockMedia\Generated\Map\BuildState::from($decodedJson['buildState']);
+
+        return new Build
+        (
+            $id, $deploymentId, $projectFilePath, $uploadDate, $latestBuildDate, $buildState
+        );
+    }
+}
+
+
+enum DeploymentType: string
+{
+    case PRODUCTION = 'PRODUCTION';
+    case STAGING = 'STAGING';
+    case ACCEPTANCE = 'ACCEPTANCE';
+    case DEVELOPMENT = 'DEVELOPMENT';
+    case OTHER = 'OTHER';
+}
+
+
+class BuildStatus
+{
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string $deploymentId,
+        public readonly string $buildId,
+        public readonly int $buildNumber,
+        public readonly string $status,
+        public readonly string $createdAt,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $deploymentId */
+        $deploymentId = $decodedJson['deploymentId'];
+
+        /** @var string $buildId */
+        $buildId = $decodedJson['buildId'];
+
+        /** @var int $buildNumber */
+        $buildNumber = $decodedJson['buildNumber'];
+
+        /** @var string $status */
+        $status = $decodedJson['status'];
+
+        /** @var string $createdAt */
+        $createdAt = $decodedJson['createdAt'];
+
+        return new BuildStatus
+        (
+            $id, $deploymentId, $buildId, $buildNumber, $status, $createdAt
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Incidents;
+
+
+class ExternalIncidentsFilter
 {
     /**
-     * @param \ShockMedia\Generated\Stats\TimedMetric[] $metrics
+     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $interval
      */
     public function __construct
     (
-        public readonly string $key,
-        public readonly array $metrics,
+        public readonly array|null $interval,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $key */
-        $key = $decodedJson['key'];
-
-        $var0 = array();
-        foreach ($decodedJson['metrics'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Stats\TimedMetric::fromDecodedJson($element0);
+        if ($decodedJson['interval'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['interval'][0]);
+            $var0[] = $decodedJson['interval'][1];
+            $var0[] = $decodedJson['interval'][2];
         }
-        /** @var \ShockMedia\Generated\Stats\TimedMetric[] $metrics */
-        $metrics = $var0;
+        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $interval */
+        $interval = $var0;
 
-        return new TimedMetrics
+        return new ExternalIncidentsFilter
         (
-            $key, $metrics
+            $interval
+        );
+    }
+}
+
+
+class ExternalIncident
+{
+    public function __construct
+    (
+        public readonly string $title,
+        public readonly bool $resolved,
+        public readonly string $startTime,
+        public readonly string|null $endTime,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $title */
+        $title = $decodedJson['title'];
+
+        /** @var bool $resolved */
+        $resolved = $decodedJson['resolved'];
+
+        /** @var string $startTime */
+        $startTime = $decodedJson['startTime'];
+
+        /** @var string|null $endTime */
+        $endTime = $decodedJson['endTime'];
+
+        return new ExternalIncident
+        (
+            $title, $resolved, $startTime, $endTime
+        );
+    }
+}
+
+
+class IncidentReport
+{
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string $date,
+        public readonly string $title,
+        public readonly string $filename,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $date */
+        $date = $decodedJson['date'];
+
+        /** @var string $title */
+        $title = $decodedJson['title'];
+
+        /** @var string $filename */
+        $filename = $decodedJson['filename'];
+
+        return new IncidentReport
+        (
+            $id, $date, $title, $filename
         );
     }
 }
 
 namespace ShockMedia\Generated\Domainregistration;
-
-
-class CreateDomainRequestContactInput
-{
-    /**
-     * @param \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\RegistryProperty[]|null $registryProperties
-     */
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\Role $role,
-        public readonly string|null $organization,
-        public readonly string $name,
-        public readonly string $address,
-        public readonly string $postalCode,
-        public readonly string $city,
-        public readonly string|null $state,
-        public readonly string $country,
-        public readonly string $email,
-        public readonly string $telVoice,
-        public readonly string|null $telFax,
-        public readonly array|null $registryProperties,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $role = \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\Role::from($decodedJson['role']);
-
-        /** @var string|null $organization */
-        $organization = $decodedJson['organization'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string $address */
-        $address = $decodedJson['address'];
-
-        /** @var string $postalCode */
-        $postalCode = $decodedJson['postalCode'];
-
-        /** @var string $city */
-        $city = $decodedJson['city'];
-
-        /** @var string|null $state */
-        $state = $decodedJson['state'];
-
-        /** @var string $country */
-        $country = $decodedJson['country'];
-
-        /** @var string $email */
-        $email = $decodedJson['email'];
-
-        /** @var string $telVoice */
-        $telVoice = $decodedJson['telVoice'];
-
-        /** @var string|null $telFax */
-        $telFax = $decodedJson['telFax'];
-
-        if ($decodedJson['registryProperties'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['registryProperties'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\RegistryProperty::fromDecodedJson($element0);
-            }
-        }
-        /** @var \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\RegistryProperty[]|null $registryProperties */
-        $registryProperties = $var0;
-
-        return new CreateDomainRequestContactInput
-        (
-            $role, $organization, $name, $address, $postalCode, $city, $state, $country, $email, $telVoice, $telFax, $registryProperties
-        );
-    }
-}
-
-
-class RegistryProperties
-{
-    /**
-     * @param \ShockMedia\Generated\Domainregistration\RegistryProperties\Property[] $props
-     */
-    public function __construct
-    (
-        public readonly string $registry,
-        public readonly array $props,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $registry */
-        $registry = $decodedJson['registry'];
-
-        $var0 = array();
-        foreach ($decodedJson['props'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Domainregistration\RegistryProperties\Property::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Domainregistration\RegistryProperties\Property[] $props */
-        $props = $var0;
-
-        return new RegistryProperties
-        (
-            $registry, $props
-        );
-    }
-}
 
 
 class CreateDomainContactInputSource
@@ -4437,6 +3489,147 @@ enum DomainCheckStatus: string
     case not_available = 'not_available';
     case invalid = 'invalid';
     case error = 'error';
+}
+
+
+class DomainContact
+{
+    /**
+     * @param \ShockMedia\Generated\Domainregistration\DomainContact\ExtraProperty[] $extraProperties
+     * @param \ShockMedia\Generated\Domainregistration\DomainContact\Validation[] $validations
+     */
+    public function __construct
+    (
+        public readonly string $handle,
+        public readonly string|null $organization,
+        public readonly string $name,
+        public readonly string $address,
+        public readonly string $postalCode,
+        public readonly string $city,
+        public readonly string|null $state,
+        public readonly string $country,
+        public readonly string $email,
+        public readonly string $telVoice,
+        public readonly string|null $telFax,
+        public readonly array $extraProperties,
+        public readonly array $validations,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $handle */
+        $handle = $decodedJson['handle'];
+
+        /** @var string|null $organization */
+        $organization = $decodedJson['organization'];
+
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string $address */
+        $address = $decodedJson['address'];
+
+        /** @var string $postalCode */
+        $postalCode = $decodedJson['postalCode'];
+
+        /** @var string $city */
+        $city = $decodedJson['city'];
+
+        /** @var string|null $state */
+        $state = $decodedJson['state'];
+
+        /** @var string $country */
+        $country = $decodedJson['country'];
+
+        /** @var string $email */
+        $email = $decodedJson['email'];
+
+        /** @var string $telVoice */
+        $telVoice = $decodedJson['telVoice'];
+
+        /** @var string|null $telFax */
+        $telFax = $decodedJson['telFax'];
+
+        $var0 = array();
+        foreach ($decodedJson['extraProperties'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Domainregistration\DomainContact\ExtraProperty::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Domainregistration\DomainContact\ExtraProperty[] $extraProperties */
+        $extraProperties = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['validations'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Domainregistration\DomainContact\Validation::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Domainregistration\DomainContact\Validation[] $validations */
+        $validations = $var0;
+
+        return new DomainContact
+        (
+            $handle, $organization, $name, $address, $postalCode, $city, $state, $country, $email, $telVoice, $telFax, $extraProperties, $validations
+        );
+    }
+}
+
+
+class UnstartedDomainRegistration
+{
+    /**
+     * @param \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration\Info[] $domains
+     */
+    public function __construct
+    (
+        public readonly array $domains,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $var0 = array();
+        foreach ($decodedJson['domains'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration\Info::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration\Info[] $domains */
+        $domains = $var0;
+
+        return new UnstartedDomainRegistration
+        (
+            $domains
+        );
+    }
+}
+
+
+class RegistryProperties
+{
+    /**
+     * @param \ShockMedia\Generated\Domainregistration\RegistryProperties\Property[] $props
+     */
+    public function __construct
+    (
+        public readonly string $registry,
+        public readonly array $props,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $registry */
+        $registry = $decodedJson['registry'];
+
+        $var0 = array();
+        foreach ($decodedJson['props'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Domainregistration\RegistryProperties\Property::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Domainregistration\RegistryProperties\Property[] $props */
+        $props = $var0;
+
+        return new RegistryProperties
+        (
+            $registry, $props
+        );
+    }
 }
 
 
@@ -4560,15 +3753,14 @@ class CreateDomainRequestInput
 }
 
 
-class DomainContact
+class CreateDomainRequestContactInput
 {
     /**
-     * @param \ShockMedia\Generated\Domainregistration\DomainContact\ExtraProperty[] $extraProperties
-     * @param \ShockMedia\Generated\Domainregistration\DomainContact\Validation[] $validations
+     * @param \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\RegistryProperty[]|null $registryProperties
      */
     public function __construct
     (
-        public readonly string $handle,
+        public readonly \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\Role $role,
         public readonly string|null $organization,
         public readonly string $name,
         public readonly string $address,
@@ -4579,15 +3771,13 @@ class DomainContact
         public readonly string $email,
         public readonly string $telVoice,
         public readonly string|null $telFax,
-        public readonly array $extraProperties,
-        public readonly array $validations,
+        public readonly array|null $registryProperties,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $handle */
-        $handle = $decodedJson['handle'];
+        $role = \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\Role::from($decodedJson['role']);
 
         /** @var string|null $organization */
         $organization = $decodedJson['organization'];
@@ -4619,51 +3809,20 @@ class DomainContact
         /** @var string|null $telFax */
         $telFax = $decodedJson['telFax'];
 
-        $var0 = array();
-        foreach ($decodedJson['extraProperties'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Domainregistration\DomainContact\ExtraProperty::fromDecodedJson($element0);
+        if ($decodedJson['registryProperties'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['registryProperties'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\RegistryProperty::fromDecodedJson($element0);
+            }
         }
-        /** @var \ShockMedia\Generated\Domainregistration\DomainContact\ExtraProperty[] $extraProperties */
-        $extraProperties = $var0;
+        /** @var \ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\RegistryProperty[]|null $registryProperties */
+        $registryProperties = $var0;
 
-        $var0 = array();
-        foreach ($decodedJson['validations'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Domainregistration\DomainContact\Validation::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Domainregistration\DomainContact\Validation[] $validations */
-        $validations = $var0;
-
-        return new DomainContact
+        return new CreateDomainRequestContactInput
         (
-            $handle, $organization, $name, $address, $postalCode, $city, $state, $country, $email, $telVoice, $telFax, $extraProperties, $validations
-        );
-    }
-}
-
-
-class UnstartedDomainRegistration
-{
-    /**
-     * @param \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration\Info[] $domains
-     */
-    public function __construct
-    (
-        public readonly array $domains,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $var0 = array();
-        foreach ($decodedJson['domains'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration\Info::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration\Info[] $domains */
-        $domains = $var0;
-
-        return new UnstartedDomainRegistration
-        (
-            $domains
+            $role, $organization, $name, $address, $postalCode, $city, $state, $country, $email, $telVoice, $telFax, $registryProperties
         );
     }
 }
@@ -4722,6 +3881,51 @@ class Failure
         return new Failure
         (
             $id, $details
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput;
+
+
+enum Role: string
+{
+    case registrant = 'registrant';
+    case admin = 'admin';
+}
+
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
+
+
+enum PlanType: string
+{
+    case domreg = 'domreg';
+    case hosting = 'hosting';
+}
+
+namespace ShockMedia\Generated\Domainregistration\RegistryProperties;
+
+
+class Property
+{
+    public function __construct
+    (
+        public readonly string $name,
+        public readonly string $value,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string $value */
+        $value = $decodedJson['value'];
+
+        return new Property
+        (
+            $name, $value
         );
     }
 }
@@ -4849,57 +4053,7 @@ class TransferInfo
 namespace ShockMedia\Generated\Domainregistration\DomainContact;
 
 
-class_alias('ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput\RegistryProperty', 'ExtraProperty');
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
-
-
-enum PlanType: string
-{
-    case domreg = 'domreg';
-    case hosting = 'hosting';
-}
-
-namespace ShockMedia\Generated\Domainregistration\RegistryProperties;
-
-
-class Property
-{
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly string $value,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string $value */
-        $value = $decodedJson['value'];
-
-        return new Property
-        (
-            $name, $value
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput;
-
-
-enum Role: string
-{
-    case registrant = 'registrant';
-    case admin = 'admin';
-}
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput;
-
-
-class RegistryProperty
+class ExtraProperty
 {
     public function __construct
     (
@@ -4920,121 +4074,9 @@ class RegistryProperty
         /** @var string $value */
         $value = $decodedJson['value'];
 
-        return new RegistryProperty
+        return new ExtraProperty
         (
             $registry, $name, $value
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
-
-
-enum NameserversType: string
-{
-    case smbv = 'smbv';
-    case my = 'my';
-}
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
-
-
-enum ConfigDomain: string
-{
-    case regpage = 'regpage';
-    case server = 'server';
-    case dnstpl = 'dnstpl';
-}
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
-
-
-class NameServer
-{
-    public function __construct
-    (
-        public readonly int $index,
-        public readonly string $ns,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $index */
-        $index = $decodedJson['index'];
-
-        /** @var string $ns */
-        $ns = $decodedJson['ns'];
-
-        return new NameServer
-        (
-            $index, $ns
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
-
-
-class DnsRecord
-{
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly string $type,
-        public readonly int|null $ttl,
-        public readonly int|null $prio,
-        public readonly string $content,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string $type */
-        $type = $decodedJson['type'];
-
-        /** @var int|null $ttl */
-        $ttl = $decodedJson['ttl'];
-
-        /** @var int|null $prio */
-        $prio = $decodedJson['prio'];
-
-        /** @var string $content */
-        $content = $decodedJson['content'];
-
-        return new DnsRecord
-        (
-            $name, $type, $ttl, $prio, $content
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
-
-
-class AcceptedQuote
-{
-    public function __construct
-    (
-        public readonly float $monthly,
-        public readonly int $period,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var float $monthly */
-        $monthly = $decodedJson['monthly'];
-
-        /** @var int $period */
-        $period = $decodedJson['period'];
-
-        return new AcceptedQuote
-        (
-            $monthly, $period
         );
     }
 }
@@ -5445,690 +4487,398 @@ class PlanConfigurationNameservers
         );
     }
 }
-namespace ShockMedia\Generated\Activities;
+
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
 
 
-class ActivityFilter
+enum NameserversType: string
+{
+    case smbv = 'smbv';
+    case my = 'my';
+}
+
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
+
+
+enum ConfigDomain: string
+{
+    case regpage = 'regpage';
+    case server = 'server';
+    case dnstpl = 'dnstpl';
+}
+
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
+
+
+class NameServer
 {
     public function __construct
     (
-        public readonly string|null $fqdn,
-        public readonly string|null $query,
+        public readonly int $index,
+        public readonly string $ns,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string|null $fqdn */
-        $fqdn = $decodedJson['fqdn'];
+        /** @var int $index */
+        $index = $decodedJson['index'];
 
-        /** @var string|null $query */
-        $query = $decodedJson['query'];
+        /** @var string $ns */
+        $ns = $decodedJson['ns'];
 
-        return new ActivityFilter
+        return new NameServer
         (
-            $fqdn, $query
+            $index, $ns
         );
     }
 }
 
-
-class Activity
-{
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $subject,
-        public readonly string $description,
-        public readonly string $start,
-        public readonly string $duration,
-        public readonly int|null $serverId,
-        public readonly string|null $serverName,
-        public readonly bool $owner,
-        public readonly bool $system,
-        public readonly \ShockMedia\Generated\Activities\Activity\TicketAlt2|null $ticket,
-        public readonly bool $rebootPerformed,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $subject */
-        $subject = $decodedJson['subject'];
-
-        /** @var string $description */
-        $description = $decodedJson['description'];
-
-        /** @var string $start */
-        $start = $decodedJson['start'];
-
-        /** @var string $duration */
-        $duration = $decodedJson['duration'];
-
-        /** @var int|null $serverId */
-        $serverId = $decodedJson['serverId'];
-
-        /** @var string|null $serverName */
-        $serverName = $decodedJson['serverName'];
-
-        /** @var bool $owner */
-        $owner = $decodedJson['owner'];
-
-        /** @var bool $system */
-        $system = $decodedJson['system'];
-
-        if ($decodedJson['ticket'] === NULL) {
-            $ticket = NULL;
-        } else {
-            $ticket = \ShockMedia\Generated\Activities\Activity\TicketAlt2::fromDecodedJson($decodedJson['ticket']);
-        }
-
-        /** @var bool $rebootPerformed */
-        $rebootPerformed = $decodedJson['rebootPerformed'];
-
-        return new Activity
-        (
-            $id, $subject, $description, $start, $duration, $serverId, $serverName, $owner, $system, $ticket, $rebootPerformed
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Activities\Activity;
-
-
-class TicketAlt2
-{
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $authCode,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $authCode */
-        $authCode = $decodedJson['authCode'];
-
-        return new TicketAlt2
-        (
-            $id, $authCode
-        );
-    }
-}
-namespace ShockMedia\Generated\Domains;
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
 
 
 class DnsRecord
 {
     public function __construct
     (
-        public readonly int $id,
-        public readonly bool $editable,
-        public readonly string $domainName,
         public readonly string $name,
-        public readonly \ShockMedia\Generated\Domains\DnsRecordType $type,
-        public readonly int $ttl,
-        public readonly string $content,
+        public readonly string $type,
+        public readonly int|null $ttl,
         public readonly int|null $prio,
+        public readonly string $content,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var bool $editable */
-        $editable = $decodedJson['editable'];
-
-        /** @var string $domainName */
-        $domainName = $decodedJson['domainName'];
-
         /** @var string $name */
         $name = $decodedJson['name'];
 
-        $type = \ShockMedia\Generated\Domains\DnsRecordType::from($decodedJson['type']);
+        /** @var string $type */
+        $type = $decodedJson['type'];
 
-        /** @var int $ttl */
+        /** @var int|null $ttl */
         $ttl = $decodedJson['ttl'];
-
-        /** @var string $content */
-        $content = $decodedJson['content'];
 
         /** @var int|null $prio */
         $prio = $decodedJson['prio'];
+
+        /** @var string $content */
+        $content = $decodedJson['content'];
 
         return new DnsRecord
         (
-            $id, $editable, $domainName, $name, $type, $ttl, $content, $prio
+            $name, $type, $ttl, $prio, $content
         );
     }
 }
 
-
-enum DnsRecordType: string
-{
-    case A = 'A';
-    case AAAA = 'AAAA';
-    case AFSDB = 'AFSDB';
-    case ALIAS = 'ALIAS';
-    case APL = 'APL';
-    case CAA = 'CAA';
-    case CDNSKEY = 'CDNSKEY';
-    case CDS = 'CDS';
-    case CERT = 'CERT';
-    case CNAME = 'CNAME';
-    case CSYNC = 'CSYNC';
-    case DHCID = 'DHCID';
-    case DLV = 'DLV';
-    case DNAME = 'DNAME';
-    case DNSKEY = 'DNSKEY';
-    case DS = 'DS';
-    case EUI48 = 'EUI48';
-    case EUI64 = 'EUI64';
-    case HINFO = 'HINFO';
-    case HIP = 'HIP';
-    case HTTPS = 'HTTPS';
-    case IPSECKEY = 'IPSECKEY';
-    case KEY = 'KEY';
-    case KX = 'KX';
-    case LOC = 'LOC';
-    case MX = 'MX';
-    case NAPTR = 'NAPTR';
-    case NS = 'NS';
-    case NSEC = 'NSEC';
-    case NSEC3 = 'NSEC3';
-    case NSEC3PARAM = 'NSEC3PARAM';
-    case OPENPGPKEY = 'OPENPGPKEY';
-    case PTR = 'PTR';
-    case RP = 'RP';
-    case RRSIG = 'RRSIG';
-    case SIG = 'SIG';
-    case SMIMEA = 'SMIMEA';
-    case SOA = 'SOA';
-    case SRV = 'SRV';
-    case SSHFP = 'SSHFP';
-    case SVCB = 'SVCB';
-    case TA = 'TA';
-    case TKEY = 'TKEY';
-    case TLSA = 'TLSA';
-    case TSIG = 'TSIG';
-    case TXT = 'TXT';
-    case URI = 'URI';
-    case ZONEMD = 'ZONEMD';
-}
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestInput;
 
 
-enum DnsErrorCode: string
-{
-    case MISSING_SOA_RECORD = 'MISSING_SOA_RECORD';
-    case MISSING_NS_RECORD = 'MISSING_NS_RECORD';
-    case CNAME_RECORD_EQUALS_ZONE = 'CNAME_RECORD_EQUALS_ZONE';
-    case CNAME_RECORD_CLASH = 'CNAME_RECORD_CLASH';
-    case INVALID_RECORD_NAME = 'INVALID_RECORD_NAME';
-    case RECORD_NAME_NO_TWO_DOTS = 'RECORD_NAME_NO_TWO_DOTS';
-    case LEADING_WHITESPACE_IN_CONTENT = 'LEADING_WHITESPACE_IN_CONTENT';
-    case TRAILING_WHITESPACE_IN_CONTENT = 'TRAILING_WHITESPACE_IN_CONTENT';
-    case IP_ADDRESS_NOT_ALLOWED = 'IP_ADDRESS_NOT_ALLOWED';
-    case MISSING_CONTENT = 'MISSING_CONTENT';
-    case INVALID_CONTENT = 'INVALID_CONTENT';
-    case INVALID_SRV_CONTENT = 'INVALID_SRV_CONTENT';
-    case INVALID_IPV4 = 'INVALID_IPV4';
-    case INVALID_IPV6 = 'INVALID_IPV6';
-    case INVALID_HOSTNAME = 'INVALID_HOSTNAME';
-    case PRIORITY_NOT_ALLOWED = 'PRIORITY_NOT_ALLOWED';
-    case MISSING_PRIORITY = 'MISSING_PRIORITY';
-    case INVALID_PRIORITY = 'INVALID_PRIORITY';
-    case UNKNOWN_RECORD_TYPE = 'UNKNOWN_RECORD_TYPE';
-    case INVALID_TTL = 'INVALID_TTL';
-    case MIXED_RRSET_TTL = 'MIXED_RRSET_TTL';
-}
-
-
-enum EditableDnsRecordType: string
-{
-    case A = 'A';
-    case AAAA = 'AAAA';
-    case CAA = 'CAA';
-    case CNAME = 'CNAME';
-    case MX = 'MX';
-    case SRV = 'SRV';
-    case TXT = 'TXT';
-}
-
-
-class DomainFilter
+class AcceptedQuote
 {
     public function __construct
     (
-        public readonly string|null $nameContains,
+        public readonly float $monthly,
+        public readonly int $period,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string|null $nameContains */
-        $nameContains = $decodedJson['nameContains'];
+        /** @var float $monthly */
+        $monthly = $decodedJson['monthly'];
 
-        return new DomainFilter
+        /** @var int $period */
+        $period = $decodedJson['period'];
+
+        return new AcceptedQuote
         (
-            $nameContains
+            $monthly, $period
         );
     }
 }
 
-
-class DnsRecordInput
-{
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly \ShockMedia\Generated\Domains\EditableDnsRecordType $type,
-        public readonly int $ttl,
-        public readonly string $content,
-        public readonly int|null $prio,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        $type = \ShockMedia\Generated\Domains\EditableDnsRecordType::from($decodedJson['type']);
-
-        /** @var int $ttl */
-        $ttl = $decodedJson['ttl'];
-
-        /** @var string $content */
-        $content = $decodedJson['content'];
-
-        /** @var int|null $prio */
-        $prio = $decodedJson['prio'];
-
-        return new DnsRecordInput
-        (
-            $name, $type, $ttl, $content, $prio
-        );
-    }
-}
+namespace ShockMedia\Generated\Domainregistration\CreateDomainRequestContactInput;
 
 
-class ValidationErrors
+class_alias('ShockMedia\Generated\Domainregistration\DomainContact\ExtraProperty', 'RegistryProperty');
+namespace ShockMedia\Generated\Invoices;
+
+
+class InvoiceFilter
 {
     /**
-     * @param \ShockMedia\Generated\Domains\DnsErrorCode[] $zone
-     * @param (array{int|null,\ShockMedia\Generated\Domains\DnsErrorCode})[] $records
+     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $paymentDate
      */
     public function __construct
     (
-        public readonly array $zone,
-        public readonly array $records,
+        public readonly \ShockMedia\Generated\Invoices\InvoiceFilter\StatusAlt2|null $status,
+        public readonly string|null $invoiceNumber,
+        public readonly array|null $paymentDate,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        $var0 = array();
-        foreach ($decodedJson['zone'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Domains\DnsErrorCode::from($element0);
-        }
-        /** @var \ShockMedia\Generated\Domains\DnsErrorCode[] $zone */
-        $zone = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['records'] as $element0) {
-            $var1 = array();
-            $var1[] = $element0[0];
-            $var1[] = \ShockMedia\Generated\Domains\DnsErrorCode::from($element0[1]);
-            $var0[] = $var1;
-        }
-        /** @var (array{int|null,\ShockMedia\Generated\Domains\DnsErrorCode})[] $records */
-        $records = $var0;
-
-        return new ValidationErrors
-        (
-            $zone, $records
-        );
-    }
-}
-
-
-class Domain
-{
-    /**
-     * @param \ShockMedia\Generated\Domains\DnsRecord[]|null $records
-     */
-    public function __construct
-    (
-        public readonly int|null $notifiedSerial,
-        public readonly string|null $account,
-        public readonly string $name,
-        public readonly string|null $type,
-        public readonly int|null $lastCheck,
-        public readonly bool $hasHostingPackage,
-        public readonly bool $hasDns,
-        public readonly \ShockMedia\Generated\Webforwarding\WebForwardingState|null $webForwarding,
-        public readonly array|null $records,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int|null $notifiedSerial */
-        $notifiedSerial = $decodedJson['notifiedSerial'];
-
-        /** @var string|null $account */
-        $account = $decodedJson['account'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string|null $type */
-        $type = $decodedJson['type'];
-
-        /** @var int|null $lastCheck */
-        $lastCheck = $decodedJson['lastCheck'];
-
-        /** @var bool $hasHostingPackage */
-        $hasHostingPackage = $decodedJson['hasHostingPackage'];
-
-        /** @var bool $hasDns */
-        $hasDns = $decodedJson['hasDns'];
-
-        if ($decodedJson['webForwarding'] === NULL) {
-            $webForwarding = NULL;
+        if ($decodedJson['status'] === NULL) {
+            $status = NULL;
         } else {
-            $webForwarding = \ShockMedia\Generated\Webforwarding\WebForwardingState::fromDecodedJson($decodedJson['webForwarding']);
+            $status = \ShockMedia\Generated\Invoices\InvoiceFilter\StatusAlt2::from($decodedJson['status']);
         }
 
-        if ($decodedJson['records'] === NULL) {
+        /** @var string|null $invoiceNumber */
+        $invoiceNumber = $decodedJson['invoiceNumber'];
+
+        if ($decodedJson['paymentDate'] === NULL) {
             $var0 = NULL;
         } else {
             $var0 = array();
-            foreach ($decodedJson['records'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Domains\DnsRecord::fromDecodedJson($element0);
-            }
+            $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['paymentDate'][0]);
+            $var0[] = $decodedJson['paymentDate'][1];
+            $var0[] = $decodedJson['paymentDate'][2];
         }
-        /** @var \ShockMedia\Generated\Domains\DnsRecord[]|null $records */
-        $records = $var0;
+        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $paymentDate */
+        $paymentDate = $var0;
 
-        return new Domain
+        return new InvoiceFilter
         (
-            $notifiedSerial, $account, $name, $type, $lastCheck, $hasHostingPackage, $hasDns, $webForwarding, $records
+            $status, $invoiceNumber, $paymentDate
         );
     }
 }
 
-namespace ShockMedia\Generated\Account;
 
-
-class UpdateAccountInput
+enum PaymentState: string
 {
-    /**
-     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
-     */
+    case processing = 'processing';
+    case successful = 'successful';
+    case failed = 'failed';
+}
+
+
+class EmsOrder
+{
     public function __construct
     (
-        public readonly int $id,
-        public readonly string|null $name,
-        public readonly bool|null $disabled,
-        public readonly bool|null $newPasswordRequired,
-        public readonly array|null $permissions,
+        public readonly int $invoiceNumber,
+        public readonly string $transactionType,
+        public readonly string $timezone,
+        public readonly string $transactionTimestamp,
+        public readonly string $hashAlgorithm,
+        public readonly string $hash,
+        public readonly string $storeName,
+        public readonly string $paymentMode,
+        public readonly string $paymentMethod,
+        public readonly float $totalAmount,
+        public readonly int $currencyCode,
+        public readonly string $checkoutOption,
+        public readonly string $orderId,
+        public readonly string $language,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int $id */
-        $id = $decodedJson['id'];
+        /** @var int $invoiceNumber */
+        $invoiceNumber = $decodedJson['invoiceNumber'];
 
-        /** @var string|null $name */
-        $name = $decodedJson['name'];
+        /** @var string $transactionType */
+        $transactionType = $decodedJson['transactionType'];
 
-        /** @var bool|null $disabled */
-        $disabled = $decodedJson['disabled'];
+        /** @var string $timezone */
+        $timezone = $decodedJson['timezone'];
 
-        /** @var bool|null $newPasswordRequired */
-        $newPasswordRequired = $decodedJson['newPasswordRequired'];
+        /** @var string $transactionTimestamp */
+        $transactionTimestamp = $decodedJson['transactionTimestamp'];
 
-        if ($decodedJson['permissions'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['permissions'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Auth\Permission::from($element0);
-            }
-        }
-        /** @var \ShockMedia\Generated\Auth\Permission[]|null $permissions */
-        $permissions = $var0;
+        /** @var string $hashAlgorithm */
+        $hashAlgorithm = $decodedJson['hashAlgorithm'];
 
-        return new UpdateAccountInput
+        /** @var string $hash */
+        $hash = $decodedJson['hash'];
+
+        /** @var string $storeName */
+        $storeName = $decodedJson['storeName'];
+
+        /** @var string $paymentMode */
+        $paymentMode = $decodedJson['paymentMode'];
+
+        /** @var string $paymentMethod */
+        $paymentMethod = $decodedJson['paymentMethod'];
+
+        /** @var float $totalAmount */
+        $totalAmount = $decodedJson['totalAmount'];
+
+        /** @var int $currencyCode */
+        $currencyCode = $decodedJson['currencyCode'];
+
+        /** @var string $checkoutOption */
+        $checkoutOption = $decodedJson['checkoutOption'];
+
+        /** @var string $orderId */
+        $orderId = $decodedJson['orderId'];
+
+        /** @var string $language */
+        $language = $decodedJson['language'];
+
+        return new EmsOrder
         (
-            $id, $name, $disabled, $newPasswordRequired, $permissions
+            $invoiceNumber, $transactionType, $timezone, $transactionTimestamp, $hashAlgorithm, $hash, $storeName, $paymentMode, $paymentMethod, $totalAmount, $currencyCode, $checkoutOption, $orderId, $language
         );
     }
 }
 
 
-class Account
+class Invoice
 {
-    /**
-     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
-     */
     public function __construct
     (
-        public readonly int $id,
-        public readonly int $contactId,
+        public readonly int $invoiceNumber,
+        public readonly string|null $paymentDate,
+        public readonly int $vat,
         public readonly int $customerId,
-        public readonly string|null $userName,
-        public readonly bool $disabled,
-        public readonly \ShockMedia\Generated\Language|null $preferredLanguage,
-        public readonly bool $requiresNewPassword,
-        public readonly bool $loggedIn,
-        public readonly bool $twoFactorAuthenticationEnabled,
-        public readonly bool $twoFactorAuthenticationEmailFallbackEnabled,
-        public readonly array|null $permissions,
+        public readonly string $invoiceMethod,
+        public readonly bool $hasPrint,
+        public readonly float $total,
+        public readonly string $date,
+        public readonly \ShockMedia\Generated\Invoices\InvoiceState $status,
+        public readonly \ShockMedia\Generated\Invoices\InvoiceReminder|null $reminder,
+        public readonly bool $payableByIdeal,
+        public readonly \ShockMedia\Generated\Invoices\PaymentState|null $paymentState,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int $id */
-        $id = $decodedJson['id'];
+        /** @var int $invoiceNumber */
+        $invoiceNumber = $decodedJson['invoiceNumber'];
 
-        /** @var int $contactId */
-        $contactId = $decodedJson['contactId'];
+        /** @var string|null $paymentDate */
+        $paymentDate = $decodedJson['paymentDate'];
+
+        /** @var int $vat */
+        $vat = $decodedJson['vat'];
 
         /** @var int $customerId */
         $customerId = $decodedJson['customerId'];
 
-        /** @var string|null $userName */
-        $userName = $decodedJson['userName'];
+        /** @var string $invoiceMethod */
+        $invoiceMethod = $decodedJson['invoiceMethod'];
 
-        /** @var bool $disabled */
-        $disabled = $decodedJson['disabled'];
+        /** @var bool $hasPrint */
+        $hasPrint = $decodedJson['hasPrint'];
 
-        if ($decodedJson['preferredLanguage'] === NULL) {
-            $preferredLanguage = NULL;
+        /** @var float $total */
+        $total = $decodedJson['total'];
+
+        /** @var string $date */
+        $date = $decodedJson['date'];
+
+        $status = \ShockMedia\Generated\Invoices\InvoiceState::from($decodedJson['status']);
+
+        if ($decodedJson['reminder'] === NULL) {
+            $reminder = NULL;
         } else {
-            $preferredLanguage = \ShockMedia\Generated\Language::from($decodedJson['preferredLanguage']);
+            $reminder = \ShockMedia\Generated\Invoices\InvoiceReminder::from($decodedJson['reminder']);
         }
 
-        /** @var bool $requiresNewPassword */
-        $requiresNewPassword = $decodedJson['requiresNewPassword'];
+        /** @var bool $payableByIdeal */
+        $payableByIdeal = $decodedJson['payableByIdeal'];
 
-        /** @var bool $loggedIn */
-        $loggedIn = $decodedJson['loggedIn'];
-
-        /** @var bool $twoFactorAuthenticationEnabled */
-        $twoFactorAuthenticationEnabled = $decodedJson['twoFactorAuthenticationEnabled'];
-
-        /** @var bool $twoFactorAuthenticationEmailFallbackEnabled */
-        $twoFactorAuthenticationEmailFallbackEnabled = $decodedJson['twoFactorAuthenticationEmailFallbackEnabled'];
-
-        if ($decodedJson['permissions'] === NULL) {
-            $var0 = NULL;
+        if ($decodedJson['paymentState'] === NULL) {
+            $paymentState = NULL;
         } else {
-            $var0 = array();
-            foreach ($decodedJson['permissions'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Auth\Permission::from($element0);
-            }
+            $paymentState = \ShockMedia\Generated\Invoices\PaymentState::from($decodedJson['paymentState']);
         }
-        /** @var \ShockMedia\Generated\Auth\Permission[]|null $permissions */
-        $permissions = $var0;
 
-        return new Account
+        return new Invoice
         (
-            $id, $contactId, $customerId, $userName, $disabled, $preferredLanguage, $requiresNewPassword, $loggedIn, $twoFactorAuthenticationEnabled, $twoFactorAuthenticationEmailFallbackEnabled, $permissions
+            $invoiceNumber, $paymentDate, $vat, $customerId, $invoiceMethod, $hasPrint, $total, $date, $status, $reminder, $payableByIdeal, $paymentState
         );
     }
 }
 
-namespace ShockMedia\Generated\Announcements;
+
+enum InvoiceReminder: string
+{
+    case first = 'first';
+    case second = 'second';
+    case final = 'final';
+}
 
 
-class UpdateAnnouncementInput
+enum InvoiceState: string
+{
+    case open = 'open';
+    case closed = 'closed';
+}
+
+namespace ShockMedia\Generated\Invoices\InvoiceFilter;
+
+
+enum StatusAlt2: string
+{
+    case open = 'open';
+    case closed = 'closed';
+}
+namespace ShockMedia\Generated\Tickets;
+
+
+class TicketFilter
 {
     /**
-     * @param (array{string,string})[]|null $message
+     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null} $createdOn
      */
     public function __construct
     (
-        public readonly int $id,
-        public readonly string|null $icon,
-        public readonly \ShockMedia\Generated\Announcements\AnnouncementSeverity|null $severity,
-        public readonly string|null $expiryDate,
-        public readonly array|null $message,
+        public readonly string|null $phrase,
+        public readonly \ShockMedia\Generated\Tickets\TicketState|null $state,
+        public readonly string|null $department,
+        public readonly array $createdOn,
+        public readonly int|null $serviceId,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int $id */
-        $id = $decodedJson['id'];
+        /** @var string|null $phrase */
+        $phrase = $decodedJson['phrase'];
 
-        /** @var string|null $icon */
-        $icon = $decodedJson['icon'];
-
-        if ($decodedJson['severity'] === NULL) {
-            $severity = NULL;
+        if ($decodedJson['state'] === NULL) {
+            $state = NULL;
         } else {
-            $severity = \ShockMedia\Generated\Announcements\AnnouncementSeverity::from($decodedJson['severity']);
+            $state = \ShockMedia\Generated\Tickets\TicketState::from($decodedJson['state']);
         }
 
-        /** @var string|null $expiryDate */
-        $expiryDate = $decodedJson['expiryDate'];
-
-        if ($decodedJson['message'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['message'] as $element0) {
-                $var1 = array();
-                $var1[] = $element0[0];
-                $var1[] = $element0[1];
-                $var0[] = $var1;
-            }
-        }
-        /** @var (array{string,string})[]|null $message */
-        $message = $var0;
-
-        return new UpdateAnnouncementInput
-        (
-            $id, $icon, $severity, $expiryDate, $message
-        );
-    }
-}
-
-
-class AnnouncementFilter
-{
-    public function __construct
-    (
-        public readonly bool|null $unreadByCurrentAccount,
-        public readonly bool $showExpired,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var bool|null $unreadByCurrentAccount */
-        $unreadByCurrentAccount = $decodedJson['unreadByCurrentAccount'];
-
-        /** @var bool $showExpired */
-        $showExpired = $decodedJson['showExpired'];
-
-        return new AnnouncementFilter
-        (
-            $unreadByCurrentAccount, $showExpired
-        );
-    }
-}
-
-
-enum AnnouncementSeverity: string
-{
-    case info = 'info';
-    case success = 'success';
-    case warning = 'warning';
-    case danger = 'danger';
-}
-
-
-class Announcement
-{
-    /**
-     * @param (array{string,string})[] $message
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly array $message,
-        public readonly string $icon,
-        public readonly \ShockMedia\Generated\Announcements\AnnouncementSeverity $severity,
-        public readonly string|null $expire,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
+        /** @var string|null $department */
+        $department = $decodedJson['department'];
 
         $var0 = array();
-        foreach ($decodedJson['message'] as $element0) {
-            $var1 = array();
-            $var1[] = $element0[0];
-            $var1[] = $element0[1];
-            $var0[] = $var1;
-        }
-        /** @var (array{string,string})[] $message */
-        $message = $var0;
+        $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['createdOn'][0]);
+        $var0[] = $decodedJson['createdOn'][1];
+        $var0[] = $decodedJson['createdOn'][2];
+        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null} $createdOn */
+        $createdOn = $var0;
 
-        /** @var string $icon */
-        $icon = $decodedJson['icon'];
+        /** @var int|null $serviceId */
+        $serviceId = $decodedJson['serviceId'];
 
-        $severity = \ShockMedia\Generated\Announcements\AnnouncementSeverity::from($decodedJson['severity']);
-
-        /** @var string|null $expire */
-        $expire = $decodedJson['expire'];
-
-        return new Announcement
+        return new TicketFilter
         (
-            $id, $message, $icon, $severity, $expire
+            $phrase, $state, $department, $createdOn, $serviceId
         );
     }
 }
 
-namespace ShockMedia\Generated\Tickets;
+
+enum TicketState: string
+{
+    case open = 'open';
+    case closed = 'closed';
+    case scheduled = 'scheduled';
+}
 
 
 class Attachment
@@ -6176,135 +4926,85 @@ class Attachment
 }
 
 
-class CreateAttachmentInput
+class TicketLinks
 {
     public function __construct
     (
-        public readonly int $id,
-        public readonly string $authCode,
+        public readonly string|null $authenticatedLink,
+        public readonly string|null $unauthenticatedLink,
+        public readonly \ShockMedia\Generated\Tickets\TicketLinks\SurveyLinksAlt2|null $surveyLinks,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int $id */
-        $id = $decodedJson['id'];
+        /** @var string|null $authenticatedLink */
+        $authenticatedLink = $decodedJson['authenticatedLink'];
 
-        /** @var string $authCode */
-        $authCode = $decodedJson['authCode'];
+        /** @var string|null $unauthenticatedLink */
+        $unauthenticatedLink = $decodedJson['unauthenticatedLink'];
 
-        return new CreateAttachmentInput
-        (
-            $id, $authCode
-        );
-    }
-}
-
-
-class Message
-{
-    /**
-     * @param \ShockMedia\Generated\Tickets\Contact[] $senders
-     * @param \ShockMedia\Generated\Tickets\Contact[] $receivers
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $dateTime,
-        public readonly array $senders,
-        public readonly array $receivers,
-        public readonly \ShockMedia\Generated\Tickets\MessageData|null $data,
-        public readonly string|null $actor,
-        public readonly bool $oneTimeRead,
-        public readonly bool $hasContents,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $dateTime */
-        $dateTime = $decodedJson['dateTime'];
-
-        $var0 = array();
-        foreach ($decodedJson['senders'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Tickets\Contact::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Tickets\Contact[] $senders */
-        $senders = $var0;
-
-        $var0 = array();
-        foreach ($decodedJson['receivers'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Tickets\Contact::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Tickets\Contact[] $receivers */
-        $receivers = $var0;
-
-        if ($decodedJson['data'] === NULL) {
-            $data = NULL;
+        if ($decodedJson['surveyLinks'] === NULL) {
+            $surveyLinks = NULL;
         } else {
-            $data = \ShockMedia\Generated\Tickets\MessageData::fromDecodedJson($decodedJson['data']);
+            $surveyLinks = \ShockMedia\Generated\Tickets\TicketLinks\SurveyLinksAlt2::fromDecodedJson($decodedJson['surveyLinks']);
         }
 
-        /** @var string|null $actor */
-        $actor = $decodedJson['actor'];
-
-        /** @var bool $oneTimeRead */
-        $oneTimeRead = $decodedJson['oneTimeRead'];
-
-        /** @var bool $hasContents */
-        $hasContents = $decodedJson['hasContents'];
-
-        return new Message
+        return new TicketLinks
         (
-            $id, $dateTime, $senders, $receivers, $data, $actor, $oneTimeRead, $hasContents
+            $authenticatedLink, $unauthenticatedLink, $surveyLinks
         );
     }
 }
 
 
-class MessageData
+class Contact
 {
-    /**
-     * @param \ShockMedia\Generated\Tickets\Attachment[] $attachments
-     */
     public function __construct
     (
-        public readonly \ShockMedia\Generated\Tickets\MessageData\Content $content,
-        public readonly array $attachments,
-        public readonly string|null $attachmentTtl,
+        public readonly string|null $name,
+        public readonly string $emailAddress,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        $content = \ShockMedia\Generated\Tickets\MessageData\Content::fromDecodedJson($decodedJson['content']);
+        /** @var string|null $name */
+        $name = $decodedJson['name'];
 
-        $var0 = array();
-        foreach ($decodedJson['attachments'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Tickets\Attachment::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Tickets\Attachment[] $attachments */
-        $attachments = $var0;
+        /** @var string $emailAddress */
+        $emailAddress = $decodedJson['emailAddress'];
 
-        /** @var string|null $attachmentTtl */
-        $attachmentTtl = $decodedJson['attachmentTtl'];
-
-        return new MessageData
+        return new Contact
         (
-            $content, $attachments, $attachmentTtl
+            $name, $emailAddress
         );
     }
 }
 
 
-enum TicketState: string
+class Sender
 {
-    case open = 'open';
-    case closed = 'closed';
-    case scheduled = 'scheduled';
+    public function __construct
+    (
+        public readonly string|null $name,
+        public readonly string|null $emailAddress,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $name */
+        $name = $decodedJson['name'];
+
+        /** @var string|null $emailAddress */
+        $emailAddress = $decodedJson['emailAddress'];
+
+        return new Sender
+        (
+            $name, $emailAddress
+        );
+    }
 }
 
 
@@ -6427,56 +5127,6 @@ class Ticket
 }
 
 
-class AclAddress
-{
-    public function __construct
-    (
-        public readonly int $contactId,
-        public readonly string|null $emailAddress,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $contactId */
-        $contactId = $decodedJson['contactId'];
-
-        /** @var string|null $emailAddress */
-        $emailAddress = $decodedJson['emailAddress'];
-
-        return new AclAddress
-        (
-            $contactId, $emailAddress
-        );
-    }
-}
-
-
-class Contact
-{
-    public function __construct
-    (
-        public readonly string|null $name,
-        public readonly string $emailAddress,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $name */
-        $name = $decodedJson['name'];
-
-        /** @var string $emailAddress */
-        $emailAddress = $decodedJson['emailAddress'];
-
-        return new Contact
-        (
-            $name, $emailAddress
-        );
-    }
-}
-
-
 class Service
 {
     public function __construct
@@ -6506,132 +5156,150 @@ class Service
 }
 
 
-class TicketLinks
+class Message
 {
+    /**
+     * @param \ShockMedia\Generated\Tickets\Contact[] $senders
+     * @param \ShockMedia\Generated\Tickets\Contact[] $receivers
+     */
     public function __construct
     (
-        public readonly string|null $authenticatedLink,
-        public readonly string|null $unauthenticatedLink,
-        public readonly \ShockMedia\Generated\Tickets\TicketLinks\SurveyLinksAlt2|null $surveyLinks,
+        public readonly int $id,
+        public readonly string $dateTime,
+        public readonly array $senders,
+        public readonly array $receivers,
+        public readonly \ShockMedia\Generated\Tickets\MessageData|null $data,
+        public readonly string|null $actor,
+        public readonly bool $oneTimeRead,
+        public readonly bool $hasContents,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string|null $authenticatedLink */
-        $authenticatedLink = $decodedJson['authenticatedLink'];
+        /** @var int $id */
+        $id = $decodedJson['id'];
 
-        /** @var string|null $unauthenticatedLink */
-        $unauthenticatedLink = $decodedJson['unauthenticatedLink'];
+        /** @var string $dateTime */
+        $dateTime = $decodedJson['dateTime'];
 
-        if ($decodedJson['surveyLinks'] === NULL) {
-            $surveyLinks = NULL;
+        $var0 = array();
+        foreach ($decodedJson['senders'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Tickets\Contact::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Tickets\Contact[] $senders */
+        $senders = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['receivers'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Tickets\Contact::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Tickets\Contact[] $receivers */
+        $receivers = $var0;
+
+        if ($decodedJson['data'] === NULL) {
+            $data = NULL;
         } else {
-            $surveyLinks = \ShockMedia\Generated\Tickets\TicketLinks\SurveyLinksAlt2::fromDecodedJson($decodedJson['surveyLinks']);
+            $data = \ShockMedia\Generated\Tickets\MessageData::fromDecodedJson($decodedJson['data']);
         }
 
-        return new TicketLinks
+        /** @var string|null $actor */
+        $actor = $decodedJson['actor'];
+
+        /** @var bool $oneTimeRead */
+        $oneTimeRead = $decodedJson['oneTimeRead'];
+
+        /** @var bool $hasContents */
+        $hasContents = $decodedJson['hasContents'];
+
+        return new Message
         (
-            $authenticatedLink, $unauthenticatedLink, $surveyLinks
+            $id, $dateTime, $senders, $receivers, $data, $actor, $oneTimeRead, $hasContents
         );
     }
 }
 
 
-class Sender
+class MessageData
+{
+    /**
+     * @param \ShockMedia\Generated\Tickets\Attachment[] $attachments
+     */
+    public function __construct
+    (
+        public readonly \ShockMedia\Generated\Tickets\MessageData\Content $content,
+        public readonly array $attachments,
+        public readonly string|null $attachmentTtl,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $content = \ShockMedia\Generated\Tickets\MessageData\Content::fromDecodedJson($decodedJson['content']);
+
+        $var0 = array();
+        foreach ($decodedJson['attachments'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Tickets\Attachment::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Tickets\Attachment[] $attachments */
+        $attachments = $var0;
+
+        /** @var string|null $attachmentTtl */
+        $attachmentTtl = $decodedJson['attachmentTtl'];
+
+        return new MessageData
+        (
+            $content, $attachments, $attachmentTtl
+        );
+    }
+}
+
+
+class CreateAttachmentInput
 {
     public function __construct
     (
-        public readonly string|null $name,
+        public readonly int $id,
+        public readonly string $authCode,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $authCode */
+        $authCode = $decodedJson['authCode'];
+
+        return new CreateAttachmentInput
+        (
+            $id, $authCode
+        );
+    }
+}
+
+
+class AclAddress
+{
+    public function __construct
+    (
+        public readonly int $contactId,
         public readonly string|null $emailAddress,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string|null $name */
-        $name = $decodedJson['name'];
+        /** @var int $contactId */
+        $contactId = $decodedJson['contactId'];
 
         /** @var string|null $emailAddress */
         $emailAddress = $decodedJson['emailAddress'];
 
-        return new Sender
+        return new AclAddress
         (
-            $name, $emailAddress
-        );
-    }
-}
-
-
-class TicketFilter
-{
-    /**
-     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null} $createdOn
-     */
-    public function __construct
-    (
-        public readonly string|null $phrase,
-        public readonly \ShockMedia\Generated\Tickets\TicketState|null $state,
-        public readonly string|null $department,
-        public readonly array $createdOn,
-        public readonly int|null $serviceId,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $phrase */
-        $phrase = $decodedJson['phrase'];
-
-        if ($decodedJson['state'] === NULL) {
-            $state = NULL;
-        } else {
-            $state = \ShockMedia\Generated\Tickets\TicketState::from($decodedJson['state']);
-        }
-
-        /** @var string|null $department */
-        $department = $decodedJson['department'];
-
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['createdOn'][0]);
-        $var0[] = $decodedJson['createdOn'][1];
-        $var0[] = $decodedJson['createdOn'][2];
-        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null} $createdOn */
-        $createdOn = $var0;
-
-        /** @var int|null $serviceId */
-        $serviceId = $decodedJson['serviceId'];
-
-        return new TicketFilter
-        (
-            $phrase, $state, $department, $createdOn, $serviceId
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Tickets\TicketLinks;
-
-
-class SurveyLinksAlt2
-{
-    public function __construct
-    (
-        public readonly string $positive,
-        public readonly string $negative,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $positive */
-        $positive = $decodedJson['positive'];
-
-        /** @var string $negative */
-        $negative = $decodedJson['negative'];
-
-        return new SurveyLinksAlt2
-        (
-            $positive, $negative
+            $contactId, $emailAddress
         );
     }
 }
@@ -6662,49 +5330,635 @@ class Content
         );
     }
 }
-namespace ShockMedia\Generated\Incidents;
+
+namespace ShockMedia\Generated\Tickets\TicketLinks;
 
 
-class ExternalIncidentsFilter
+class SurveyLinksAlt2
 {
-    /**
-     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $interval
-     */
     public function __construct
     (
-        public readonly array|null $interval,
+        public readonly string $positive,
+        public readonly string $negative,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        if ($decodedJson['interval'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['interval'][0]);
-            $var0[] = $decodedJson['interval'][1];
-            $var0[] = $decodedJson['interval'][2];
-        }
-        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $interval */
-        $interval = $var0;
+        /** @var string $positive */
+        $positive = $decodedJson['positive'];
 
-        return new ExternalIncidentsFilter
+        /** @var string $negative */
+        $negative = $decodedJson['negative'];
+
+        return new SurveyLinksAlt2
         (
-            $interval
+            $positive, $negative
+        );
+    }
+}
+namespace ShockMedia\Generated\Stats;
+
+
+class TimedMetrics
+{
+    /**
+     * @param \ShockMedia\Generated\Stats\TimedMetric[] $metrics
+     */
+    public function __construct
+    (
+        public readonly string $key,
+        public readonly array $metrics,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $key */
+        $key = $decodedJson['key'];
+
+        $var0 = array();
+        foreach ($decodedJson['metrics'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\TimedMetric::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\TimedMetric[] $metrics */
+        $metrics = $var0;
+
+        return new TimedMetrics
+        (
+            $key, $metrics
         );
     }
 }
 
 
-class IncidentReport
+class MetricMetadatas
 {
     public function __construct
     (
+        public readonly string $key,
+        public readonly \ShockMedia\Generated\Stats\MetricMetadata $metadata,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $key */
+        $key = $decodedJson['key'];
+
+        $metadata = \ShockMedia\Generated\Stats\MetricMetadata::fromDecodedJson($decodedJson['metadata']);
+
+        return new MetricMetadatas
+        (
+            $key, $metadata
+        );
+    }
+}
+
+
+class NamedLabel
+{
+    public function __construct
+    (
+        public readonly string $name,
+        public readonly string|null $value,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string|null $value */
+        $value = $decodedJson['value'];
+
+        return new NamedLabel
+        (
+            $name, $value
+        );
+    }
+}
+
+
+class TimeSeriesChartData
+{
+    /**
+     * @param \ShockMedia\Generated\Stats\TimedMetrics[] $curveData
+     * @param \ShockMedia\Generated\Stats\TimedMetrics[] $barData
+     * @param \ShockMedia\Generated\Stats\TimedMetrics[] $pointData
+     * @param \ShockMedia\Generated\Stats\NamedMetric[] $scaleData
+     * @param \ShockMedia\Generated\Stats\NamedMetric[] $constants
+     * @param \ShockMedia\Generated\Stats\NamedLabel[] $keyNames
+     * @param \ShockMedia\Generated\Stats\NamedLabel[] $units
+     * @param \ShockMedia\Generated\Stats\NamedLabel[] $titles
+     * @param \ShockMedia\Generated\Stats\NamedLabel[] $descriptions
+     * @param \ShockMedia\Generated\Stats\MetricMetadatas[] $fieldMetadata
+     */
+    public function __construct
+    (
+        public readonly array $curveData,
+        public readonly array $barData,
+        public readonly array $pointData,
+        public readonly array $scaleData,
+        public readonly array $constants,
+        public readonly array $keyNames,
+        public readonly array $units,
+        public readonly array $titles,
+        public readonly array $descriptions,
+        public readonly array $fieldMetadata,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $var0 = array();
+        foreach ($decodedJson['curveData'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\TimedMetrics::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\TimedMetrics[] $curveData */
+        $curveData = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['barData'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\TimedMetrics::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\TimedMetrics[] $barData */
+        $barData = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['pointData'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\TimedMetrics::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\TimedMetrics[] $pointData */
+        $pointData = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['scaleData'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\NamedMetric::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\NamedMetric[] $scaleData */
+        $scaleData = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['constants'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\NamedMetric::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\NamedMetric[] $constants */
+        $constants = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['keyNames'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $keyNames */
+        $keyNames = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['units'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $units */
+        $units = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['titles'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $titles */
+        $titles = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['descriptions'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\NamedLabel::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\NamedLabel[] $descriptions */
+        $descriptions = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['fieldMetadata'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Stats\MetricMetadatas::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Stats\MetricMetadatas[] $fieldMetadata */
+        $fieldMetadata = $var0;
+
+        return new TimeSeriesChartData
+        (
+            $curveData, $barData, $pointData, $scaleData, $constants, $keyNames, $units, $titles, $descriptions, $fieldMetadata
+        );
+    }
+}
+
+
+class MetricMetadata
+{
+    public function __construct
+    (
+        public readonly string $metric,
+        public readonly string|null $submetric,
+        public readonly string|null $name,
+        public readonly string|null $fullName,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $metric */
+        $metric = $decodedJson['metric'];
+
+        /** @var string|null $submetric */
+        $submetric = $decodedJson['submetric'];
+
+        /** @var string|null $name */
+        $name = $decodedJson['name'];
+
+        /** @var string|null $fullName */
+        $fullName = $decodedJson['fullName'];
+
+        return new MetricMetadata
+        (
+            $metric, $submetric, $name, $fullName
+        );
+    }
+}
+
+
+class TimedMetric
+{
+    public function __construct
+    (
+        public readonly string $time,
+        public readonly float|null $value,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $time */
+        $time = $decodedJson['time'];
+
+        /** @var float|null $value */
+        $value = $decodedJson['value'];
+
+        return new TimedMetric
+        (
+            $time, $value
+        );
+    }
+}
+
+
+class NamedMetric
+{
+    public function __construct
+    (
+        public readonly string $name,
+        public readonly int|null $value,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var int|null $value */
+        $value = $decodedJson['value'];
+
+        return new NamedMetric
+        (
+            $name, $value
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Acquiredoffering;
+
+
+class DomainInfo
+{
+    public function __construct
+    (
+        public readonly string $domainName,
+        public readonly bool $cancellable,
+        public readonly bool|null $authCodeAvailable,
+        public readonly bool|null $authCodeUpdatable,
+        public readonly bool|null $transferLocked,
+        public readonly bool|null $legacy,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $domainName */
+        $domainName = $decodedJson['domainName'];
+
+        /** @var bool $cancellable */
+        $cancellable = $decodedJson['cancellable'];
+
+        /** @var bool|null $authCodeAvailable */
+        $authCodeAvailable = $decodedJson['authCodeAvailable'];
+
+        /** @var bool|null $authCodeUpdatable */
+        $authCodeUpdatable = $decodedJson['authCodeUpdatable'];
+
+        /** @var bool|null $transferLocked */
+        $transferLocked = $decodedJson['transferLocked'];
+
+        /** @var bool|null $legacy */
+        $legacy = $decodedJson['legacy'];
+
+        return new DomainInfo
+        (
+            $domainName, $cancellable, $authCodeAvailable, $authCodeUpdatable, $transferLocked, $legacy
+        );
+    }
+}
+
+
+enum AcquiredOfferingCategory: string
+{
+    case server_sla = 'server_sla';
+    case magento = 'magento';
+    case domain = 'domain';
+    case hosting = 'hosting';
+    case ssl = 'ssl';
+    case managed_cdn = 'managed_cdn';
+    case license = 'license';
+}
+
+
+enum OfferingType: string
+{
+    case plan = 'plan';
+    case product = 'product';
+}
+
+
+class AcquiredOffering
+{
+    /**
+     * @param (array{string,string})[]|null $managedApps
+     * @param (array{string,int|null})[] $servers
+     */
+    public function __construct
+    (
+        public readonly int $acquiredId,
+        public readonly float $discount,
+        public readonly float $surcharge,
+        public readonly int $quantity,
+        public readonly string $start,
+        public readonly string $startContract,
+        public readonly string|null $end,
+        public readonly string|null $earliestCancellationDate,
+        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory|null $offeringCategory,
+        public readonly \ShockMedia\Generated\Acquiredoffering\OfferingType $offeringType,
+        public readonly string $offeringName,
+        public readonly float $offeringPrice,
+        public readonly float $effectivePrice,
+        public readonly string|null $serviceName,
+        public readonly string|null $accountName,
+        public readonly array|null $managedApps,
+        public readonly array $servers,
+        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOffering|null $extension,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $acquiredId */
+        $acquiredId = $decodedJson['acquiredId'];
+
+        /** @var float $discount */
+        $discount = $decodedJson['discount'];
+
+        /** @var float $surcharge */
+        $surcharge = $decodedJson['surcharge'];
+
+        /** @var int $quantity */
+        $quantity = $decodedJson['quantity'];
+
+        /** @var string $start */
+        $start = $decodedJson['start'];
+
+        /** @var string $startContract */
+        $startContract = $decodedJson['startContract'];
+
+        /** @var string|null $end */
+        $end = $decodedJson['end'];
+
+        /** @var string|null $earliestCancellationDate */
+        $earliestCancellationDate = $decodedJson['earliestCancellationDate'];
+
+        if ($decodedJson['offeringCategory'] === NULL) {
+            $offeringCategory = NULL;
+        } else {
+            $offeringCategory = \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory::from($decodedJson['offeringCategory']);
+        }
+
+        $offeringType = \ShockMedia\Generated\Acquiredoffering\OfferingType::from($decodedJson['offeringType']);
+
+        /** @var string $offeringName */
+        $offeringName = $decodedJson['offeringName'];
+
+        /** @var float $offeringPrice */
+        $offeringPrice = $decodedJson['offeringPrice'];
+
+        /** @var float $effectivePrice */
+        $effectivePrice = $decodedJson['effectivePrice'];
+
+        /** @var string|null $serviceName */
+        $serviceName = $decodedJson['serviceName'];
+
+        /** @var string|null $accountName */
+        $accountName = $decodedJson['accountName'];
+
+        if ($decodedJson['managedApps'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['managedApps'] as $element0) {
+                $var1 = array();
+                $var1[] = $element0[0];
+                $var1[] = $element0[1];
+                $var0[] = $var1;
+            }
+        }
+        /** @var (array{string,string})[]|null $managedApps */
+        $managedApps = $var0;
+
+        $var0 = array();
+        foreach ($decodedJson['servers'] as $element0) {
+            $var1 = array();
+            $var1[] = $element0[0];
+            $var1[] = $element0[1];
+            $var0[] = $var1;
+        }
+        /** @var (array{string,int|null})[] $servers */
+        $servers = $var0;
+
+        if ($decodedJson['extension'] === NULL) {
+            $extension = NULL;
+        } else {
+            $extension = \ShockMedia\Generated\Acquiredoffering\AcquiredOffering::fromDecodedJson($decodedJson['extension']);
+        }
+
+        return new AcquiredOffering
+        (
+            $acquiredId, $discount, $surcharge, $quantity, $start, $startContract, $end, $earliestCancellationDate, $offeringCategory, $offeringType, $offeringName, $offeringPrice, $effectivePrice, $serviceName, $accountName, $managedApps, $servers, $extension
+        );
+    }
+}
+
+
+class AcquiredOfferingFilter
+{
+    public function __construct
+    (
+        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory|null $offeringCategory,
+        public readonly string|null $name,
+        public readonly \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter\State|null $offeringState,
+        public readonly \ShockMedia\Generated\Acquiredoffering\OfferingType|null $offeringType,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        if ($decodedJson['offeringCategory'] === NULL) {
+            $offeringCategory = NULL;
+        } else {
+            $offeringCategory = \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingCategory::from($decodedJson['offeringCategory']);
+        }
+
+        /** @var string|null $name */
+        $name = $decodedJson['name'];
+
+        if ($decodedJson['offeringState'] === NULL) {
+            $offeringState = NULL;
+        } else {
+            $offeringState = \ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter\State::from($decodedJson['offeringState']);
+        }
+
+        if ($decodedJson['offeringType'] === NULL) {
+            $offeringType = NULL;
+        } else {
+            $offeringType = \ShockMedia\Generated\Acquiredoffering\OfferingType::from($decodedJson['offeringType']);
+        }
+
+        return new AcquiredOfferingFilter
+        (
+            $offeringCategory, $name, $offeringState, $offeringType
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Acquiredoffering\AcquiredOfferingFilter;
+
+
+enum State: string
+{
+    case active = 'active';
+    case active_or_future = 'active_or_future';
+    case future = 'future';
+    case expired = 'expired';
+}
+namespace ShockMedia\Generated\Massdns;
+
+
+class DnsRecordFilter
+{
+    /**
+     * @param string|null[]|null $domains
+     * @param string|null[]|null $types
+     * @param int|null[]|null $ids
+     */
+    public function __construct
+    (
+        public readonly array|null $domains,
+        public readonly array|null $types,
+        public readonly int|null $ttl,
+        public readonly string|null $name,
+        public readonly array|null $ids,
+        public readonly string|null $content,
+        public readonly int|null $prio,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        if ($decodedJson['domains'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['domains'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string|null[]|null $domains */
+        $domains = $var0;
+
+        if ($decodedJson['types'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['types'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var string|null[]|null $types */
+        $types = $var0;
+
+        /** @var int|null $ttl */
+        $ttl = $decodedJson['ttl'];
+
+        /** @var string|null $name */
+        $name = $decodedJson['name'];
+
+        if ($decodedJson['ids'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['ids'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var int|null[]|null $ids */
+        $ids = $var0;
+
+        /** @var string|null $content */
+        $content = $decodedJson['content'];
+
+        /** @var int|null $prio */
+        $prio = $decodedJson['prio'];
+
+        return new DnsRecordFilter
+        (
+            $domains, $types, $ttl, $name, $ids, $content, $prio
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Partners;
+
+
+class ReleasedKickback
+{
+    /**
+     * @param string[] $serverNames
+     */
+    public function __construct
+    (
         public readonly int $id,
-        public readonly string $date,
-        public readonly string $title,
-        public readonly string $filename,
+        public readonly string $startDate,
+        public readonly string $endDate,
+        public readonly float $fee,
+        public readonly string $releaseDate,
+        public readonly string $expireDate,
+        public readonly float $kickbackFee,
+        public readonly string $productName,
+        public readonly string|null $domain,
+        public readonly array $serverNames,
+        public readonly \ShockMedia\Generated\Customers\CustomerSummary $customer,
     ) {
     }
 
@@ -6713,56 +5967,1049 @@ class IncidentReport
         /** @var int $id */
         $id = $decodedJson['id'];
 
-        /** @var string $date */
-        $date = $decodedJson['date'];
+        /** @var string $startDate */
+        $startDate = $decodedJson['startDate'];
 
-        /** @var string $title */
-        $title = $decodedJson['title'];
+        /** @var string $endDate */
+        $endDate = $decodedJson['endDate'];
 
-        /** @var string $filename */
-        $filename = $decodedJson['filename'];
+        /** @var float $fee */
+        $fee = $decodedJson['fee'];
 
-        return new IncidentReport
+        /** @var string $releaseDate */
+        $releaseDate = $decodedJson['releaseDate'];
+
+        /** @var string $expireDate */
+        $expireDate = $decodedJson['expireDate'];
+
+        /** @var float $kickbackFee */
+        $kickbackFee = $decodedJson['kickbackFee'];
+
+        /** @var string $productName */
+        $productName = $decodedJson['productName'];
+
+        /** @var string|null $domain */
+        $domain = $decodedJson['domain'];
+
+        $var0 = array();
+        foreach ($decodedJson['serverNames'] as $element0) {
+            $var0[] = $element0;
+        }
+        /** @var string[] $serverNames */
+        $serverNames = $var0;
+
+        $customer = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($decodedJson['customer']);
+
+        return new ReleasedKickback
         (
-            $id, $date, $title, $filename
+            $id, $startDate, $endDate, $fee, $releaseDate, $expireDate, $kickbackFee, $productName, $domain, $serverNames, $customer
         );
     }
 }
 
 
-class ExternalIncident
+class DiscountSpec
 {
     public function __construct
     (
-        public readonly string $title,
-        public readonly bool $resolved,
-        public readonly string $startTime,
-        public readonly string|null $endTime,
+        public readonly string $name,
+        public readonly float $price,
+        public readonly bool $priceVaries,
+        public readonly float $kickbackFee,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var string $title */
-        $title = $decodedJson['title'];
+        /** @var string $name */
+        $name = $decodedJson['name'];
 
-        /** @var bool $resolved */
-        $resolved = $decodedJson['resolved'];
+        /** @var float $price */
+        $price = $decodedJson['price'];
 
-        /** @var string $startTime */
+        /** @var bool $priceVaries */
+        $priceVaries = $decodedJson['priceVaries'];
+
+        /** @var float $kickbackFee */
+        $kickbackFee = $decodedJson['kickbackFee'];
+
+        return new DiscountSpec
+        (
+            $name, $price, $priceVaries, $kickbackFee
+        );
+    }
+}
+
+
+class KickbackPartner
+{
+    public function __construct
+    (
+        public readonly \ShockMedia\Generated\Customers\CustomerSummary $customer,
+        public readonly float $monthlyKickback,
+        public readonly bool $canShadow,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $customer = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($decodedJson['customer']);
+
+        /** @var float $monthlyKickback */
+        $monthlyKickback = $decodedJson['monthlyKickback'];
+
+        /** @var bool $canShadow */
+        $canShadow = $decodedJson['canShadow'];
+
+        return new KickbackPartner
+        (
+            $customer, $monthlyKickback, $canShadow
+        );
+    }
+}
+
+
+class DiscountGroup
+{
+    /**
+     * @param \ShockMedia\Generated\Partners\DiscountSpec[] $discounts
+     */
+    public function __construct
+    (
+        public readonly string $name,
+        public readonly int $sortPrio,
+        public readonly array $discounts,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var int $sortPrio */
+        $sortPrio = $decodedJson['sortPrio'];
+
+        $var0 = array();
+        foreach ($decodedJson['discounts'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Partners\DiscountSpec::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Partners\DiscountSpec[] $discounts */
+        $discounts = $var0;
+
+        return new DiscountGroup
+        (
+            $name, $sortPrio, $discounts
+        );
+    }
+}
+
+
+class KickbackClaim
+{
+    /**
+     * @param \ShockMedia\Generated\Partners\ReleasedKickback[]|null $entries
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly float $amount,
+        public readonly string $claimDate,
+        public readonly string|null $payDate,
+        public readonly array|null $entries,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var float $amount */
+        $amount = $decodedJson['amount'];
+
+        /** @var string $claimDate */
+        $claimDate = $decodedJson['claimDate'];
+
+        /** @var string|null $payDate */
+        $payDate = $decodedJson['payDate'];
+
+        if ($decodedJson['entries'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['entries'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Partners\ReleasedKickback::fromDecodedJson($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\Partners\ReleasedKickback[]|null $entries */
+        $entries = $var0;
+
+        return new KickbackClaim
+        (
+            $id, $amount, $claimDate, $payDate, $entries
+        );
+    }
+}
+
+
+class Kickback
+{
+    /**
+     * @param (array{int,string})[] $servers
+     */
+    public function __construct
+    (
+        public readonly int|null $id,
+        public readonly int $acquiredOfferingId,
+        public readonly string $productName,
+        public readonly float $kickbackFee,
+        public readonly int $quantity,
+        public readonly string|null $start,
+        public readonly string|null $end,
+        public readonly string|null $domain,
+        public readonly array $servers,
+        public readonly \ShockMedia\Generated\Customers\CustomerSummary $customer,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int|null $id */
+        $id = $decodedJson['id'];
+
+        /** @var int $acquiredOfferingId */
+        $acquiredOfferingId = $decodedJson['acquiredOfferingId'];
+
+        /** @var string $productName */
+        $productName = $decodedJson['productName'];
+
+        /** @var float $kickbackFee */
+        $kickbackFee = $decodedJson['kickbackFee'];
+
+        /** @var int $quantity */
+        $quantity = $decodedJson['quantity'];
+
+        /** @var string|null $start */
+        $start = $decodedJson['start'];
+
+        /** @var string|null $end */
+        $end = $decodedJson['end'];
+
+        /** @var string|null $domain */
+        $domain = $decodedJson['domain'];
+
+        $var0 = array();
+        foreach ($decodedJson['servers'] as $element0) {
+            $var1 = array();
+            $var1[] = $element0[0];
+            $var1[] = $element0[1];
+            $var0[] = $var1;
+        }
+        /** @var (array{int,string})[] $servers */
+        $servers = $var0;
+
+        $customer = \ShockMedia\Generated\Customers\CustomerSummary::fromDecodedJson($decodedJson['customer']);
+
+        return new Kickback
+        (
+            $id, $acquiredOfferingId, $productName, $kickbackFee, $quantity, $start, $end, $domain, $servers, $customer
+        );
+    }
+}
+
+namespace ShockMedia\Generated;
+
+
+enum RangeType: string
+{
+    case OPEN = 'OPEN';
+    case CLOSED = 'CLOSED';
+    case OPEN_CLOSED = 'OPEN_CLOSED';
+    case CLOSED_OPEN = 'CLOSED_OPEN';
+    case AT_LEAST = 'AT_LEAST';
+    case GREATER_THAN = 'GREATER_THAN';
+    case AT_MOST = 'AT_MOST';
+    case LESS_THAN = 'LESS_THAN';
+    case ALL = 'ALL';
+}
+
+
+class PageRequest
+{
+    /**
+     * @param \ShockMedia\Generated\SortField[]|null $sort
+     */
+    public function __construct
+    (
+        public readonly array|null $sort,
+        public readonly int|null $skip,
+        public readonly int|null $limit,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        if ($decodedJson['sort'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['sort'] as $element0) {
+                $var0[] = \ShockMedia\Generated\SortField::fromDecodedJson($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\SortField[]|null $sort */
+        $sort = $var0;
+
+        /** @var int|null $skip */
+        $skip = $decodedJson['skip'];
+
+        /** @var int|null $limit */
+        $limit = $decodedJson['limit'];
+
+        return new PageRequest
+        (
+            $sort, $skip, $limit
+        );
+    }
+}
+
+
+enum Language: string
+{
+    case nl = 'nl';
+    case en = 'en';
+}
+
+
+enum PeriodUnit: string
+{
+    case nanos = 'nanos';
+    case micros = 'micros';
+    case millis = 'millis';
+    case seconds = 'seconds';
+    case minutes = 'minutes';
+    case hours = 'hours';
+    case half_days = 'half_days';
+    case days = 'days';
+    case weeks = 'weeks';
+    case months = 'months';
+    case years = 'years';
+    case decades = 'decades';
+    case centuries = 'centuries';
+    case millennia = 'millennia';
+    case eras = 'eras';
+    case forever = 'forever';
+}
+
+
+class SortField
+{
+    public function __construct
+    (
+        public readonly string|null $field,
+        public readonly \ShockMedia\Generated\SortField\DirectionAlt2|null $direction,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $field */
+        $field = $decodedJson['field'];
+
+        if ($decodedJson['direction'] === NULL) {
+            $direction = NULL;
+        } else {
+            $direction = \ShockMedia\Generated\SortField\DirectionAlt2::from($decodedJson['direction']);
+        }
+
+        return new SortField
+        (
+            $field, $direction
+        );
+    }
+}
+
+
+class PageResult
+{
+    public function __construct
+    (
+        public readonly int $total,
+        public readonly int $filtered,
+        public readonly int $count,
+        public readonly int $skip,
+        public readonly bool|null $filteredIsLimited,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $total */
+        $total = $decodedJson['total'];
+
+        /** @var int $filtered */
+        $filtered = $decodedJson['filtered'];
+
+        /** @var int $count */
+        $count = $decodedJson['count'];
+
+        /** @var int $skip */
+        $skip = $decodedJson['skip'];
+
+        /** @var bool|null $filteredIsLimited */
+        $filteredIsLimited = $decodedJson['filteredIsLimited'];
+
+        return new PageResult
+        (
+            $total, $filtered, $count, $skip, $filteredIsLimited
+        );
+    }
+}
+
+namespace ShockMedia\Generated\SortField;
+
+
+enum DirectionAlt2: string
+{
+    case ASC = 'ASC';
+    case DESC = 'DESC';
+}
+namespace ShockMedia\Generated\Scheduledupdate;
+
+
+class CreateScheduledUpdateWindowInput
+{
+    /**
+     * @param int|null[]|null $daysOfWeek
+     * @param int|null[]|null $daysOfMonth
+     */
+    public function __construct
+    (
+        public readonly string|null $fqdn,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Category $category,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Recurrence $recurrence,
+        public readonly string|null $startTime,
+        public readonly string|null $endTime,
+        public readonly string|null $timezone,
+        public readonly array|null $daysOfWeek,
+        public readonly array|null $daysOfMonth,
+        public readonly string|null $singleRunStartDate,
+        public readonly string|null $singleRunEndDate,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        $category = \ShockMedia\Generated\Scheduledupdate\Category::from($decodedJson['category']);
+
+        $recurrence = \ShockMedia\Generated\Scheduledupdate\Recurrence::from($decodedJson['recurrence']);
+
+        /** @var string|null $startTime */
         $startTime = $decodedJson['startTime'];
 
         /** @var string|null $endTime */
         $endTime = $decodedJson['endTime'];
 
-        return new ExternalIncident
+        /** @var string|null $timezone */
+        $timezone = $decodedJson['timezone'];
+
+        if ($decodedJson['daysOfWeek'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['daysOfWeek'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var int|null[]|null $daysOfWeek */
+        $daysOfWeek = $var0;
+
+        if ($decodedJson['daysOfMonth'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['daysOfMonth'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var int|null[]|null $daysOfMonth */
+        $daysOfMonth = $var0;
+
+        /** @var string|null $singleRunStartDate */
+        $singleRunStartDate = $decodedJson['singleRunStartDate'];
+
+        /** @var string|null $singleRunEndDate */
+        $singleRunEndDate = $decodedJson['singleRunEndDate'];
+
+        return new CreateScheduledUpdateWindowInput
         (
-            $title, $resolved, $startTime, $endTime
+            $fqdn, $category, $recurrence, $startTime, $endTime, $timezone, $daysOfWeek, $daysOfMonth, $singleRunStartDate, $singleRunEndDate
+        );
+    }
+}
+
+
+class UpdateScheduledUpdateWindowInput
+{
+    /**
+     * @param int|null[]|null $daysOfWeek
+     * @param int|null[]|null $daysOfMonth
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string|null $fqdn,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Category|null $category,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Recurrence|null $recurrence,
+        public readonly string|null $startTime,
+        public readonly string|null $endTime,
+        public readonly \ShockMedia\Generated\Scheduledupdate\UpdateScheduledUpdateWindowInput\TimezoneAlt2|null $timezone,
+        public readonly array|null $daysOfWeek,
+        public readonly array|null $daysOfMonth,
+        public readonly string|null $singleRunStartDate,
+        public readonly string|null $singleRunEndDate,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string|null $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        if ($decodedJson['category'] === NULL) {
+            $category = NULL;
+        } else {
+            $category = \ShockMedia\Generated\Scheduledupdate\Category::from($decodedJson['category']);
+        }
+
+        if ($decodedJson['recurrence'] === NULL) {
+            $recurrence = NULL;
+        } else {
+            $recurrence = \ShockMedia\Generated\Scheduledupdate\Recurrence::from($decodedJson['recurrence']);
+        }
+
+        /** @var string|null $startTime */
+        $startTime = $decodedJson['startTime'];
+
+        /** @var string|null $endTime */
+        $endTime = $decodedJson['endTime'];
+
+        if ($decodedJson['timezone'] === NULL) {
+            $timezone = NULL;
+        } else {
+            $timezone = \ShockMedia\Generated\Scheduledupdate\UpdateScheduledUpdateWindowInput\TimezoneAlt2::fromDecodedJson($decodedJson['timezone']);
+        }
+
+        if ($decodedJson['daysOfWeek'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['daysOfWeek'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var int|null[]|null $daysOfWeek */
+        $daysOfWeek = $var0;
+
+        if ($decodedJson['daysOfMonth'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['daysOfMonth'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var int|null[]|null $daysOfMonth */
+        $daysOfMonth = $var0;
+
+        /** @var string|null $singleRunStartDate */
+        $singleRunStartDate = $decodedJson['singleRunStartDate'];
+
+        /** @var string|null $singleRunEndDate */
+        $singleRunEndDate = $decodedJson['singleRunEndDate'];
+
+        return new UpdateScheduledUpdateWindowInput
+        (
+            $id, $fqdn, $category, $recurrence, $startTime, $endTime, $timezone, $daysOfWeek, $daysOfMonth, $singleRunStartDate, $singleRunEndDate
+        );
+    }
+}
+
+
+enum Recurrence: string
+{
+    case instant = 'instant';
+    case single = 'single';
+    case daily = 'daily';
+    case weekly = 'weekly';
+    case monthly = 'monthly';
+}
+
+
+enum Owner: string
+{
+    case shock_media = 'shock_media';
+    case customer = 'customer';
+}
+
+
+enum Category: string
+{
+    case no_downtime = 'no_downtime';
+    case low_downtime = 'low_downtime';
+    case security_patch = 'security_patch';
+    case high_downtime = 'high_downtime';
+    case dont_update = 'dont_update';
+}
+
+
+class ScheduledUpdateWindowFilter
+{
+    public function __construct
+    (
+        public readonly string|null $fqdn,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        return new ScheduledUpdateWindowFilter
+        (
+            $fqdn
+        );
+    }
+}
+
+
+enum Type: string
+{
+    case single = 'single';
+    case recurring = 'recurring';
+}
+
+
+class ScheduledUpdateWindow
+{
+    /**
+     * @param int|null[]|null $daysOfWeek
+     * @param int|null[]|null $daysOfMonth
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string|null $fqdn,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Category $category,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Owner $owner,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Scope $scope,
+        public readonly \ShockMedia\Generated\Scheduledupdate\Recurrence $recurrence,
+        public readonly string|null $startTime,
+        public readonly string|null $endTime,
+        public readonly string|null $timezone,
+        public readonly array|null $daysOfWeek,
+        public readonly array|null $daysOfMonth,
+        public readonly string|null $singleRunStartDate,
+        public readonly string|null $singleRunEndDate,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string|null $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        $category = \ShockMedia\Generated\Scheduledupdate\Category::from($decodedJson['category']);
+
+        $owner = \ShockMedia\Generated\Scheduledupdate\Owner::from($decodedJson['owner']);
+
+        $scope = \ShockMedia\Generated\Scheduledupdate\Scope::from($decodedJson['scope']);
+
+        $recurrence = \ShockMedia\Generated\Scheduledupdate\Recurrence::from($decodedJson['recurrence']);
+
+        /** @var string|null $startTime */
+        $startTime = $decodedJson['startTime'];
+
+        /** @var string|null $endTime */
+        $endTime = $decodedJson['endTime'];
+
+        /** @var string|null $timezone */
+        $timezone = $decodedJson['timezone'];
+
+        if ($decodedJson['daysOfWeek'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['daysOfWeek'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var int|null[]|null $daysOfWeek */
+        $daysOfWeek = $var0;
+
+        if ($decodedJson['daysOfMonth'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['daysOfMonth'] as $element0) {
+                $var0[] = $element0;
+            }
+        }
+        /** @var int|null[]|null $daysOfMonth */
+        $daysOfMonth = $var0;
+
+        /** @var string|null $singleRunStartDate */
+        $singleRunStartDate = $decodedJson['singleRunStartDate'];
+
+        /** @var string|null $singleRunEndDate */
+        $singleRunEndDate = $decodedJson['singleRunEndDate'];
+
+        return new ScheduledUpdateWindow
+        (
+            $id, $fqdn, $category, $owner, $scope, $recurrence, $startTime, $endTime, $timezone, $daysOfWeek, $daysOfMonth, $singleRunStartDate, $singleRunEndDate
+        );
+    }
+}
+
+
+enum Scope: string
+{
+    case global = 'global';
+    case server = 'server';
+}
+
+namespace ShockMedia\Generated\Scheduledupdate\UpdateScheduledUpdateWindowInput;
+
+
+class TimezoneAlt2
+{
+    public function __construct
+    (
+        public readonly string|null $value,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $value */
+        $value = $decodedJson['value'];
+
+        return new TimezoneAlt2
+        (
+            $value
+        );
+    }
+}
+namespace ShockMedia\Generated\Sladashboard;
+
+
+class ServerUptimeStats
+{
+    public function __construct
+    (
+        public readonly string $serverFqdn,
+        public readonly float $serverUptime,
+        public readonly int $serverDowntime,
+        public readonly bool $slaDeviation,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $serverFqdn */
+        $serverFqdn = $decodedJson['serverFqdn'];
+
+        /** @var float $serverUptime */
+        $serverUptime = $decodedJson['serverUptime'];
+
+        /** @var int $serverDowntime */
+        $serverDowntime = $decodedJson['serverDowntime'];
+
+        /** @var bool $slaDeviation */
+        $slaDeviation = $decodedJson['slaDeviation'];
+
+        return new ServerUptimeStats
+        (
+            $serverFqdn, $serverUptime, $serverDowntime, $slaDeviation
+        );
+    }
+}
+
+
+class TicketStats
+{
+    public function __construct
+    (
+        public readonly int|null $openTickets,
+        public readonly int|null $closedTickets,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int|null $openTickets */
+        $openTickets = $decodedJson['openTickets'];
+
+        /** @var int|null $closedTickets */
+        $closedTickets = $decodedJson['closedTickets'];
+
+        return new TicketStats
+        (
+            $openTickets, $closedTickets
+        );
+    }
+}
+
+
+class SlaDefinition
+{
+    public function __construct
+    (
+        public readonly string $slaName,
+        public readonly float $serverUptimeThreshold,
+        public readonly float $networkUptimeThreshold,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $slaName */
+        $slaName = $decodedJson['slaName'];
+
+        /** @var float $serverUptimeThreshold */
+        $serverUptimeThreshold = $decodedJson['serverUptimeThreshold'];
+
+        /** @var float $networkUptimeThreshold */
+        $networkUptimeThreshold = $decodedJson['networkUptimeThreshold'];
+
+        return new SlaDefinition
+        (
+            $slaName, $serverUptimeThreshold, $networkUptimeThreshold
+        );
+    }
+}
+
+
+class ServerDeviation
+{
+    /**
+     * @param \ShockMedia\Generated\Sladashboard\ServerDeviationCategory[] $deviationCategories
+     */
+    public function __construct
+    (
+        public readonly string $serverFqdn,
+        public readonly array $deviationCategories,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $serverFqdn */
+        $serverFqdn = $decodedJson['serverFqdn'];
+
+        $var0 = array();
+        foreach ($decodedJson['deviationCategories'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Sladashboard\ServerDeviationCategory::from($element0);
+        }
+        /** @var \ShockMedia\Generated\Sladashboard\ServerDeviationCategory[] $deviationCategories */
+        $deviationCategories = $var0;
+
+        return new ServerDeviation
+        (
+            $serverFqdn, $deviationCategories
+        );
+    }
+}
+
+
+class SlaDashboardInput
+{
+    /**
+     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval
+     */
+    public function __construct
+    (
+        public readonly array $interval,
+        public readonly int|null $serverId,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['interval'][0]);
+        $var0[] = $decodedJson['interval'][1];
+        $var0[] = $decodedJson['interval'][2];
+        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval */
+        $interval = $var0;
+
+        /** @var int|null $serverId */
+        $serverId = $decodedJson['serverId'];
+
+        return new SlaDashboardInput
+        (
+            $interval, $serverId
+        );
+    }
+}
+
+
+enum ServerDeviationCategory: string
+{
+    case SERVER_UPTIME = 'SERVER_UPTIME';
+    case NETWORK_UPTIME = 'NETWORK_UPTIME';
+    case CHECKUPS = 'CHECKUPS';
+}
+
+
+class ServerCheckupStats
+{
+    /**
+     * @param string[] $overdueServers
+     */
+    public function __construct
+    (
+        public readonly array $overdueServers,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $var0 = array();
+        foreach ($decodedJson['overdueServers'] as $element0) {
+            $var0[] = $element0;
+        }
+        /** @var string[] $overdueServers */
+        $overdueServers = $var0;
+
+        return new ServerCheckupStats
+        (
+            $overdueServers
+        );
+    }
+}
+
+
+class ConvertedCacheKey
+{
+    /**
+     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval
+     */
+    public function __construct
+    (
+        public readonly int|null $customerId,
+        public readonly array $interval,
+        public readonly int|null $serverId,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int|null $customerId */
+        $customerId = $decodedJson['customerId'];
+
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['interval'][0]);
+        $var0[] = $decodedJson['interval'][1];
+        $var0[] = $decodedJson['interval'][2];
+        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null} $interval */
+        $interval = $var0;
+
+        /** @var int|null $serverId */
+        $serverId = $decodedJson['serverId'];
+
+        return new ConvertedCacheKey
+        (
+            $customerId, $interval, $serverId
         );
     }
 }
 
 namespace ShockMedia\Generated\Orders;
+
+
+class Task
+{
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string $title,
+        public readonly string $description,
+        public readonly bool $notify,
+        public readonly string|null $start,
+        public readonly string|null $end,
+        public readonly bool $customerResponsible,
+        public readonly \ShockMedia\Generated\Orders\Status $status,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $title */
+        $title = $decodedJson['title'];
+
+        /** @var string $description */
+        $description = $decodedJson['description'];
+
+        /** @var bool $notify */
+        $notify = $decodedJson['notify'];
+
+        /** @var string|null $start */
+        $start = $decodedJson['start'];
+
+        /** @var string|null $end */
+        $end = $decodedJson['end'];
+
+        /** @var bool $customerResponsible */
+        $customerResponsible = $decodedJson['customerResponsible'];
+
+        $status = \ShockMedia\Generated\Orders\Status::from($decodedJson['status']);
+
+        return new Task
+        (
+            $id, $title, $description, $notify, $start, $end, $customerResponsible, $status
+        );
+    }
+}
+
+
+class OrderFilter
+{
+    public function __construct
+    (
+        public readonly bool|null $showDelivered,
+        public readonly bool|null $showDrs,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var bool|null $showDelivered */
+        $showDelivered = $decodedJson['showDelivered'];
+
+        /** @var bool|null $showDrs */
+        $showDrs = $decodedJson['showDrs'];
+
+        return new OrderFilter
+        (
+            $showDelivered, $showDrs
+        );
+    }
+}
 
 
 class Order
@@ -6832,85 +7079,12 @@ class Order
 }
 
 
-class Task
-{
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $title,
-        public readonly string $description,
-        public readonly bool $notify,
-        public readonly string|null $start,
-        public readonly string|null $end,
-        public readonly bool $customerResponsible,
-        public readonly \ShockMedia\Generated\Orders\Status $status,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $title */
-        $title = $decodedJson['title'];
-
-        /** @var string $description */
-        $description = $decodedJson['description'];
-
-        /** @var bool $notify */
-        $notify = $decodedJson['notify'];
-
-        /** @var string|null $start */
-        $start = $decodedJson['start'];
-
-        /** @var string|null $end */
-        $end = $decodedJson['end'];
-
-        /** @var bool $customerResponsible */
-        $customerResponsible = $decodedJson['customerResponsible'];
-
-        $status = \ShockMedia\Generated\Orders\Status::from($decodedJson['status']);
-
-        return new Task
-        (
-            $id, $title, $description, $notify, $start, $end, $customerResponsible, $status
-        );
-    }
-}
-
-
 enum Status: string
 {
     case not_started = 'not_started';
     case started = 'started';
     case completed = 'completed';
     case customer = 'customer';
-}
-
-
-class OrderFilter
-{
-    public function __construct
-    (
-        public readonly bool|null $showDelivered,
-        public readonly bool|null $showDrs,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var bool|null $showDelivered */
-        $showDelivered = $decodedJson['showDelivered'];
-
-        /** @var bool|null $showDrs */
-        $showDrs = $decodedJson['showDrs'];
-
-        return new OrderFilter
-        (
-            $showDelivered, $showDrs
-        );
-    }
 }
 
 namespace ShockMedia\Generated\Orders\Order;
@@ -6922,90 +7096,6 @@ enum OrderType: string
     case OTHER = 'OTHER';
 }
 namespace ShockMedia\Generated\Dnstemplates;
-
-
-class DnsTemplateRecordInput
-{
-    public function __construct
-    (
-        public readonly string $name,
-        public readonly \ShockMedia\Generated\Domains\EditableDnsRecordType $type,
-        public readonly int $ttl,
-        public readonly int|null $prio,
-        public readonly string $content,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        $type = \ShockMedia\Generated\Domains\EditableDnsRecordType::from($decodedJson['type']);
-
-        /** @var int $ttl */
-        $ttl = $decodedJson['ttl'];
-
-        /** @var int|null $prio */
-        $prio = $decodedJson['prio'];
-
-        /** @var string $content */
-        $content = $decodedJson['content'];
-
-        return new DnsTemplateRecordInput
-        (
-            $name, $type, $ttl, $prio, $content
-        );
-    }
-}
-
-
-class DnsTemplate
-{
-    /**
-     * @param \ShockMedia\Generated\Dnstemplates\DnsTemplateRecord[] $records
-     */
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $description,
-        public readonly bool $internal,
-        public readonly array $records,
-        public readonly string $name,
-        public readonly int|null $customerId,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $description */
-        $description = $decodedJson['description'];
-
-        /** @var bool $internal */
-        $internal = $decodedJson['internal'];
-
-        $var0 = array();
-        foreach ($decodedJson['records'] as $element0) {
-            $var0[] = \ShockMedia\Generated\Dnstemplates\DnsTemplateRecord::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Dnstemplates\DnsTemplateRecord[] $records */
-        $records = $var0;
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var int|null $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        return new DnsTemplate
-        (
-            $id, $description, $internal, $records, $name, $customerId
-        );
-    }
-}
 
 
 class TemplateUpdate
@@ -7087,6 +7177,90 @@ class DnsTemplateRecord
     }
 }
 
+
+class DnsTemplate
+{
+    /**
+     * @param \ShockMedia\Generated\Dnstemplates\DnsTemplateRecord[] $records
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string $description,
+        public readonly bool $internal,
+        public readonly array $records,
+        public readonly string $name,
+        public readonly int|null $customerId,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $description */
+        $description = $decodedJson['description'];
+
+        /** @var bool $internal */
+        $internal = $decodedJson['internal'];
+
+        $var0 = array();
+        foreach ($decodedJson['records'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Dnstemplates\DnsTemplateRecord::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Dnstemplates\DnsTemplateRecord[] $records */
+        $records = $var0;
+
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var int|null $customerId */
+        $customerId = $decodedJson['customerId'];
+
+        return new DnsTemplate
+        (
+            $id, $description, $internal, $records, $name, $customerId
+        );
+    }
+}
+
+
+class DnsTemplateRecordInput
+{
+    public function __construct
+    (
+        public readonly string $name,
+        public readonly \ShockMedia\Generated\Domains\EditableDnsRecordType $type,
+        public readonly int $ttl,
+        public readonly int|null $prio,
+        public readonly string $content,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        $type = \ShockMedia\Generated\Domains\EditableDnsRecordType::from($decodedJson['type']);
+
+        /** @var int $ttl */
+        $ttl = $decodedJson['ttl'];
+
+        /** @var int|null $prio */
+        $prio = $decodedJson['prio'];
+
+        /** @var string $content */
+        $content = $decodedJson['content'];
+
+        return new DnsTemplateRecordInput
+        (
+            $name, $type, $ttl, $prio, $content
+        );
+    }
+}
+
 namespace ShockMedia\Generated\Dnstemplates\TemplateUpdate;
 
 
@@ -7128,57 +7302,170 @@ class RecordAlt2
         );
     }
 }
+namespace ShockMedia\Generated\Blogs;
+
+
+class BlogMessage
+{
+    public function __construct
+    (
+        public readonly string $title,
+        public readonly string $message,
+        public readonly string $language,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $title */
+        $title = $decodedJson['title'];
+
+        /** @var string $message */
+        $message = $decodedJson['message'];
+
+        /** @var string $language */
+        $language = $decodedJson['language'];
+
+        return new BlogMessage
+        (
+            $title, $message, $language
+        );
+    }
+}
+
+
+class UpdateBlogInput
+{
+    /**
+     * @param \ShockMedia\Generated\Blogs\BlogMessage[]|null $messages
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string|null $icon,
+        public readonly array|null $messages,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string|null $icon */
+        $icon = $decodedJson['icon'];
+
+        if ($decodedJson['messages'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['messages'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Blogs\BlogMessage::fromDecodedJson($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\Blogs\BlogMessage[]|null $messages */
+        $messages = $var0;
+
+        return new UpdateBlogInput
+        (
+            $id, $icon, $messages
+        );
+    }
+}
+
+
+class Blog
+{
+    /**
+     * @param \ShockMedia\Generated\Blogs\BlogMessage[] $messages
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly array $messages,
+        public readonly string $icon,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        $var0 = array();
+        foreach ($decodedJson['messages'] as $element0) {
+            $var0[] = \ShockMedia\Generated\Blogs\BlogMessage::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Blogs\BlogMessage[] $messages */
+        $messages = $var0;
+
+        /** @var string $icon */
+        $icon = $decodedJson['icon'];
+
+        return new Blog
+        (
+            $id, $messages, $icon
+        );
+    }
+}
+
+
+class BlogFilter
+{
+    public function __construct
+    (
+        public readonly string|null $titleLike,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $titleLike */
+        $titleLike = $decodedJson['titleLike'];
+
+        return new BlogFilter
+        (
+            $titleLike
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Trustcenter;
+
+
+class Certification
+{
+    public function __construct
+    (
+        public readonly string $key,
+        public readonly string $name,
+        public readonly string|null $lastAudit,
+        public readonly string|null $validTill,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $key */
+        $key = $decodedJson['key'];
+
+        /** @var string $name */
+        $name = $decodedJson['name'];
+
+        /** @var string|null $lastAudit */
+        $lastAudit = $decodedJson['lastAudit'];
+
+        /** @var string|null $validTill */
+        $validTill = $decodedJson['validTill'];
+
+        return new Certification
+        (
+            $key, $name, $lastAudit, $validTill
+        );
+    }
+}
+
 namespace ShockMedia\Generated\Map\Filters;
-
-
-class ManagedAppFilter
-{
-    public function __construct
-    (
-        public readonly string|null $nameLike,
-        public readonly int|null $clusterId,
-        public readonly int|null $customerId,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string|null $nameLike */
-        $nameLike = $decodedJson['nameLike'];
-
-        /** @var int|null $clusterId */
-        $clusterId = $decodedJson['clusterId'];
-
-        /** @var int|null $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        return new ManagedAppFilter
-        (
-            $nameLike, $clusterId, $customerId
-        );
-    }
-}
-
-
-class BuildFilter
-{
-    public function __construct
-    (
-        public readonly bool|null $hasDeploymentBundle,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var bool|null $hasDeploymentBundle */
-        $hasDeploymentBundle = $decodedJson['hasDeploymentBundle'];
-
-        return new BuildFilter
-        (
-            $hasDeploymentBundle
-        );
-    }
-}
 
 
 class DeploymentFilter
@@ -7244,51 +7531,299 @@ class DeploymentFilter
     }
 }
 
-namespace ShockMedia\Generated\Auditlog;
 
-
-enum RequestType: string
-{
-    case jax_rs = 'jax_rs';
-    case json_rpc = 'json_rpc';
-}
-
-
-class AuditLogEntry
+class ManagedAppFilter
 {
     public function __construct
     (
-        public readonly int|null $id,
-        public readonly string $at,
-        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Request $request,
-        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Response $response,
-        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Invocation $invocation,
-        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Result $result,
+        public readonly string|null $nameLike,
+        public readonly int|null $clusterId,
+        public readonly int|null $customerId,
     ) {
     }
 
     public static function fromDecodedJson(array $decodedJson)
     {
-        /** @var int|null $id */
-        $id = $decodedJson['id'];
+        /** @var string|null $nameLike */
+        $nameLike = $decodedJson['nameLike'];
 
-        /** @var string $at */
-        $at = $decodedJson['at'];
+        /** @var int|null $clusterId */
+        $clusterId = $decodedJson['clusterId'];
 
-        $request = \ShockMedia\Generated\Auditlog\AuditLogEntry\Request::fromDecodedJson($decodedJson['request']);
+        /** @var int|null $customerId */
+        $customerId = $decodedJson['customerId'];
 
-        $response = \ShockMedia\Generated\Auditlog\AuditLogEntry\Response::fromDecodedJson($decodedJson['response']);
-
-        $invocation = \ShockMedia\Generated\Auditlog\AuditLogEntry\Invocation::fromDecodedJson($decodedJson['invocation']);
-
-        $result = \ShockMedia\Generated\Auditlog\AuditLogEntry\Result::fromDecodedJson($decodedJson['result']);
-
-        return new AuditLogEntry
+        return new ManagedAppFilter
         (
-            $id, $at, $request, $response, $invocation, $result
+            $nameLike, $clusterId, $customerId
         );
     }
 }
+
+
+class BuildFilter
+{
+    public function __construct
+    (
+        public readonly bool|null $hasDeploymentBundle,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var bool|null $hasDeploymentBundle */
+        $hasDeploymentBundle = $decodedJson['hasDeploymentBundle'];
+
+        return new BuildFilter
+        (
+            $hasDeploymentBundle
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Account;
+
+
+class Account
+{
+    /**
+     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly int $contactId,
+        public readonly int $customerId,
+        public readonly string|null $userName,
+        public readonly bool $disabled,
+        public readonly \ShockMedia\Generated\Language|null $preferredLanguage,
+        public readonly bool $requiresNewPassword,
+        public readonly bool $loggedIn,
+        public readonly bool $twoFactorAuthenticationEnabled,
+        public readonly bool $twoFactorAuthenticationEmailFallbackEnabled,
+        public readonly array|null $permissions,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var int $contactId */
+        $contactId = $decodedJson['contactId'];
+
+        /** @var int $customerId */
+        $customerId = $decodedJson['customerId'];
+
+        /** @var string|null $userName */
+        $userName = $decodedJson['userName'];
+
+        /** @var bool $disabled */
+        $disabled = $decodedJson['disabled'];
+
+        if ($decodedJson['preferredLanguage'] === NULL) {
+            $preferredLanguage = NULL;
+        } else {
+            $preferredLanguage = \ShockMedia\Generated\Language::from($decodedJson['preferredLanguage']);
+        }
+
+        /** @var bool $requiresNewPassword */
+        $requiresNewPassword = $decodedJson['requiresNewPassword'];
+
+        /** @var bool $loggedIn */
+        $loggedIn = $decodedJson['loggedIn'];
+
+        /** @var bool $twoFactorAuthenticationEnabled */
+        $twoFactorAuthenticationEnabled = $decodedJson['twoFactorAuthenticationEnabled'];
+
+        /** @var bool $twoFactorAuthenticationEmailFallbackEnabled */
+        $twoFactorAuthenticationEmailFallbackEnabled = $decodedJson['twoFactorAuthenticationEmailFallbackEnabled'];
+
+        if ($decodedJson['permissions'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['permissions'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Auth\Permission::from($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\Auth\Permission[]|null $permissions */
+        $permissions = $var0;
+
+        return new Account
+        (
+            $id, $contactId, $customerId, $userName, $disabled, $preferredLanguage, $requiresNewPassword, $loggedIn, $twoFactorAuthenticationEnabled, $twoFactorAuthenticationEmailFallbackEnabled, $permissions
+        );
+    }
+}
+
+
+class UpdateAccountInput
+{
+    /**
+     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
+     */
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string|null $name,
+        public readonly bool|null $disabled,
+        public readonly bool|null $newPasswordRequired,
+        public readonly array|null $permissions,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string|null $name */
+        $name = $decodedJson['name'];
+
+        /** @var bool|null $disabled */
+        $disabled = $decodedJson['disabled'];
+
+        /** @var bool|null $newPasswordRequired */
+        $newPasswordRequired = $decodedJson['newPasswordRequired'];
+
+        if ($decodedJson['permissions'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['permissions'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Auth\Permission::from($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\Auth\Permission[]|null $permissions */
+        $permissions = $var0;
+
+        return new UpdateAccountInput
+        (
+            $id, $name, $disabled, $newPasswordRequired, $permissions
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Activities;
+
+
+class Activity
+{
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string $subject,
+        public readonly string $description,
+        public readonly string $start,
+        public readonly string $duration,
+        public readonly int|null $serverId,
+        public readonly string|null $serverName,
+        public readonly bool $owner,
+        public readonly bool $system,
+        public readonly \ShockMedia\Generated\Activities\Activity\TicketAlt2|null $ticket,
+        public readonly bool $rebootPerformed,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $subject */
+        $subject = $decodedJson['subject'];
+
+        /** @var string $description */
+        $description = $decodedJson['description'];
+
+        /** @var string $start */
+        $start = $decodedJson['start'];
+
+        /** @var string $duration */
+        $duration = $decodedJson['duration'];
+
+        /** @var int|null $serverId */
+        $serverId = $decodedJson['serverId'];
+
+        /** @var string|null $serverName */
+        $serverName = $decodedJson['serverName'];
+
+        /** @var bool $owner */
+        $owner = $decodedJson['owner'];
+
+        /** @var bool $system */
+        $system = $decodedJson['system'];
+
+        if ($decodedJson['ticket'] === NULL) {
+            $ticket = NULL;
+        } else {
+            $ticket = \ShockMedia\Generated\Activities\Activity\TicketAlt2::fromDecodedJson($decodedJson['ticket']);
+        }
+
+        /** @var bool $rebootPerformed */
+        $rebootPerformed = $decodedJson['rebootPerformed'];
+
+        return new Activity
+        (
+            $id, $subject, $description, $start, $duration, $serverId, $serverName, $owner, $system, $ticket, $rebootPerformed
+        );
+    }
+}
+
+
+class ActivityFilter
+{
+    public function __construct
+    (
+        public readonly string|null $fqdn,
+        public readonly string|null $query,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string|null $fqdn */
+        $fqdn = $decodedJson['fqdn'];
+
+        /** @var string|null $query */
+        $query = $decodedJson['query'];
+
+        return new ActivityFilter
+        (
+            $fqdn, $query
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Activities\Activity;
+
+
+class TicketAlt2
+{
+    public function __construct
+    (
+        public readonly int $id,
+        public readonly string $authCode,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $authCode */
+        $authCode = $decodedJson['authCode'];
+
+        return new TicketAlt2
+        (
+            $id, $authCode
+        );
+    }
+}
+namespace ShockMedia\Generated\Auditlog;
 
 
 class AuditLogFilter
@@ -7349,6 +7884,50 @@ class AuditLogFilter
         return new AuditLogFilter
         (
             $customerId, $myshockAccountId, $employeeId, $at, $requestType, $ip, $method, $params
+        );
+    }
+}
+
+
+enum RequestType: string
+{
+    case jax_rs = 'jax_rs';
+    case json_rpc = 'json_rpc';
+}
+
+
+class AuditLogEntry
+{
+    public function __construct
+    (
+        public readonly int|null $id,
+        public readonly string $at,
+        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Request $request,
+        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Response $response,
+        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Invocation $invocation,
+        public readonly \ShockMedia\Generated\Auditlog\AuditLogEntry\Result $result,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var int|null $id */
+        $id = $decodedJson['id'];
+
+        /** @var string $at */
+        $at = $decodedJson['at'];
+
+        $request = \ShockMedia\Generated\Auditlog\AuditLogEntry\Request::fromDecodedJson($decodedJson['request']);
+
+        $response = \ShockMedia\Generated\Auditlog\AuditLogEntry\Response::fromDecodedJson($decodedJson['response']);
+
+        $invocation = \ShockMedia\Generated\Auditlog\AuditLogEntry\Invocation::fromDecodedJson($decodedJson['invocation']);
+
+        $result = \ShockMedia\Generated\Auditlog\AuditLogEntry\Result::fromDecodedJson($decodedJson['result']);
+
+        return new AuditLogEntry
+        (
+            $id, $at, $request, $response, $invocation, $result
         );
     }
 }
@@ -7557,717 +8136,6 @@ class Result
         );
     }
 }
-namespace ShockMedia\Generated\Map;
-
-
-class BuildTemplate
-{
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $name,
-        public readonly string|null $description,
-        public readonly bool $active,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string|null $description */
-        $description = $decodedJson['description'];
-
-        /** @var bool $active */
-        $active = $decodedJson['active'];
-
-        return new BuildTemplate
-        (
-            $id, $name, $description, $active
-        );
-    }
-}
-
-
-class ManagedApp
-{
-    public function __construct
-    (
-        public readonly string $id,
-        public readonly string $name,
-        public readonly string $description,
-        public readonly int $deploymentCount,
-        public readonly string|null $sla,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string $description */
-        $description = $decodedJson['description'];
-
-        /** @var int $deploymentCount */
-        $deploymentCount = $decodedJson['deploymentCount'];
-
-        /** @var string|null $sla */
-        $sla = $decodedJson['sla'];
-
-        return new ManagedApp
-        (
-            $id, $name, $description, $deploymentCount, $sla
-        );
-    }
-}
-
-
-enum DeploymentType: string
-{
-    case PRODUCTION = 'PRODUCTION';
-    case STAGING = 'STAGING';
-    case ACCEPTANCE = 'ACCEPTANCE';
-    case DEVELOPMENT = 'DEVELOPMENT';
-    case OTHER = 'OTHER';
-}
-
-
-enum DeploymentStatus: string
-{
-    case AVAILABLE = 'AVAILABLE';
-    case UNAVAILABLE = 'UNAVAILABLE';
-    case TERMINATING = 'TERMINATING';
-    case NON_EXISTENT = 'NON_EXISTENT';
-}
-
-
-enum BuildState: string
-{
-    case NOT_STARTED = 'NOT_STARTED';
-    case CREATING_BASE_IMAGE = 'CREATING_BASE_IMAGE';
-    case AWAITING_BASE_IMAGE = 'AWAITING_BASE_IMAGE';
-    case CREATING_APP_IMAGE = 'CREATING_APP_IMAGE';
-    case AWAITING_APP_IMAGE = 'AWAITING_APP_IMAGE';
-    case DEPLOYING = 'DEPLOYING';
-    case FINISHED = 'FINISHED';
-    case ERROR = 'ERROR';
-    case CANCELLED = 'CANCELLED';
-}
-
-
-class BuildStatus
-{
-    public function __construct
-    (
-        public readonly int $id,
-        public readonly string $deploymentId,
-        public readonly string $buildId,
-        public readonly int $buildNumber,
-        public readonly string $status,
-        public readonly string $createdAt,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $deploymentId */
-        $deploymentId = $decodedJson['deploymentId'];
-
-        /** @var string $buildId */
-        $buildId = $decodedJson['buildId'];
-
-        /** @var int $buildNumber */
-        $buildNumber = $decodedJson['buildNumber'];
-
-        /** @var string $status */
-        $status = $decodedJson['status'];
-
-        /** @var string $createdAt */
-        $createdAt = $decodedJson['createdAt'];
-
-        return new BuildStatus
-        (
-            $id, $deploymentId, $buildId, $buildNumber, $status, $createdAt
-        );
-    }
-}
-
-
-class Build
-{
-    public function __construct
-    (
-        public readonly string $id,
-        public readonly string $deploymentId,
-        public readonly string|null $projectFilePath,
-        public readonly string $uploadDate,
-        public readonly string|null $latestBuildDate,
-        public readonly \ShockMedia\Generated\Map\BuildState $buildState,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $deploymentId */
-        $deploymentId = $decodedJson['deploymentId'];
-
-        /** @var string|null $projectFilePath */
-        $projectFilePath = $decodedJson['projectFilePath'];
-
-        /** @var string $uploadDate */
-        $uploadDate = $decodedJson['uploadDate'];
-
-        /** @var string|null $latestBuildDate */
-        $latestBuildDate = $decodedJson['latestBuildDate'];
-
-        $buildState = \ShockMedia\Generated\Map\BuildState::from($decodedJson['buildState']);
-
-        return new Build
-        (
-            $id, $deploymentId, $projectFilePath, $uploadDate, $latestBuildDate, $buildState
-        );
-    }
-}
-
-
-class Deployment
-{
-    public function __construct
-    (
-        public readonly string $id,
-        public readonly string $name,
-        public readonly string|null $description,
-        public readonly \ShockMedia\Generated\Map\DeploymentType|null $type,
-        public readonly \ShockMedia\Generated\Map\ManagedApp|null $managedApp,
-        public readonly \ShockMedia\Generated\Map\Build|null $build,
-        public readonly string|null $override,
-        public readonly \ShockMedia\Generated\Map\BuildTemplate|null $buildTemplate,
-        public readonly \ShockMedia\Generated\Map\DeploymentStatus|null $status,
-        public readonly bool $service,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $id */
-        $id = $decodedJson['id'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string|null $description */
-        $description = $decodedJson['description'];
-
-        if ($decodedJson['type'] === NULL) {
-            $type = NULL;
-        } else {
-            $type = \ShockMedia\Generated\Map\DeploymentType::from($decodedJson['type']);
-        }
-
-        if ($decodedJson['managedApp'] === NULL) {
-            $managedApp = NULL;
-        } else {
-            $managedApp = \ShockMedia\Generated\Map\ManagedApp::fromDecodedJson($decodedJson['managedApp']);
-        }
-
-        if ($decodedJson['build'] === NULL) {
-            $build = NULL;
-        } else {
-            $build = \ShockMedia\Generated\Map\Build::fromDecodedJson($decodedJson['build']);
-        }
-
-        /** @var string|null $override */
-        $override = $decodedJson['override'];
-
-        if ($decodedJson['buildTemplate'] === NULL) {
-            $buildTemplate = NULL;
-        } else {
-            $buildTemplate = \ShockMedia\Generated\Map\BuildTemplate::fromDecodedJson($decodedJson['buildTemplate']);
-        }
-
-        if ($decodedJson['status'] === NULL) {
-            $status = NULL;
-        } else {
-            $status = \ShockMedia\Generated\Map\DeploymentStatus::from($decodedJson['status']);
-        }
-
-        /** @var bool $service */
-        $service = $decodedJson['service'];
-
-        return new Deployment
-        (
-            $id, $name, $description, $type, $managedApp, $build, $override, $buildTemplate, $status, $service
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Invoices;
-
-
-enum PaymentState: string
-{
-    case processing = 'processing';
-    case successful = 'successful';
-    case failed = 'failed';
-}
-
-
-enum InvoiceReminder: string
-{
-    case first = 'first';
-    case second = 'second';
-    case final = 'final';
-}
-
-
-class InvoiceFilter
-{
-    /**
-     * @param array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $paymentDate
-     */
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Invoices\InvoiceFilter\StatusAlt2|null $status,
-        public readonly string|null $invoiceNumber,
-        public readonly array|null $paymentDate,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        if ($decodedJson['status'] === NULL) {
-            $status = NULL;
-        } else {
-            $status = \ShockMedia\Generated\Invoices\InvoiceFilter\StatusAlt2::from($decodedJson['status']);
-        }
-
-        /** @var string|null $invoiceNumber */
-        $invoiceNumber = $decodedJson['invoiceNumber'];
-
-        if ($decodedJson['paymentDate'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            $var0[] = \ShockMedia\Generated\RangeType::from($decodedJson['paymentDate'][0]);
-            $var0[] = $decodedJson['paymentDate'][1];
-            $var0[] = $decodedJson['paymentDate'][2];
-        }
-        /** @var array{\ShockMedia\Generated\RangeType,string|null,string|null}|null $paymentDate */
-        $paymentDate = $var0;
-
-        return new InvoiceFilter
-        (
-            $status, $invoiceNumber, $paymentDate
-        );
-    }
-}
-
-
-class Invoice
-{
-    public function __construct
-    (
-        public readonly int $invoiceNumber,
-        public readonly string|null $paymentDate,
-        public readonly int $vat,
-        public readonly int $customerId,
-        public readonly string $invoiceMethod,
-        public readonly bool $hasPrint,
-        public readonly float $total,
-        public readonly string $date,
-        public readonly \ShockMedia\Generated\Invoices\InvoiceState $status,
-        public readonly \ShockMedia\Generated\Invoices\InvoiceReminder|null $reminder,
-        public readonly bool $payableByIdeal,
-        public readonly \ShockMedia\Generated\Invoices\PaymentState|null $paymentState,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $invoiceNumber */
-        $invoiceNumber = $decodedJson['invoiceNumber'];
-
-        /** @var string|null $paymentDate */
-        $paymentDate = $decodedJson['paymentDate'];
-
-        /** @var int $vat */
-        $vat = $decodedJson['vat'];
-
-        /** @var int $customerId */
-        $customerId = $decodedJson['customerId'];
-
-        /** @var string $invoiceMethod */
-        $invoiceMethod = $decodedJson['invoiceMethod'];
-
-        /** @var bool $hasPrint */
-        $hasPrint = $decodedJson['hasPrint'];
-
-        /** @var float $total */
-        $total = $decodedJson['total'];
-
-        /** @var string $date */
-        $date = $decodedJson['date'];
-
-        $status = \ShockMedia\Generated\Invoices\InvoiceState::from($decodedJson['status']);
-
-        if ($decodedJson['reminder'] === NULL) {
-            $reminder = NULL;
-        } else {
-            $reminder = \ShockMedia\Generated\Invoices\InvoiceReminder::from($decodedJson['reminder']);
-        }
-
-        /** @var bool $payableByIdeal */
-        $payableByIdeal = $decodedJson['payableByIdeal'];
-
-        if ($decodedJson['paymentState'] === NULL) {
-            $paymentState = NULL;
-        } else {
-            $paymentState = \ShockMedia\Generated\Invoices\PaymentState::from($decodedJson['paymentState']);
-        }
-
-        return new Invoice
-        (
-            $invoiceNumber, $paymentDate, $vat, $customerId, $invoiceMethod, $hasPrint, $total, $date, $status, $reminder, $payableByIdeal, $paymentState
-        );
-    }
-}
-
-
-enum InvoiceState: string
-{
-    case open = 'open';
-    case closed = 'closed';
-}
-
-
-class EmsOrder
-{
-    public function __construct
-    (
-        public readonly int $invoiceNumber,
-        public readonly string $transactionType,
-        public readonly string $timezone,
-        public readonly string $transactionTimestamp,
-        public readonly string $hashAlgorithm,
-        public readonly string $hash,
-        public readonly string $storeName,
-        public readonly string $paymentMode,
-        public readonly string $paymentMethod,
-        public readonly float $totalAmount,
-        public readonly int $currencyCode,
-        public readonly string $checkoutOption,
-        public readonly string $orderId,
-        public readonly string $language,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var int $invoiceNumber */
-        $invoiceNumber = $decodedJson['invoiceNumber'];
-
-        /** @var string $transactionType */
-        $transactionType = $decodedJson['transactionType'];
-
-        /** @var string $timezone */
-        $timezone = $decodedJson['timezone'];
-
-        /** @var string $transactionTimestamp */
-        $transactionTimestamp = $decodedJson['transactionTimestamp'];
-
-        /** @var string $hashAlgorithm */
-        $hashAlgorithm = $decodedJson['hashAlgorithm'];
-
-        /** @var string $hash */
-        $hash = $decodedJson['hash'];
-
-        /** @var string $storeName */
-        $storeName = $decodedJson['storeName'];
-
-        /** @var string $paymentMode */
-        $paymentMode = $decodedJson['paymentMode'];
-
-        /** @var string $paymentMethod */
-        $paymentMethod = $decodedJson['paymentMethod'];
-
-        /** @var float $totalAmount */
-        $totalAmount = $decodedJson['totalAmount'];
-
-        /** @var int $currencyCode */
-        $currencyCode = $decodedJson['currencyCode'];
-
-        /** @var string $checkoutOption */
-        $checkoutOption = $decodedJson['checkoutOption'];
-
-        /** @var string $orderId */
-        $orderId = $decodedJson['orderId'];
-
-        /** @var string $language */
-        $language = $decodedJson['language'];
-
-        return new EmsOrder
-        (
-            $invoiceNumber, $transactionType, $timezone, $transactionTimestamp, $hashAlgorithm, $hash, $storeName, $paymentMode, $paymentMethod, $totalAmount, $currencyCode, $checkoutOption, $orderId, $language
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Invoices\InvoiceFilter;
-
-
-enum StatusAlt2: string
-{
-    case open = 'open';
-    case closed = 'closed';
-}
-namespace ShockMedia\Generated\Massdns;
-
-
-class DnsRecordFilter
-{
-    /**
-     * @param string|null[]|null $domains
-     * @param string|null[]|null $types
-     * @param int|null[]|null $ids
-     */
-    public function __construct
-    (
-        public readonly array|null $domains,
-        public readonly array|null $types,
-        public readonly int|null $ttl,
-        public readonly string|null $name,
-        public readonly array|null $ids,
-        public readonly string|null $content,
-        public readonly int|null $prio,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        if ($decodedJson['domains'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['domains'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var string|null[]|null $domains */
-        $domains = $var0;
-
-        if ($decodedJson['types'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['types'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var string|null[]|null $types */
-        $types = $var0;
-
-        /** @var int|null $ttl */
-        $ttl = $decodedJson['ttl'];
-
-        /** @var string|null $name */
-        $name = $decodedJson['name'];
-
-        if ($decodedJson['ids'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['ids'] as $element0) {
-                $var0[] = $element0;
-            }
-        }
-        /** @var int|null[]|null $ids */
-        $ids = $var0;
-
-        /** @var string|null $content */
-        $content = $decodedJson['content'];
-
-        /** @var int|null $prio */
-        $prio = $decodedJson['prio'];
-
-        return new DnsRecordFilter
-        (
-            $domains, $types, $ttl, $name, $ids, $content, $prio
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Trustcenter;
-
-
-class Certification
-{
-    public function __construct
-    (
-        public readonly string $key,
-        public readonly string $name,
-        public readonly string|null $lastAudit,
-        public readonly string|null $validTill,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $key */
-        $key = $decodedJson['key'];
-
-        /** @var string $name */
-        $name = $decodedJson['name'];
-
-        /** @var string|null $lastAudit */
-        $lastAudit = $decodedJson['lastAudit'];
-
-        /** @var string|null $validTill */
-        $validTill = $decodedJson['validTill'];
-
-        return new Certification
-        (
-            $key, $name, $lastAudit, $validTill
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Translations;
-
-
-class Translation
-{
-    public function __construct
-    (
-        public readonly \ShockMedia\Generated\Language $language,
-        public readonly mixed $translations,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        $language = \ShockMedia\Generated\Language::from($decodedJson['language']);
-
-        /** @var mixed $translations */
-        $translations = $decodedJson['translations'];
-
-        return new Translation
-        (
-            $language, $translations
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Leads;
-
-
-class CreateLeadInput
-{
-    /**
-     * @param \ShockMedia\Generated\Tickets\CreateAttachmentInput[]|null $attachments
-     */
-    public function __construct
-    (
-        public readonly string $companyName,
-        public readonly string $contactName,
-        public readonly string $location,
-        public readonly string|null $email,
-        public readonly string|null $phone,
-        public readonly \ShockMedia\Generated\Leads\CreateLeadInput\Relation $relation,
-        public readonly string $date,
-        public readonly array|null $attachments,
-        public readonly string|null $details,
-        public readonly \ShockMedia\Generated\Leads\CreateLeadInput\FollowUp $followUp,
-        public readonly bool $leadAware,
-        public readonly string|null $followUpComments,
-    ) {
-    }
-
-    public static function fromDecodedJson(array $decodedJson)
-    {
-        /** @var string $companyName */
-        $companyName = $decodedJson['companyName'];
-
-        /** @var string $contactName */
-        $contactName = $decodedJson['contactName'];
-
-        /** @var string $location */
-        $location = $decodedJson['location'];
-
-        /** @var string|null $email */
-        $email = $decodedJson['email'];
-
-        /** @var string|null $phone */
-        $phone = $decodedJson['phone'];
-
-        $relation = \ShockMedia\Generated\Leads\CreateLeadInput\Relation::from($decodedJson['relation']);
-
-        /** @var string $date */
-        $date = $decodedJson['date'];
-
-        if ($decodedJson['attachments'] === NULL) {
-            $var0 = NULL;
-        } else {
-            $var0 = array();
-            foreach ($decodedJson['attachments'] as $element0) {
-                $var0[] = \ShockMedia\Generated\Tickets\CreateAttachmentInput::fromDecodedJson($element0);
-            }
-        }
-        /** @var \ShockMedia\Generated\Tickets\CreateAttachmentInput[]|null $attachments */
-        $attachments = $var0;
-
-        /** @var string|null $details */
-        $details = $decodedJson['details'];
-
-        $followUp = \ShockMedia\Generated\Leads\CreateLeadInput\FollowUp::from($decodedJson['followUp']);
-
-        /** @var bool $leadAware */
-        $leadAware = $decodedJson['leadAware'];
-
-        /** @var string|null $followUpComments */
-        $followUpComments = $decodedJson['followUpComments'];
-
-        return new CreateLeadInput
-        (
-            $companyName, $contactName, $location, $email, $phone, $relation, $date, $attachments, $details, $followUp, $leadAware, $followUpComments
-        );
-    }
-}
-
-namespace ShockMedia\Generated\Leads\CreateLeadInput;
-
-
-enum Relation: string
-{
-    case client = 'client';
-    case supplier = 'supplier';
-    case potential_client = 'potential_client';
-    case friend = 'friend';
-    case relation_other = 'relation_other';
-    case other = 'other';
-}
-
-namespace ShockMedia\Generated\Leads\CreateLeadInput;
-
-
-enum FollowUp: string
-{
-    case lead = 'lead';
-    case shock_media = 'shock_media';
-}
 namespace ShockMedia\Generated\Reminder;
 
 
@@ -8378,6 +8246,103 @@ class Change
         );
     }
 }
+namespace ShockMedia\Generated\Leads;
+
+
+class CreateLeadInput
+{
+    /**
+     * @param \ShockMedia\Generated\Tickets\CreateAttachmentInput[]|null $attachments
+     */
+    public function __construct
+    (
+        public readonly string $companyName,
+        public readonly string $contactName,
+        public readonly string $location,
+        public readonly string|null $email,
+        public readonly string|null $phone,
+        public readonly \ShockMedia\Generated\Leads\CreateLeadInput\Relation $relation,
+        public readonly string $date,
+        public readonly array|null $attachments,
+        public readonly string|null $details,
+        public readonly \ShockMedia\Generated\Leads\CreateLeadInput\FollowUp $followUp,
+        public readonly bool $leadAware,
+        public readonly string|null $followUpComments,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        /** @var string $companyName */
+        $companyName = $decodedJson['companyName'];
+
+        /** @var string $contactName */
+        $contactName = $decodedJson['contactName'];
+
+        /** @var string $location */
+        $location = $decodedJson['location'];
+
+        /** @var string|null $email */
+        $email = $decodedJson['email'];
+
+        /** @var string|null $phone */
+        $phone = $decodedJson['phone'];
+
+        $relation = \ShockMedia\Generated\Leads\CreateLeadInput\Relation::from($decodedJson['relation']);
+
+        /** @var string $date */
+        $date = $decodedJson['date'];
+
+        if ($decodedJson['attachments'] === NULL) {
+            $var0 = NULL;
+        } else {
+            $var0 = array();
+            foreach ($decodedJson['attachments'] as $element0) {
+                $var0[] = \ShockMedia\Generated\Tickets\CreateAttachmentInput::fromDecodedJson($element0);
+            }
+        }
+        /** @var \ShockMedia\Generated\Tickets\CreateAttachmentInput[]|null $attachments */
+        $attachments = $var0;
+
+        /** @var string|null $details */
+        $details = $decodedJson['details'];
+
+        $followUp = \ShockMedia\Generated\Leads\CreateLeadInput\FollowUp::from($decodedJson['followUp']);
+
+        /** @var bool $leadAware */
+        $leadAware = $decodedJson['leadAware'];
+
+        /** @var string|null $followUpComments */
+        $followUpComments = $decodedJson['followUpComments'];
+
+        return new CreateLeadInput
+        (
+            $companyName, $contactName, $location, $email, $phone, $relation, $date, $attachments, $details, $followUp, $leadAware, $followUpComments
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Leads\CreateLeadInput;
+
+
+enum Relation: string
+{
+    case client = 'client';
+    case supplier = 'supplier';
+    case potential_client = 'potential_client';
+    case friend = 'friend';
+    case relation_other = 'relation_other';
+    case other = 'other';
+}
+
+namespace ShockMedia\Generated\Leads\CreateLeadInput;
+
+
+enum FollowUp: string
+{
+    case lead = 'lead';
+    case shock_media = 'shock_media';
+}
 namespace ShockMedia\Generated\Webforwarding;
 
 
@@ -8409,6 +8374,32 @@ class WebForwardingState
         return new WebForwardingState
         (
             $enabled, $targetAddress, $completionEnabled, $dnsUpdateNeeded
+        );
+    }
+}
+
+namespace ShockMedia\Generated\Translations;
+
+
+class Translation
+{
+    public function __construct
+    (
+        public readonly \ShockMedia\Generated\Language $language,
+        public readonly mixed $translations,
+    ) {
+    }
+
+    public static function fromDecodedJson(array $decodedJson)
+    {
+        $language = \ShockMedia\Generated\Language::from($decodedJson['language']);
+
+        /** @var mixed $translations */
+        $translations = $decodedJson['translations'];
+
+        return new Translation
+        (
+            $language, $translations
         );
     }
 }
