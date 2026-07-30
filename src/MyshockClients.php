@@ -1,60 +1,5 @@
 <?php
 
-namespace ShockMedia\Generated\Activity;
-
-class ActivityClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Activities\Activity[]}
-     */
-    public function listActivities(
-        \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Activities\ActivityFilter $filter,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'filter' => $filter,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Activity.listActivities', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Activities\Activity::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Activities\Activity[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getActivity(
-        int $id,
-    ) {
-        $_params = array(
-            'id' => $id,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Activity.getActivity', $_params);
-        $_result = \ShockMedia\Generated\Activities\Activity::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function getActivityCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Activity.getActivityCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-}
-
 namespace ShockMedia\Generated\DomainRegistration;
 
 class DomainRegistrationClient
@@ -193,6 +138,61 @@ class LeadClient
             'input' => $input,
         );
         $this->httpClient->apiCall('Lead.createLead', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Activity;
+
+class ActivityClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Activities\Activity[]}
+     */
+    public function listActivities(
+        \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Activities\ActivityFilter $filter,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'filter' => $filter,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Activity.listActivities', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Activities\Activity::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Activities\Activity[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getActivity(
+        int $id,
+    ) {
+        $_params = array(
+            'id' => $id,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Activity.getActivity', $_params);
+        $_result = \ShockMedia\Generated\Activities\Activity::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function getActivityCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Activity.getActivityCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
     }
 
 }
@@ -1093,66 +1093,6 @@ class ReminderClient
 
 }
 
-namespace ShockMedia\Generated\Invoice;
-
-class InvoiceClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Invoices\Invoice[]}
-     */
-    public function listInvoices(
-        \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Invoices\InvoiceFilter $filter,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'filter' => $filter,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Invoice.listInvoices', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Invoices\Invoice::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Invoices\Invoice[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getInvoice(
-        int $invoiceId,
-        string|null $authCode,
-    ) {
-        $_params = array(
-            'invoiceId' => $invoiceId,
-            'authCode' => $authCode,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Invoice.getInvoice', $_params);
-        $_result = \ShockMedia\Generated\Invoices\Invoice::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function getInvoiceCount(
-        bool|null $openInvoices,
-    ) {
-        $_params = array(
-            'openInvoices' => $openInvoices,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Invoice.getInvoiceCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-}
-
 namespace ShockMedia\Generated\AcquiredOffering;
 
 class AcquiredOfferingClient
@@ -1246,6 +1186,66 @@ class AcquiredOfferingClient
     ) {
         $_params = array();
         $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getDomainCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+}
+
+namespace ShockMedia\Generated\Invoice;
+
+class InvoiceClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Invoices\Invoice[]}
+     */
+    public function listInvoices(
+        \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Invoices\InvoiceFilter $filter,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'filter' => $filter,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Invoice.listInvoices', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Invoices\Invoice::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Invoices\Invoice[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getInvoice(
+        int $invoiceId,
+        string|null $authCode,
+    ) {
+        $_params = array(
+            'invoiceId' => $invoiceId,
+            'authCode' => $authCode,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Invoice.getInvoice', $_params);
+        $_result = \ShockMedia\Generated\Invoices\Invoice::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function getInvoiceCount(
+        bool|null $openInvoices,
+    ) {
+        $_params = array(
+            'openInvoices' => $openInvoices,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Invoice.getInvoiceCount', $_params);
         /** @var int $_result */
         $_result = $_apiCallResult;
         return $_result;
@@ -1810,64 +1810,6 @@ class ChangelogClient
 
 }
 
-namespace ShockMedia\Generated\Build;
-
-class BuildClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\Build[]}
-     */
-    public function listBuilds(
-        \ShockMedia\Generated\PageRequest $page,
-        string $deploymentId,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'deploymentId' => $deploymentId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Build.listBuilds', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Map\Build::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\Build[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getBuild(
-        string $id,
-    ) {
-        $_params = array(
-            'id' => $id,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Build.getBuild', $_params);
-        $_result = \ShockMedia\Generated\Map\Build::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function countBuilds(
-        string $deploymentId,
-    ) {
-        $_params = array(
-            'deploymentId' => $deploymentId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Build.countBuilds', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-}
-
 namespace ShockMedia\Generated\Server;
 
 class ServerClient
@@ -2110,6 +2052,64 @@ class ServerClient
         $var0[] = $var1;
         /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Servers\BackupJob[]} $_result */
         $_result = $var0;
+        return $_result;
+    }
+
+}
+
+namespace ShockMedia\Generated\Build;
+
+class BuildClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\Build[]}
+     */
+    public function listBuilds(
+        \ShockMedia\Generated\PageRequest $page,
+        string $deploymentId,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'deploymentId' => $deploymentId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Build.listBuilds', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Map\Build::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\Build[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getBuild(
+        string $id,
+    ) {
+        $_params = array(
+            'id' => $id,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Build.getBuild', $_params);
+        $_result = \ShockMedia\Generated\Map\Build::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function countBuilds(
+        string $deploymentId,
+    ) {
+        $_params = array(
+            'deploymentId' => $deploymentId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Build.countBuilds', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
         return $_result;
     }
 
