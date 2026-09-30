@@ -1029,6 +1029,41 @@ class AnnouncementClient
 
 }
 
+namespace ShockMedia\Generated\BuildStatus;
+
+class BuildStatusClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\BuildStatus[]}
+     */
+    public function listBuildStatus(
+        \ShockMedia\Generated\PageRequest $page,
+        string $buildId,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'buildId' => $buildId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('BuildStatus.listBuildStatus', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Map\BuildStatus::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\BuildStatus[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+}
+
 namespace ShockMedia\Generated\WebForwarding;
 
 class WebForwardingClient
@@ -1067,41 +1102,6 @@ class WebForwardingClient
             'domainName' => $domainName,
         );
         $this->httpClient->apiCall('WebForwarding.fixDnsSettings', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\BuildStatus;
-
-class BuildStatusClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\BuildStatus[]}
-     */
-    public function listBuildStatus(
-        \ShockMedia\Generated\PageRequest $page,
-        string $buildId,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'buildId' => $buildId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('BuildStatus.listBuildStatus', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Map\BuildStatus::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\BuildStatus[]} $_result */
-        $_result = $var0;
-        return $_result;
     }
 
 }
@@ -2120,6 +2120,89 @@ class SlaDashboardClient
 
 }
 
+namespace ShockMedia\Generated\Reminder;
+
+class ReminderClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return \ShockMedia\Generated\Reminder\ReminderType[]
+     */
+    public function listReminders(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Reminder.listReminders', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Reminder\ReminderType::from($element0);
+        }
+        /** @var \ShockMedia\Generated\Reminder\ReminderType[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function ackReminder(
+        \ShockMedia\Generated\Reminder\ReminderType $reminderType,
+    ) {
+        $_params = array(
+            'reminderType' => $reminderType,
+        );
+        $this->httpClient->apiCall('Reminder.ackReminder', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Account;
+
+class AccountClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
+     */
+    public function createAccount(
+        int $contactId,
+        string|null $username,
+        \ShockMedia\Generated\Language $language,
+        array|null $permissions,
+    ) {
+        $_params = array(
+            'contactId' => $contactId,
+            'username' => $username,
+            'language' => $language,
+            'permissions' => $permissions,
+        );
+        $this->httpClient->apiCall('Account.createAccount', $_params);
+    }
+
+    public function deleteAccount(
+        int $accountId,
+    ) {
+        $_params = array(
+            'accountId' => $accountId,
+        );
+        $this->httpClient->apiCall('Account.deleteAccount', $_params);
+    }
+
+    public function updateAccount(
+        \ShockMedia\Generated\Account\UpdateAccountInput $input,
+    ) {
+        $_params = array(
+            'input' => $input,
+        );
+        $this->httpClient->apiCall('Account.updateAccount', $_params);
+    }
+
+}
+
 namespace ShockMedia\Generated\Domain;
 
 class DomainClient
@@ -2213,89 +2296,6 @@ class DomainClient
             'recordId' => $recordId,
         );
         $this->httpClient->apiCall('Domain.deleteRecord', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\Reminder;
-
-class ReminderClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return \ShockMedia\Generated\Reminder\ReminderType[]
-     */
-    public function listReminders(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Reminder.listReminders', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = \ShockMedia\Generated\Reminder\ReminderType::from($element0);
-        }
-        /** @var \ShockMedia\Generated\Reminder\ReminderType[] $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function ackReminder(
-        \ShockMedia\Generated\Reminder\ReminderType $reminderType,
-    ) {
-        $_params = array(
-            'reminderType' => $reminderType,
-        );
-        $this->httpClient->apiCall('Reminder.ackReminder', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\Account;
-
-class AccountClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @param \ShockMedia\Generated\Auth\Permission[]|null $permissions
-     */
-    public function createAccount(
-        int $contactId,
-        string|null $username,
-        \ShockMedia\Generated\Language $language,
-        array|null $permissions,
-    ) {
-        $_params = array(
-            'contactId' => $contactId,
-            'username' => $username,
-            'language' => $language,
-            'permissions' => $permissions,
-        );
-        $this->httpClient->apiCall('Account.createAccount', $_params);
-    }
-
-    public function deleteAccount(
-        int $accountId,
-    ) {
-        $_params = array(
-            'accountId' => $accountId,
-        );
-        $this->httpClient->apiCall('Account.deleteAccount', $_params);
-    }
-
-    public function updateAccount(
-        \ShockMedia\Generated\Account\UpdateAccountInput $input,
-    ) {
-        $_params = array(
-            'input' => $input,
-        );
-        $this->httpClient->apiCall('Account.updateAccount', $_params);
     }
 
 }
