@@ -306,6 +306,17 @@ class AuthClient
 
 }
 
+namespace ShockMedia\Generated\TrustCenter;
+
+class TrustCenterClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+}
+
 namespace ShockMedia\Generated\Invoice;
 
 class InvoiceClient
@@ -362,17 +373,6 @@ class InvoiceClient
         /** @var int $_result */
         $_result = $_apiCallResult;
         return $_result;
-    }
-
-}
-
-namespace ShockMedia\Generated\TrustCenter;
-
-class TrustCenterClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
     }
 
 }
@@ -470,26 +470,6 @@ class AcquiredOfferingClient
     ) {
         $_params = array();
         $_apiCallResult = $this->httpClient->apiCall('AcquiredOffering.getDomainCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
-        return $_result;
-    }
-
-}
-
-namespace ShockMedia\Generated\Noc;
-
-class NocClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getNotificationCount(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Noc.getNotificationCount', $_params);
         /** @var int $_result */
         $_result = $_apiCallResult;
         return $_result;
@@ -744,6 +724,147 @@ class ServerClient
 
 }
 
+namespace ShockMedia\Generated\Customer;
+
+class CustomerClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    public function getCustomer(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Customer.getCustomer', $_params);
+        $_result = \ShockMedia\Generated\Customers\Customer::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function getCompanyName(
+    ) {
+        $_params = array();
+        $this->httpClient->apiCall('Customer.getCompanyName', $_params);
+    }
+
+    public function updateCustomer(
+        \ShockMedia\Generated\Customers\CustomerUpdate $customer,
+    ) {
+        $_params = array(
+            'customer' => $customer,
+        );
+        $this->httpClient->apiCall('Customer.updateCustomer', $_params);
+    }
+
+    public function getLocation(
+        string|null $postalCode,
+        string|null $houseId,
+    ) {
+        $_params = array(
+            'postalCode' => $postalCode,
+            'houseId' => $houseId,
+        );
+        $this->httpClient->apiCall('Customer.getLocation', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\MassDns;
+
+class MassDnsClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return string[]
+     */
+    public function listEditableZones(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('MassDns.listEditableZones', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = $element0;
+        }
+        /** @var string[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    /**
+     * @return \ShockMedia\Generated\Domains\DnsRecord[]
+     */
+    public function listRecords(
+        \ShockMedia\Generated\Massdns\DnsRecordFilter $filter,
+    ) {
+        $_params = array(
+            'filter' => $filter,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('MassDns.listRecords', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Domains\DnsRecord::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Domains\DnsRecord[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    /**
+     * @param string[] $domainNames
+     */
+    public function addRecords(
+        array $domainNames,
+        \ShockMedia\Generated\Domains\DnsRecordInput $record,
+    ) {
+        $_params = array(
+            'domainNames' => $domainNames,
+            'record' => $record,
+        );
+        $this->httpClient->apiCall('MassDns.addRecords', $_params);
+    }
+
+    /**
+     * @param int|null[] $recordIds
+     */
+    public function updateRecords(
+        array $recordIds,
+        string $target,
+        string $replacement,
+    ) {
+        $_params = array(
+            'recordIds' => $recordIds,
+            'target' => $target,
+            'replacement' => $replacement,
+        );
+        $this->httpClient->apiCall('MassDns.updateRecords', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Noc;
+
+class NocClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    public function getNotificationCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Noc.getNotificationCount', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+}
+
 namespace ShockMedia\Generated\Lead;
 
 class LeadClient
@@ -764,9 +885,9 @@ class LeadClient
 
 }
 
-namespace ShockMedia\Generated\ManagedApp;
+namespace ShockMedia\Generated\DomainRegistration;
 
-class ManagedAppClient
+class DomainRegistrationClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
@@ -774,69 +895,186 @@ class ManagedAppClient
     }
 
     /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\ManagedApp[]}
+     * @param string[] $domainNames
      */
-    public function listManagedApps(
+    public function startDomainChecks(
+        array $domainNames,
+    ) {
+        $_params = array(
+            'domainNames' => $domainNames,
+        );
+        $this->httpClient->apiCall('DomainRegistration.startDomainChecks', $_params);
+    }
+
+    /**
+     * @param string[] $domains
+     */
+    public function getUnstartedDomainRegistrationResults(
+        array $domains,
+    ) {
+        $_params = array(
+            'domains' => $domains,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('DomainRegistration.getUnstartedDomainRegistrationResults', $_params);
+        $_result = \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function requestAuthCode(
+        string $domainName,
+        bool $update,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'update' => $update,
+        );
+        $this->httpClient->apiCall('DomainRegistration.requestAuthCode', $_params);
+    }
+
+    public function getAuthCode(
+        string $domainName,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+        );
+        $this->httpClient->apiCall('DomainRegistration.getAuthCode', $_params);
+    }
+
+    public function setTransferLock(
+        string $domainName,
+        bool $lock,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'lock' => $lock,
+        );
+        $this->httpClient->apiCall('DomainRegistration.setTransferLock', $_params);
+    }
+
+    public function requestDomain(
+        \ShockMedia\Generated\Domainregistration\CreateDomainRequestInput $input,
+    ) {
+        $_params = array(
+            'input' => $input,
+        );
+        $this->httpClient->apiCall('DomainRegistration.requestDomain', $_params);
+    }
+
+    public function validateNewDomain(
+        \ShockMedia\Generated\Domainregistration\CreateDomainRequestInput $domainInput,
+    ) {
+        $_params = array(
+            'domainInput' => $domainInput,
+        );
+        $this->httpClient->apiCall('DomainRegistration.validateNewDomain', $_params);
+    }
+
+    public function requestDnsPlan(
+        \ShockMedia\Generated\Domainregistration\CreateDnsPlanInput $input,
+    ) {
+        $_params = array(
+            'input' => $input,
+        );
+        $this->httpClient->apiCall('DomainRegistration.requestDnsPlan', $_params);
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domainregistration\DomainContact[]}
+     */
+    public function listContacts(
         \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Map\Filters\ManagedAppFilter $filter,
     ) {
         $_params = array(
             'page' => $page,
-            'filter' => $filter,
         );
-        $_apiCallResult = $this->httpClient->apiCall('ManagedApp.listManagedApps', $_params);
+        $_apiCallResult = $this->httpClient->apiCall('DomainRegistration.listContacts', $_params);
         $var0 = array();
         $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
         $var1 = array();
         foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Map\ManagedApp::fromDecodedJson($element1);
+            $var1[] = \ShockMedia\Generated\Domainregistration\DomainContact::fromDecodedJson($element1);
         }
         $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\ManagedApp[]} $_result */
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domainregistration\DomainContact[]} $_result */
         $_result = $var0;
         return $_result;
     }
 
-    public function getManagedApp(
-        string $managedAppId,
-    ) {
-        $_params = array(
-            'managedAppId' => $managedAppId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('ManagedApp.getManagedApp', $_params);
-        $_result = \ShockMedia\Generated\Map\ManagedApp::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function getManagedAppCount(
+    public function getDefaultContactHandle(
     ) {
         $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('ManagedApp.getManagedAppCount', $_params);
-        /** @var int $_result */
-        $_result = $_apiCallResult;
+        $this->httpClient->apiCall('DomainRegistration.getDefaultContactHandle', $_params);
+    }
+
+    public function setDefaultContactHandle(
+        string $handle,
+    ) {
+        $_params = array(
+            'handle' => $handle,
+        );
+        $this->httpClient->apiCall('DomainRegistration.setDefaultContactHandle', $_params);
+    }
+
+    /**
+     * @param string[] $registries
+     * @return \ShockMedia\Generated\Domainregistration\RegistryContactProperties[]
+     */
+    public function getContactProperties(
+        array $registries,
+    ) {
+        $_params = array(
+            'registries' => $registries,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('DomainRegistration.getContactProperties', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Domainregistration\RegistryContactProperties::fromDecodedJson($element0);
+        }
+        /** @var \ShockMedia\Generated\Domainregistration\RegistryContactProperties[] $_result */
+        $_result = $var0;
         return $_result;
     }
 
 }
 
-namespace ShockMedia\Generated\Changelog;
+namespace ShockMedia\Generated\WebForwarding;
 
-class ChangelogClient
+class WebForwardingClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
     }
 
-    public function getChangelog(
-        \ShockMedia\Generated\Language $language,
+    public function setWebForwarding(
+        string $domainName,
+        string|null $targetUrl,
+        bool $enableCompletion,
     ) {
         $_params = array(
-            'language' => $language,
+            'domainName' => $domainName,
+            'targetUrl' => $targetUrl,
+            'enableCompletion' => $enableCompletion,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Changelog.getChangelog', $_params);
-        $_result = \ShockMedia\Generated\Changelog\Changelog::fromDecodedJson($_apiCallResult);
-        return $_result;
+        $this->httpClient->apiCall('WebForwarding.setWebForwarding', $_params);
+    }
+
+    public function disableWebForwarding(
+        string $domainName,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+        );
+        $this->httpClient->apiCall('WebForwarding.disableWebForwarding', $_params);
+    }
+
+    public function fixDnsSettings(
+        string $domainName,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+        );
+        $this->httpClient->apiCall('WebForwarding.fixDnsSettings', $_params);
     }
 
 }
@@ -899,54 +1137,70 @@ class BuildClient
 
 }
 
-namespace ShockMedia\Generated\Cloud;
+namespace ShockMedia\Generated\OnlinePayment;
 
-class CloudClient
+class OnlinePaymentClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
     }
 
-    public function getCloud(
-        string $name,
+    public function getEmsOrder(
+        int $invoiceNumber,
+        string|null $authCode,
     ) {
         $_params = array(
-            'name' => $name,
+            'invoiceNumber' => $invoiceNumber,
+            'authCode' => $authCode,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.getCloud', $_params);
-        $_result = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($_apiCallResult);
+        $_apiCallResult = $this->httpClient->apiCall('OnlinePayment.getEmsOrder', $_params);
+        $_result = \ShockMedia\Generated\Invoices\EmsOrder::fromDecodedJson($_apiCallResult);
         return $_result;
     }
 
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]}
-     */
-    public function listClouds(
-        \ShockMedia\Generated\PageRequest $page,
+}
+
+namespace ShockMedia\Generated\Hosting;
+
+class HostingClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
-        $_params = array(
-            'page' => $page,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.listClouds', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]} $_result */
-        $_result = $var0;
-        return $_result;
     }
 
-    public function countClouds(
+    public function getLoginUrl(
+        int $packageId,
     ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Cloud.countClouds', $_params);
-        /** @var int $_result */
+        $_params = array(
+            'packageId' => $packageId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Hosting.getLoginUrl', $_params);
+        /** @var string $_result */
         $_result = $_apiCallResult;
+        return $_result;
+    }
+
+}
+
+namespace ShockMedia\Generated\Upload;
+
+class UploadClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    public function getUpload(
+        int $uploadId,
+    ) {
+        $_params = array(
+            'uploadId' => $uploadId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Upload.getUpload', $_params);
+        $_result = \ShockMedia\Generated\Map\Upload::fromDecodedJson($_apiCallResult);
         return $_result;
     }
 
@@ -1042,73 +1296,29 @@ class AnnouncementClient
 
 }
 
-namespace ShockMedia\Generated\WebForwarding;
+namespace ShockMedia\Generated\ScheduledUpdate;
 
-class WebForwardingClient
+class ScheduledUpdateClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
     }
 
-    public function setWebForwarding(
-        string $domainName,
-        string|null $targetUrl,
-        bool $enableCompletion,
+    public function deleteScheduledUpdateWindow(
+        int $updateWindowId,
     ) {
         $_params = array(
-            'domainName' => $domainName,
-            'targetUrl' => $targetUrl,
-            'enableCompletion' => $enableCompletion,
+            'updateWindowId' => $updateWindowId,
         );
-        $this->httpClient->apiCall('WebForwarding.setWebForwarding', $_params);
-    }
-
-    public function disableWebForwarding(
-        string $domainName,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-        );
-        $this->httpClient->apiCall('WebForwarding.disableWebForwarding', $_params);
-    }
-
-    public function fixDnsSettings(
-        string $domainName,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-        );
-        $this->httpClient->apiCall('WebForwarding.fixDnsSettings', $_params);
+        $this->httpClient->apiCall('ScheduledUpdate.deleteScheduledUpdateWindow', $_params);
     }
 
 }
 
-namespace ShockMedia\Generated\Upload;
+namespace ShockMedia\Generated\ManagedApp;
 
-class UploadClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getUpload(
-        int $uploadId,
-    ) {
-        $_params = array(
-            'uploadId' => $uploadId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Upload.getUpload', $_params);
-        $_result = \ShockMedia\Generated\Map\Upload::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-}
-
-namespace ShockMedia\Generated\Incident;
-
-class IncidentClient
+class ManagedAppClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
@@ -1116,46 +1326,45 @@ class IncidentClient
     }
 
     /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Incidents\IncidentReport[]}
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\ManagedApp[]}
      */
-    public function listReports(
+    public function listManagedApps(
         \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Map\Filters\ManagedAppFilter $filter,
     ) {
         $_params = array(
             'page' => $page,
+            'filter' => $filter,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Incident.listReports', $_params);
+        $_apiCallResult = $this->httpClient->apiCall('ManagedApp.listManagedApps', $_params);
         $var0 = array();
         $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
         $var1 = array();
         foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Incidents\IncidentReport::fromDecodedJson($element1);
+            $var1[] = \ShockMedia\Generated\Map\ManagedApp::fromDecodedJson($element1);
         }
         $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Incidents\IncidentReport[]} $_result */
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Map\ManagedApp[]} $_result */
         $_result = $var0;
         return $_result;
     }
 
-}
-
-namespace ShockMedia\Generated\Hosting;
-
-class HostingClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getLoginUrl(
-        int $packageId,
+    public function getManagedApp(
+        string $managedAppId,
     ) {
         $_params = array(
-            'packageId' => $packageId,
+            'managedAppId' => $managedAppId,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Hosting.getLoginUrl', $_params);
-        /** @var string $_result */
+        $_apiCallResult = $this->httpClient->apiCall('ManagedApp.getManagedApp', $_params);
+        $_result = \ShockMedia\Generated\Map\ManagedApp::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function getManagedAppCount(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('ManagedApp.getManagedAppCount', $_params);
+        /** @var int $_result */
         $_result = $_apiCallResult;
         return $_result;
     }
@@ -1199,22 +1408,35 @@ class TranslationClient
 
 }
 
-namespace ShockMedia\Generated\ScheduledUpdate;
+namespace ShockMedia\Generated\Incident;
 
-class ScheduledUpdateClient
+class IncidentClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
     }
 
-    public function deleteScheduledUpdateWindow(
-        int $updateWindowId,
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Incidents\IncidentReport[]}
+     */
+    public function listReports(
+        \ShockMedia\Generated\PageRequest $page,
     ) {
         $_params = array(
-            'updateWindowId' => $updateWindowId,
+            'page' => $page,
         );
-        $this->httpClient->apiCall('ScheduledUpdate.deleteScheduledUpdateWindow', $_params);
+        $_apiCallResult = $this->httpClient->apiCall('Incident.listReports', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Incidents\IncidentReport::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Incidents\IncidentReport[]} $_result */
+        $_result = $var0;
+        return $_result;
     }
 
 }
@@ -1488,137 +1710,101 @@ class DeploymentClient
 
 }
 
-namespace ShockMedia\Generated\OnlinePayment;
+namespace ShockMedia\Generated\Cloud;
 
-class OnlinePaymentClient
+class CloudClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
     }
 
-    public function getEmsOrder(
-        int $invoiceNumber,
-        string|null $authCode,
+    public function getCloud(
+        string $name,
     ) {
         $_params = array(
-            'invoiceNumber' => $invoiceNumber,
-            'authCode' => $authCode,
+            'name' => $name,
         );
-        $_apiCallResult = $this->httpClient->apiCall('OnlinePayment.getEmsOrder', $_params);
-        $_result = \ShockMedia\Generated\Invoices\EmsOrder::fromDecodedJson($_apiCallResult);
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.getCloud', $_params);
+        $_result = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($_apiCallResult);
         return $_result;
     }
 
-}
-
-namespace ShockMedia\Generated\DnsTemplate;
-
-class DnsTemplateClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
     /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Dnstemplates\DnsTemplate[]}
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]}
      */
-    public function listTemplates(
+    public function listClouds(
         \ShockMedia\Generated\PageRequest $page,
     ) {
         $_params = array(
             'page' => $page,
         );
-        $_apiCallResult = $this->httpClient->apiCall('DnsTemplate.listTemplates', $_params);
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.listClouds', $_params);
         $var0 = array();
         $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
         $var1 = array();
         foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Dnstemplates\DnsTemplate::fromDecodedJson($element1);
+            $var1[] = \ShockMedia\Generated\Clouds\Cloud::fromDecodedJson($element1);
         }
         $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Dnstemplates\DnsTemplate[]} $_result */
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Clouds\Cloud[]} $_result */
         $_result = $var0;
         return $_result;
     }
 
-    public function getTemplate(
-        int $templateId,
+    public function countClouds(
     ) {
-        $_params = array(
-            'templateId' => $templateId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('DnsTemplate.getTemplate', $_params);
-        $_result = \ShockMedia\Generated\Dnstemplates\DnsTemplate::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function deleteTemplate(
-        int $templateId,
-    ) {
-        $_params = array(
-            'templateId' => $templateId,
-        );
-        $this->httpClient->apiCall('DnsTemplate.deleteTemplate', $_params);
-    }
-
-    public function updateTemplate(
-        \ShockMedia\Generated\Dnstemplates\TemplateUpdate $template,
-    ) {
-        $_params = array(
-            'template' => $template,
-        );
-        $this->httpClient->apiCall('DnsTemplate.updateTemplate', $_params);
-    }
-
-    public function deleteRecord(
-        int $templateId,
-        int $recordId,
-    ) {
-        $_params = array(
-            'templateId' => $templateId,
-            'recordId' => $recordId,
-        );
-        $this->httpClient->apiCall('DnsTemplate.deleteRecord', $_params);
-    }
-
-    /**
-     * @param \ShockMedia\Generated\Dnstemplates\DnsTemplateRecordInput[] $records
-     */
-    public function createTemplate(
-        string $name,
-        string $description,
-        array $records,
-    ) {
-        $_params = array(
-            'name' => $name,
-            'description' => $description,
-            'records' => $records,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('DnsTemplate.createTemplate', $_params);
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Cloud.countClouds', $_params);
         /** @var int $_result */
         $_result = $_apiCallResult;
         return $_result;
     }
 
-    public function createRecord(
-        int $templateId,
-        string $name,
-        \ShockMedia\Generated\Domains\EditableDnsRecordType $type,
-        int $ttl,
-        int|null $prio,
-        string $content,
+}
+
+namespace ShockMedia\Generated\Promotion;
+
+class PromotionClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Promotions\Promotion[]}
+     */
+    public function listPromotions(
+        \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Promotions\PromotionFilter $filter,
     ) {
         $_params = array(
-            'templateId' => $templateId,
-            'name' => $name,
-            'type' => $type,
-            'ttl' => $ttl,
-            'prio' => $prio,
-            'content' => $content,
+            'page' => $page,
+            'filter' => $filter,
         );
-        $this->httpClient->apiCall('DnsTemplate.createRecord', $_params);
+        $_apiCallResult = $this->httpClient->apiCall('Promotion.listPromotions', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Promotions\Promotion::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Promotions\Promotion[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getPromotion(
+        int $promotionId,
+    ) {
+        $_params = array(
+            'promotionId' => $promotionId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Promotion.getPromotion', $_params);
+        $_result = \ShockMedia\Generated\Promotions\Promotion::fromDecodedJson($_apiCallResult);
+        return $_result;
     }
 
 }
@@ -1749,153 +1935,23 @@ class PartnerClient
 
 }
 
-namespace ShockMedia\Generated\DomainRegistration;
+namespace ShockMedia\Generated\Changelog;
 
-class DomainRegistrationClient
+class ChangelogClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
     ) {
     }
 
-    /**
-     * @param string[] $domainNames
-     */
-    public function startDomainChecks(
-        array $domainNames,
+    public function getChangelog(
+        \ShockMedia\Generated\Language $language,
     ) {
         $_params = array(
-            'domainNames' => $domainNames,
+            'language' => $language,
         );
-        $this->httpClient->apiCall('DomainRegistration.startDomainChecks', $_params);
-    }
-
-    /**
-     * @param string[] $domains
-     */
-    public function getUnstartedDomainRegistrationResults(
-        array $domains,
-    ) {
-        $_params = array(
-            'domains' => $domains,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('DomainRegistration.getUnstartedDomainRegistrationResults', $_params);
-        $_result = \ShockMedia\Generated\Domainregistration\UnstartedDomainRegistration::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function requestAuthCode(
-        string $domainName,
-        bool $update,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'update' => $update,
-        );
-        $this->httpClient->apiCall('DomainRegistration.requestAuthCode', $_params);
-    }
-
-    public function getAuthCode(
-        string $domainName,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-        );
-        $this->httpClient->apiCall('DomainRegistration.getAuthCode', $_params);
-    }
-
-    public function setTransferLock(
-        string $domainName,
-        bool $lock,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'lock' => $lock,
-        );
-        $this->httpClient->apiCall('DomainRegistration.setTransferLock', $_params);
-    }
-
-    public function requestDomain(
-        \ShockMedia\Generated\Domainregistration\CreateDomainRequestInput $input,
-    ) {
-        $_params = array(
-            'input' => $input,
-        );
-        $this->httpClient->apiCall('DomainRegistration.requestDomain', $_params);
-    }
-
-    public function validateNewDomain(
-        \ShockMedia\Generated\Domainregistration\CreateDomainRequestInput $domainInput,
-    ) {
-        $_params = array(
-            'domainInput' => $domainInput,
-        );
-        $this->httpClient->apiCall('DomainRegistration.validateNewDomain', $_params);
-    }
-
-    public function requestDnsPlan(
-        \ShockMedia\Generated\Domainregistration\CreateDnsPlanInput $input,
-    ) {
-        $_params = array(
-            'input' => $input,
-        );
-        $this->httpClient->apiCall('DomainRegistration.requestDnsPlan', $_params);
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domainregistration\DomainContact[]}
-     */
-    public function listContacts(
-        \ShockMedia\Generated\PageRequest $page,
-    ) {
-        $_params = array(
-            'page' => $page,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('DomainRegistration.listContacts', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Domainregistration\DomainContact::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domainregistration\DomainContact[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getDefaultContactHandle(
-    ) {
-        $_params = array();
-        $this->httpClient->apiCall('DomainRegistration.getDefaultContactHandle', $_params);
-    }
-
-    public function setDefaultContactHandle(
-        string $handle,
-    ) {
-        $_params = array(
-            'handle' => $handle,
-        );
-        $this->httpClient->apiCall('DomainRegistration.setDefaultContactHandle', $_params);
-    }
-
-    /**
-     * @param string[] $registries
-     * @return \ShockMedia\Generated\Domainregistration\RegistryContactProperties[]
-     */
-    public function getContactProperties(
-        array $registries,
-    ) {
-        $_params = array(
-            'registries' => $registries,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('DomainRegistration.getContactProperties', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = \ShockMedia\Generated\Domainregistration\RegistryContactProperties::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Domainregistration\RegistryContactProperties[] $_result */
-        $_result = $var0;
+        $_apiCallResult = $this->httpClient->apiCall('Changelog.getChangelog', $_params);
+        $_result = \ShockMedia\Generated\Changelog\Changelog::fromDecodedJson($_apiCallResult);
         return $_result;
     }
 
@@ -1956,363 +2012,6 @@ class ActivityClient
 
 }
 
-namespace ShockMedia\Generated\MassDns;
-
-class MassDnsClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return string[]
-     */
-    public function listEditableZones(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('MassDns.listEditableZones', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = $element0;
-        }
-        /** @var string[] $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    /**
-     * @return \ShockMedia\Generated\Domains\DnsRecord[]
-     */
-    public function listRecords(
-        \ShockMedia\Generated\Massdns\DnsRecordFilter $filter,
-    ) {
-        $_params = array(
-            'filter' => $filter,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('MassDns.listRecords', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = \ShockMedia\Generated\Domains\DnsRecord::fromDecodedJson($element0);
-        }
-        /** @var \ShockMedia\Generated\Domains\DnsRecord[] $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    /**
-     * @param string[] $domainNames
-     */
-    public function addRecords(
-        array $domainNames,
-        \ShockMedia\Generated\Domains\DnsRecordInput $record,
-    ) {
-        $_params = array(
-            'domainNames' => $domainNames,
-            'record' => $record,
-        );
-        $this->httpClient->apiCall('MassDns.addRecords', $_params);
-    }
-
-    /**
-     * @param int|null[] $recordIds
-     */
-    public function updateRecords(
-        array $recordIds,
-        string $target,
-        string $replacement,
-    ) {
-        $_params = array(
-            'recordIds' => $recordIds,
-            'target' => $target,
-            'replacement' => $replacement,
-        );
-        $this->httpClient->apiCall('MassDns.updateRecords', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\Customer;
-
-class CustomerClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    public function getCustomer(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Customer.getCustomer', $_params);
-        $_result = \ShockMedia\Generated\Customers\Customer::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    public function getCompanyName(
-    ) {
-        $_params = array();
-        $this->httpClient->apiCall('Customer.getCompanyName', $_params);
-    }
-
-    public function updateCustomer(
-        \ShockMedia\Generated\Customers\CustomerUpdate $customer,
-    ) {
-        $_params = array(
-            'customer' => $customer,
-        );
-        $this->httpClient->apiCall('Customer.updateCustomer', $_params);
-    }
-
-    public function getLocation(
-        string|null $postalCode,
-        string|null $houseId,
-    ) {
-        $_params = array(
-            'postalCode' => $postalCode,
-            'houseId' => $houseId,
-        );
-        $this->httpClient->apiCall('Customer.getLocation', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\Promotion;
-
-class PromotionClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Promotions\Promotion[]}
-     */
-    public function listPromotions(
-        \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Promotions\PromotionFilter $filter,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'filter' => $filter,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Promotion.listPromotions', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Promotions\Promotion::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Promotions\Promotion[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getPromotion(
-        int $promotionId,
-    ) {
-        $_params = array(
-            'promotionId' => $promotionId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Promotion.getPromotion', $_params);
-        $_result = \ShockMedia\Generated\Promotions\Promotion::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-}
-
-namespace ShockMedia\Generated\Blog;
-
-class BlogClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Blogs\Blog[]}
-     */
-    public function listBlogs(
-        \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Blogs\BlogFilter $filter,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'filter' => $filter,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Blog.listBlogs', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Blogs\Blog::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Blogs\Blog[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getBlog(
-        int $blogId,
-    ) {
-        $_params = array(
-            'blogId' => $blogId,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Blog.getBlog', $_params);
-        $_result = \ShockMedia\Generated\Blogs\Blog::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-}
-
-namespace ShockMedia\Generated\SlaDashboard;
-
-class SlaDashboardClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-}
-
-namespace ShockMedia\Generated\Reminder;
-
-class ReminderClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return \ShockMedia\Generated\Reminder\ReminderType[]
-     */
-    public function listReminders(
-    ) {
-        $_params = array();
-        $_apiCallResult = $this->httpClient->apiCall('Reminder.listReminders', $_params);
-        $var0 = array();
-        foreach ($_apiCallResult as $element0) {
-            $var0[] = \ShockMedia\Generated\Reminder\ReminderType::from($element0);
-        }
-        /** @var \ShockMedia\Generated\Reminder\ReminderType[] $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function ackReminder(
-        \ShockMedia\Generated\Reminder\ReminderType $reminderType,
-    ) {
-        $_params = array(
-            'reminderType' => $reminderType,
-        );
-        $this->httpClient->apiCall('Reminder.ackReminder', $_params);
-    }
-
-}
-
-namespace ShockMedia\Generated\Domain;
-
-class DomainClient
-{
-    public function __construct(
-        private readonly \ShockMedia\Generated\HttpClient $httpClient,
-    ) {
-    }
-
-    /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domains\Domain[]}
-     */
-    public function listDomains(
-        \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Domains\DomainFilter|null $filter,
-    ) {
-        $_params = array(
-            'page' => $page,
-            'filter' => $filter,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Domain.listDomains', $_params);
-        $var0 = array();
-        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
-        $var1 = array();
-        foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Domains\Domain::fromDecodedJson($element1);
-        }
-        $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domains\Domain[]} $_result */
-        $_result = $var0;
-        return $_result;
-    }
-
-    public function getDomain(
-        string $domainName,
-        \ShockMedia\Generated\SortField|null $dnsRecordsSort,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'dnsRecordsSort' => $dnsRecordsSort,
-        );
-        $_apiCallResult = $this->httpClient->apiCall('Domain.getDomain', $_params);
-        $_result = \ShockMedia\Generated\Domains\Domain::fromDecodedJson($_apiCallResult);
-        return $_result;
-    }
-
-    /**
-     * @param \ShockMedia\Generated\Domains\DnsRecordInput[] $records
-     */
-    public function updateDomain(
-        string $domainName,
-        array $records,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'records' => $records,
-        );
-        $this->httpClient->apiCall('Domain.updateDomain', $_params);
-    }
-
-    public function addRecord(
-        string $domainName,
-        \ShockMedia\Generated\Domains\DnsRecordInput $record,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'record' => $record,
-        );
-        $this->httpClient->apiCall('Domain.addRecord', $_params);
-    }
-
-    public function updateRecord(
-        string $domainName,
-        int $recordId,
-        \ShockMedia\Generated\Domains\DnsRecordInput $record,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'recordId' => $recordId,
-            'record' => $record,
-        );
-        $this->httpClient->apiCall('Domain.updateRecord', $_params);
-    }
-
-    public function deleteRecord(
-        string $domainName,
-        int $recordId,
-    ) {
-        $_params = array(
-            'domainName' => $domainName,
-            'recordId' => $recordId,
-        );
-        $this->httpClient->apiCall('Domain.deleteRecord', $_params);
-    }
-
-}
-
 namespace ShockMedia\Generated\Account;
 
 class AccountClient
@@ -2360,6 +2059,117 @@ class AccountClient
 
 }
 
+namespace ShockMedia\Generated\DnsTemplate;
+
+class DnsTemplateClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Dnstemplates\DnsTemplate[]}
+     */
+    public function listTemplates(
+        \ShockMedia\Generated\PageRequest $page,
+    ) {
+        $_params = array(
+            'page' => $page,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('DnsTemplate.listTemplates', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Dnstemplates\DnsTemplate::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Dnstemplates\DnsTemplate[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getTemplate(
+        int $templateId,
+    ) {
+        $_params = array(
+            'templateId' => $templateId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('DnsTemplate.getTemplate', $_params);
+        $_result = \ShockMedia\Generated\Dnstemplates\DnsTemplate::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    public function deleteTemplate(
+        int $templateId,
+    ) {
+        $_params = array(
+            'templateId' => $templateId,
+        );
+        $this->httpClient->apiCall('DnsTemplate.deleteTemplate', $_params);
+    }
+
+    public function updateTemplate(
+        \ShockMedia\Generated\Dnstemplates\TemplateUpdate $template,
+    ) {
+        $_params = array(
+            'template' => $template,
+        );
+        $this->httpClient->apiCall('DnsTemplate.updateTemplate', $_params);
+    }
+
+    public function deleteRecord(
+        int $templateId,
+        int $recordId,
+    ) {
+        $_params = array(
+            'templateId' => $templateId,
+            'recordId' => $recordId,
+        );
+        $this->httpClient->apiCall('DnsTemplate.deleteRecord', $_params);
+    }
+
+    /**
+     * @param \ShockMedia\Generated\Dnstemplates\DnsTemplateRecordInput[] $records
+     */
+    public function createTemplate(
+        string $name,
+        string $description,
+        array $records,
+    ) {
+        $_params = array(
+            'name' => $name,
+            'description' => $description,
+            'records' => $records,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('DnsTemplate.createTemplate', $_params);
+        /** @var int $_result */
+        $_result = $_apiCallResult;
+        return $_result;
+    }
+
+    public function createRecord(
+        int $templateId,
+        string $name,
+        \ShockMedia\Generated\Domains\EditableDnsRecordType $type,
+        int $ttl,
+        int|null $prio,
+        string $content,
+    ) {
+        $_params = array(
+            'templateId' => $templateId,
+            'name' => $name,
+            'type' => $type,
+            'ttl' => $ttl,
+            'prio' => $prio,
+            'content' => $content,
+        );
+        $this->httpClient->apiCall('DnsTemplate.createRecord', $_params);
+    }
+
+}
+
 namespace ShockMedia\Generated\Project;
 
 class ProjectClient
@@ -2371,9 +2181,20 @@ class ProjectClient
 
 }
 
-namespace ShockMedia\Generated\Order;
+namespace ShockMedia\Generated\SlaDashboard;
 
-class OrderClient
+class SlaDashboardClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+}
+
+namespace ShockMedia\Generated\Blog;
+
+class BlogClient
 {
     public function __construct(
         private readonly \ShockMedia\Generated\HttpClient $httpClient,
@@ -2381,37 +2202,37 @@ class OrderClient
     }
 
     /**
-     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Orders\Order[]}
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Blogs\Blog[]}
      */
-    public function listOrders(
+    public function listBlogs(
         \ShockMedia\Generated\PageRequest $page,
-        \ShockMedia\Generated\Orders\OrderFilter $filter,
+        \ShockMedia\Generated\Blogs\BlogFilter $filter,
     ) {
         $_params = array(
             'page' => $page,
             'filter' => $filter,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Order.listOrders', $_params);
+        $_apiCallResult = $this->httpClient->apiCall('Blog.listBlogs', $_params);
         $var0 = array();
         $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
         $var1 = array();
         foreach ($_apiCallResult[1] as $element1) {
-            $var1[] = \ShockMedia\Generated\Orders\Order::fromDecodedJson($element1);
+            $var1[] = \ShockMedia\Generated\Blogs\Blog::fromDecodedJson($element1);
         }
         $var0[] = $var1;
-        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Orders\Order[]} $_result */
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Blogs\Blog[]} $_result */
         $_result = $var0;
         return $_result;
     }
 
-    public function getOrder(
-        int $orderId,
+    public function getBlog(
+        int $blogId,
     ) {
         $_params = array(
-            'orderId' => $orderId,
+            'blogId' => $blogId,
         );
-        $_apiCallResult = $this->httpClient->apiCall('Order.getOrder', $_params);
-        $_result = \ShockMedia\Generated\Orders\Order::fromDecodedJson($_apiCallResult);
+        $_apiCallResult = $this->httpClient->apiCall('Blog.getBlog', $_params);
+        $_result = \ShockMedia\Generated\Blogs\Blog::fromDecodedJson($_apiCallResult);
         return $_result;
     }
 
@@ -2585,6 +2406,185 @@ class AffiliateAccessClient
             'affiliateId' => $affiliateId,
         );
         $this->httpClient->apiCall('AffiliateAccess.impersonateAffiliate', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Order;
+
+class OrderClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Orders\Order[]}
+     */
+    public function listOrders(
+        \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Orders\OrderFilter $filter,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'filter' => $filter,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Order.listOrders', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Orders\Order::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Orders\Order[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getOrder(
+        int $orderId,
+    ) {
+        $_params = array(
+            'orderId' => $orderId,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Order.getOrder', $_params);
+        $_result = \ShockMedia\Generated\Orders\Order::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+}
+
+namespace ShockMedia\Generated\Reminder;
+
+class ReminderClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return \ShockMedia\Generated\Reminder\ReminderType[]
+     */
+    public function listReminders(
+    ) {
+        $_params = array();
+        $_apiCallResult = $this->httpClient->apiCall('Reminder.listReminders', $_params);
+        $var0 = array();
+        foreach ($_apiCallResult as $element0) {
+            $var0[] = \ShockMedia\Generated\Reminder\ReminderType::from($element0);
+        }
+        /** @var \ShockMedia\Generated\Reminder\ReminderType[] $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function ackReminder(
+        \ShockMedia\Generated\Reminder\ReminderType $reminderType,
+    ) {
+        $_params = array(
+            'reminderType' => $reminderType,
+        );
+        $this->httpClient->apiCall('Reminder.ackReminder', $_params);
+    }
+
+}
+
+namespace ShockMedia\Generated\Domain;
+
+class DomainClient
+{
+    public function __construct(
+        private readonly \ShockMedia\Generated\HttpClient $httpClient,
+    ) {
+    }
+
+    /**
+     * @return array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domains\Domain[]}
+     */
+    public function listDomains(
+        \ShockMedia\Generated\PageRequest $page,
+        \ShockMedia\Generated\Domains\DomainFilter|null $filter,
+    ) {
+        $_params = array(
+            'page' => $page,
+            'filter' => $filter,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Domain.listDomains', $_params);
+        $var0 = array();
+        $var0[] = \ShockMedia\Generated\PageResult::fromDecodedJson($_apiCallResult[0]);
+        $var1 = array();
+        foreach ($_apiCallResult[1] as $element1) {
+            $var1[] = \ShockMedia\Generated\Domains\Domain::fromDecodedJson($element1);
+        }
+        $var0[] = $var1;
+        /** @var array{\ShockMedia\Generated\PageResult,\ShockMedia\Generated\Domains\Domain[]} $_result */
+        $_result = $var0;
+        return $_result;
+    }
+
+    public function getDomain(
+        string $domainName,
+        \ShockMedia\Generated\SortField|null $dnsRecordsSort,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'dnsRecordsSort' => $dnsRecordsSort,
+        );
+        $_apiCallResult = $this->httpClient->apiCall('Domain.getDomain', $_params);
+        $_result = \ShockMedia\Generated\Domains\Domain::fromDecodedJson($_apiCallResult);
+        return $_result;
+    }
+
+    /**
+     * @param \ShockMedia\Generated\Domains\DnsRecordInput[] $records
+     */
+    public function updateDomain(
+        string $domainName,
+        array $records,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'records' => $records,
+        );
+        $this->httpClient->apiCall('Domain.updateDomain', $_params);
+    }
+
+    public function addRecord(
+        string $domainName,
+        \ShockMedia\Generated\Domains\DnsRecordInput $record,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'record' => $record,
+        );
+        $this->httpClient->apiCall('Domain.addRecord', $_params);
+    }
+
+    public function updateRecord(
+        string $domainName,
+        int $recordId,
+        \ShockMedia\Generated\Domains\DnsRecordInput $record,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'recordId' => $recordId,
+            'record' => $record,
+        );
+        $this->httpClient->apiCall('Domain.updateRecord', $_params);
+    }
+
+    public function deleteRecord(
+        string $domainName,
+        int $recordId,
+    ) {
+        $_params = array(
+            'domainName' => $domainName,
+            'recordId' => $recordId,
+        );
+        $this->httpClient->apiCall('Domain.deleteRecord', $_params);
     }
 
 }
